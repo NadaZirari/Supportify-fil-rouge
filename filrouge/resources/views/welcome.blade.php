@@ -498,7 +498,7 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                 </div>
-                <p class="testimonial-text">"Interface intuitive, fonctionnalités puissantes et support réactif. Supportify nous a permis d'améliorer considérablement notre relation client."</p>
+                <p class="testimonial-text">"Fonctionnalités puissantes et support réactif. Supportify nous a permis d'améliorer considérablement notre relation client."</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">
                         <img src="{{ asset('images/avatar2.jpg') }}" alt="Avatar" onerror="this.src='https://via.placeholder.com/40'">
