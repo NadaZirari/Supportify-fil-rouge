@@ -33,6 +33,11 @@ Route::get('/ticket/nouveau', function () {
     return view('Soumettre_ticket');
 })->name('ticket.nouveau');
 
+// Route pour le dashboard de l'agent
+Route::get('/agent/dashboard', function () {
+    return view('dashboard_agent');
+})->name('agent.dashboard');
+
 // Routes de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
