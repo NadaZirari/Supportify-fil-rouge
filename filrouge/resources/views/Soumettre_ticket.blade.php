@@ -35,7 +35,7 @@
     <!-- Menu latéral - caché sur mobile, visible sur tablette/desktop -->
     <aside class="w-full md:w-64 bg-[#1e293b] p-6 space-y-6 md:block">
       <nav class="space-y-4 text-sm">
-        <a href="#" class="block text-white hover:text-orange-400 font-medium">🏠 Accueil</a>
+        <a href="{{ route('home') }}" class="block text-white hover:text-orange-400 font-medium">🏠 Accueil</a>
         <a href="#" class="block text-orange-500 font-bold">🎫 Nouveau ticket</a>
         <a href="#" class="block text-white hover:text-orange-400">📄 Mes tickets</a>
       </nav>
