@@ -17,7 +17,18 @@
       <a href="#" class="hover:underline">Base de connaissances</a>
       <a href="#" class="hover:underline">Paramètres</a>
     </nav>
-   
+    <!-- Menu hamburger pour mobile -->
+    <button class="md:hidden text-white text-2xl mb-4 sm:mb-0">
+      ☰
+    </button>
+    <div class="flex items-center space-x-4">
+      <button class="relative">
+        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+        🔔
+      </button>
+      <img src="/photo.jpeg" alt="User" class="rounded-full w-8 h-8" />
+    </div>
+  </header>
   <!-- Contenu principal -->
   <div class="flex flex-col md:flex-row flex-1">
 
