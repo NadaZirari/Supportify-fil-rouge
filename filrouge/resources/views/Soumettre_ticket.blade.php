@@ -10,7 +10,7 @@
 
   <!-- Barre de navigation horizontale -->
   <header class="bg-[#1e293b] p-4 flex justify-between items-center shadow-md">
-    <div class="text-xl font-bold text-orange-500"> Supportify</div>
+    <div class="text-xl font-bold text-orange-500">Supportify</div>
     <nav class="space-x-6 text-sm">
       <a href="#" class="hover:underline">Tableau de bord</a>
       <a href="#" class="hover:underline">Mes tickets</a>
@@ -44,7 +44,79 @@
     </aside>
 
     <!-- Formulaire -->
-   
+    <main class="flex-1 p-10">
+      <h1 class="text-2xl font-bold mb-2">Nouveau ticket de support</h1>
+      <p class="text-sm text-gray-400 mb-8">Décrivez votre problème en détail pour obtenir l’aide la plus adaptée</p>
+
+      <form class="space-y-6 max-w-2xl">
+
+        <!-- Titre -->
+        <div>
+          <label class="block text-sm font-medium mb-1" for="titre">Titre du ticket *</label>
+          <input id="titre" type="text" placeholder="Ex: Problème de connexion à l’application" class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-medium mb-1" for="description">Description détaillée *</label>
+          <textarea id="description" rows="5" placeholder="Décrivez votre problème en détail..." class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+        </div>
+
+        <!-- Priorité et Catégorie -->
+        <div class="flex gap-6">
+          <!-- Priorité -->
+          <div class="flex-1">
+            <label class="block text-sm font-medium mb-2">Priorité</label>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2">
+                <input type="radio" name="priorite" class="accent-green-500" />
+                <span class="text-sm">🟢 Basse</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="radio" name="priorite" class="accent-yellow-500" />
+                <span class="text-sm">🟠 Moyenne</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="radio" name="priorite" class="accent-red-500" />
+                <span class="text-sm">🔴 Haute</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Catégorie -->
+          <div class="flex-1">
+            <label class="block text-sm font-medium mb-2">Catégorie</label>
+            <select class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500">
+              <option disabled selected>Sélectionnez une catégorie</option>
+              <option>Connexion</option>
+              <option>Facturation</option>
+              <option>Bug</option>
+              <option>Demande d'amélioration</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fichier -->
+        <div>
+          <label class="block text-sm font-medium mb-2">Pièces jointes</label>
+          <div class="border border-dashed border-gray-500 rounded-lg p-6 text-center bg-[#1e293b]">
+            <input type="file" class="hidden" id="file-upload" />
+            <label for="file-upload" class="cursor-pointer text-orange-400 hover:underline">
+              Glissez vos fichiers ici ou <span class="underline">parcourir</span>
+            </label>
+            <p class="text-xs text-gray-400 mt-1">PNG, JPG, PDF jusqu’à 10MB</p>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex justify-between items-center mt-8">
+          <a href="#" class="text-sm text-gray-400 hover:text-white">← Retour</a>
+          <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg flex items-center gap-2">
+            📤 Envoyer le ticket
+          </button>
+        </div>
+
+      </form>
     </main>
   </div>
 
