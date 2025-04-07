@@ -11,7 +11,7 @@ Route::get('/', function () {
 });
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
-    return view('auth.register-login');
+    return view('auth.login');
 })->name('auth.form');
 
 // Routes d'authentification

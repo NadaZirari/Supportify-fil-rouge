@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }} - Login</title>
 
     <!-- Styles -->
-    @vite('resources/css/app.css')
+    <!-- @vite('resources/css/app.css') -->
     
     <style>
         .auth-bg {
