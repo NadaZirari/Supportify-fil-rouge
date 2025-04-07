@@ -28,6 +28,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
+// Route pour soumettre un ticket
+Route::get('/ticket/nouveau', function () {
+    return view('Soumettre_ticket');
+})->name('ticket.nouveau');
 
 // Routes de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
