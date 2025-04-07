@@ -39,48 +39,4 @@
                 @csrf
                 
                 <div>
-                    <input type="email" name="email" placeholder="Email" class="w-full px-4 py-2 rounded-md bg-gray-700/50 border border-gray-600 text-white placeholder:text-gray-400 @error('email') border-red-500 @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-                
-                <div>
-                    <input type="password" name="password" placeholder="Password" class="w-full px-4 py-2 rounded-md bg-gray-700/50 border border-gray-600 text-white placeholder:text-gray-400 @error('password') border-red-500 @enderror" required autocomplete="current-password">
-                    @error('password')
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-                
-                <div class="flex items-center">
-                    <input type="checkbox" name="remember" id="remember" class="rounded bg-gray-700 border-gray-600 text-blue-500 focus:ring-blue-500" {{ old('remember') ? 'checked' : '' }}>
-                    <label for="remember" class="ml-2 text-sm text-gray-400">
-                        Remember Me
-                    </label>
-                </div>
-                
-                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors">
-                    LOGIN
-                </button>
-                
-                <div class="text-center mt-4">
-                    <a href="{{ route('password.request') }}" class="text-sm text-gray-400 hover:text-gray-300">
-                        Forgot Password?
-                    </a>
-                    
-                    <div class="mt-4 text-sm text-gray-400">
-                        Don't have an account?
-                    </div>
-                    
-                    <a href="{{ route('register') }}" class="mt-2 block w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors text-center">
-                        REGISTER
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    @vite('resources/js/app.js')
-</body>
-</html>
+                    <input type="email" name="email" placeholder="Email" class="
