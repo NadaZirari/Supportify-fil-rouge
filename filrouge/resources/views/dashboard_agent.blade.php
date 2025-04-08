@@ -29,7 +29,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <input type="text" placeholder="Search tickets..." class="w-full md:w-1/3 p-2 rounded bg-[#1E293B] border border-[#334155] focus:outline-none" />
         <div class="flex items-center space-x-4">
-          <img src="https://i.pravatar.cc/30" alt="avatar" class="rounded-full w-8 h-8" />
+          <img src="/photo.jpeg" alt="avatar" class="rounded-full w-8 h-8" />
         </div>
       </div>
 

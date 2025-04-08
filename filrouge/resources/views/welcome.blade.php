@@ -411,7 +411,7 @@
         </div>
         
         <div class="hero-image">
-            <img src="{{ asset('images/dashboard.png') }}" alt="Dashboard Supportify" onerror="this.src='https://hebbkx1anhila5yf.public.blob.vercel-storage.com/homepagefil-AKFfVIbp0ACJ9CrVIXB8ATpPA7VHAo.png'">
+            <img src="/home.jpg" alt="Dashboard Supportify" onerror="this.src='https://hebbkx1anhila5yf.public.blob.vercel-storage.com/homepagefil-AKFfVIbp0ACJ9CrVIXB8ATpPA7VHAo.png'">
         </div>
     </section>
     
