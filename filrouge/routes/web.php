@@ -16,6 +16,11 @@ Route::get('/auth', function () {
     return view('auth.register');
 })->name('auth.form');
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('tickets', TicketController::class);
+});
+
+
 // Routes d'authentification
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
