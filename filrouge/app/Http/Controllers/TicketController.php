@@ -94,6 +94,16 @@ class TicketController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+
+        // Vérifier user est admin 
+        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
+            return response()->json(['message' => 'Non autorisé'], 403);
+        }
+
+        $ticket->delete();
+
+        return response()->json(['message' => 'Ticket supprimé']);
     }
+    
 }
