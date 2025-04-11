@@ -45,7 +45,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    public function hasRole($role)
+    {
+        // Supposons que le rôle est un simple attribut dans la table users
+        return $this->role === $role;
+    }
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
