@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 class TicketController extends Controller
 {
     /**
@@ -26,6 +27,7 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -46,10 +48,19 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    
+        public function show($id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+
+        // Vérifier user  est le propriétaire du ticket ou un agent
+        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
+            return response()->json(['message' => 'Non autorisé'], 403);
+        }
+
+        return response()->json($ticket);
     }
+    
 
     /**
      * Show the form for editing the specified resource.
