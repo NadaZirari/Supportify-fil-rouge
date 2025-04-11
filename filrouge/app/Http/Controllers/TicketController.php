@@ -75,7 +75,18 @@ class TicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+            $ticket = Ticket::findOrFail($id);
+    
+          
+            if (!Auth::user()->hasRole('support')) {
+                return response()->json(['message' => 'Non autorisé'], 403);
+            }
+    
+            $ticket->update($request->only('status', 'priority'));
+    
+            return response()->json($ticket);
+        
     }
 
     /**
