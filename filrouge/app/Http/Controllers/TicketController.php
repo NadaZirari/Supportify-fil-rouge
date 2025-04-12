@@ -119,5 +119,16 @@ if ($oldStatus !== $request->status) {
 
         return response()->json(['message' => 'Ticket supprimé']);
     }
+    public function archiveResolvedTickets()
+{
+    $tickets = Ticket::where('status', 'résolu')->whereNull('archived_at')->get();
+
+    foreach ($tickets as $ticket) {
+        $ticket->archived_at = now();
+        $ticket->save();
+    }
+
+    return response()->json(['message' => 'Tickets résolus archivés avec succès.']);
+}
     
 }
