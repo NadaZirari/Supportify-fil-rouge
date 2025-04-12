@@ -51,6 +51,34 @@
             </div>
         </div>
 
-        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Personal Information -->
+            <div class="bg-gray-800 bg-opacity-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Informations personnelles</h3>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-1">Nom</label>
+                        <input type="text" value="{{ $user->name ?? 'Nada ZIRARI' }}" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white" readonly>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-1">Email</label>
+                        <input type="email" value="{{ $user->email ?? 'NADA@GMAIL.com' }}" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white" readonly>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-1">Téléphone</label>
+                        <input type="tel" value="{{ $user->phone ?? '+33 6 12 34 56 78' }}" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white" readonly>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-1">Entreprise</label>
+                        <input type="text" value="{{ $user->company ?? 'TechCorp' }}" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white" readonly>
+                    </div>
+                </div>
+            </div>
+            
+           
 </body>
 </html>
