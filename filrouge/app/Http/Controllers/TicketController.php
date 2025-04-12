@@ -76,6 +76,8 @@ class TicketController extends Controller
     public function update(Request $request, string $id)
     {
         
+        $oldStatus = $ticket->status;
+
             $ticket = Ticket::findOrFail($id);
     
           
@@ -86,7 +88,19 @@ class TicketController extends Controller
             $ticket->update($request->only('status', 'priority'));
     
             return response()->json($ticket);
-        
+        $ticket->update([
+    'status' => $request->status,
+    // autres champs à mettre à jour
+]);
+
+if ($oldStatus !== $request->status) {
+    TicketHistory::create([
+        'ticket_id' => $ticket->id,
+        'user_id' => auth()->id(),
+        'old_status' => $oldStatus,
+        'new_status' => $request->status,
+    ]);
+}
     }
 
     /**
