@@ -15,4 +15,20 @@ class MessageController extends Controller
         return $ticket->messages()->with('user')->orderBy('created_at')->get();
     }
 
+
+    public function store(Request $request, Ticket $ticket)
+    {
+        $this->authorizeAccess($ticket);
+
+        $data = $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $message = $ticket->messages()->create([
+            'user_id' => Auth::id(),
+            'content' => $data['content'],
+        ]);
+
+        return response()->json($message->load('user'), 201);
+    }
 }
