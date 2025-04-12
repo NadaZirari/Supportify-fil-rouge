@@ -28,4 +28,8 @@ public function messages()
 {
     return $this->hasMany(Message::class);
 }
+public function histories()
+{
+    return $this->hasMany(TicketHistory::class);
+}
 }
