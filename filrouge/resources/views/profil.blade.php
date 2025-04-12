@@ -34,6 +34,23 @@
         </div>
     </header>
 
-  
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+        <!-- Profile Card -->
+        <div class="bg-gray-800 bg-opacity-50 rounded-lg p-6 mb-6">
+            <div class="flex flex-col md:flex-row items-center md:items-start">
+                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-6">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Nada ZIRARI" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h2 class="text-xl font-bold">{{ $user->name ?? 'Nada ZIRARI' }}</h2>
+                    <p class="text-gray-400">{{ $user->email ?? 'NADA@GMAIL.com' }}</p>
+                </div>
+                <button class="mt-4 md:mt-0 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm transition duration-200">
+                    Modifier le profil
+                </button>
+            </div>
+        </div>
+
+        
 </body>
 </html>
