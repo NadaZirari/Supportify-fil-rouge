@@ -26,3 +26,4 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
     Route::get('/dashboard', [DashboardController::class, 'index']);
 });
 Route::middleware(['auth:sanctum', 'role:admin'])->post('/tickets/archive-resolved', [TicketController::class, 'archiveResolvedTickets']);
+
