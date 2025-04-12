@@ -55,4 +55,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
+
+    Route::get('users', [AdminController::class, 'manageUsers'])->name('manageUsers');
+    Route::post('users/{id}/role', [AdminController::class, 'updateUserRole'])->name('updateUserRole');
+    Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
+
 });
