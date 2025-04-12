@@ -95,6 +95,50 @@
                 </svg>
             </div>
             
-          
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <!-- Open Tickets -->
+                <div class="bg-dark-card rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm text-gray-400">Open Tickets</h3>
+                        <div class="bg-primary p-1 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">248</h2>
+                        <div class="flex items-center text-green-500 text-xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                            </svg>
+                            <span>10% last week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resolved -->
+                <div class="bg-dark-card rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm text-gray-400">Resolved</h3>
+                        <div class="bg-secondary p-1 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">1,842</h2>
+                        <div class="flex items-center text-green-500 text-xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                            </svg>
+                            <span>8% last week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
 </body>
 </html>
