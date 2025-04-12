@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\TicketController;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -21,7 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 // Routes d'authentification
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
