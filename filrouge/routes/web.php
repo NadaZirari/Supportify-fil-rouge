@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -50,3 +50,9 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function() {
+    Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
+    Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
+    Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
+});
