@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    
+    protected $dates = ['archived_at'];
     protected $fillable = [
         'title',
         'description',
@@ -32,4 +32,15 @@ public function histories()
 {
     return $this->hasMany(TicketHistory::class);
 }
+
+public function scopeArchived(Builder $query)
+{
+    return $query->whereNotNull('archived_at');
+}
+
+public function scopeNotArchived(Builder $query)
+{
+    return $query->whereNull('archived_at');
+}
+
 }
