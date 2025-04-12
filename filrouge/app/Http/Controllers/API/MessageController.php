@@ -31,4 +31,11 @@ class MessageController extends Controller
 
         return response()->json($message->load('user'), 201);
     }
+    private function authorizeAccess(Ticket $ticket)
+    {
+        $user = Auth::user();
+        if ($user->role === 'user' && $ticket->user_id !== $user->id) {
+            abort(403, 'Accès non autorisé');
+        }
+    }
 }
