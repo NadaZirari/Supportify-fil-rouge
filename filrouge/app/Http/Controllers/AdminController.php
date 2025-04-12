@@ -14,4 +14,14 @@ class AdminController extends Controller
 
         return view('admin.manage-tickets', compact('tickets'));
     }
+    public function validateTicket($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $ticket->status = 'resolved'; // Met le ticket à l'état "résolu"
+        $ticket->save();
+
+        // Redirection après mise à jour
+        return redirect()->route('admin.manageTickets')->with('success', 'Ticket validé avec succès!');
+    }
+    
 }
