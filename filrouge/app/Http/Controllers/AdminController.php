@@ -23,5 +23,13 @@ class AdminController extends Controller
         // Redirection après mise à jour
         return redirect()->route('admin.manageTickets')->with('success', 'Ticket validé avec succès!');
     }
-    
+    public function archiveTicket($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $ticket->status = 'archived'; // Change l'état à "archivé"
+        $ticket->save();
+
+        // Redirection après archivage
+        return redirect()->route('admin.manageTickets')->with('success', 'Ticket archivé avec succès!');
+    }
 }
