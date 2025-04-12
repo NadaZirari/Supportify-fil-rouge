@@ -50,5 +50,12 @@ class AdminController extends Controller
 
         return redirect()->route('admin.manageUsers')->with('success', 'Rôle utilisateur mis à jour avec succès!');
     }
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.manageUsers')->with('success', 'Utilisateur supprimé avec succès!');
+    }
 }
 
