@@ -40,4 +40,15 @@ class AdminController extends Controller
 
         return view('admin.manage-users', compact('users'));
     }
+
+
+    public function updateUserRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->role_id = $request->input('role_id');
+        $user->save();
+
+        return redirect()->route('admin.manageUsers')->with('success', 'Rôle utilisateur mis à jour avec succès!');
+    }
 }
+
