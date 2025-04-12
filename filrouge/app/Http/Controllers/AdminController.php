@@ -32,4 +32,12 @@ class AdminController extends Controller
         // Redirection après archivage
         return redirect()->route('admin.manageTickets')->with('success', 'Ticket archivé avec succès!');
     }
+
+    public function manageUsers()
+    {
+        // Récupère tous les utilisateurs
+        $users = User::all();
+
+        return view('admin.manage-users', compact('users'));
+    }
 }
