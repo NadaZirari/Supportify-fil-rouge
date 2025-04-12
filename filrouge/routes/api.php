@@ -17,6 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
     Route::put('/tickets/{ticket}', [TicketController::class, 'update']);
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
+    Route::get('/tickets/{ticket}/messages', [MessageController::class, 'index']);
+    Route::post('/tickets/{ticket}/messages', [MessageController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
 });
