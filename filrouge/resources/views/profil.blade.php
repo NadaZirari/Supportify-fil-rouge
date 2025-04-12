@@ -79,6 +79,36 @@
                 </div>
             </div>
             
-           
+            <!-- Notification Preferences -->
+            <div class="bg-gray-800 bg-opacity-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Préférences de notification</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Email</p>
+                            <p class="text-sm text-gray-400">Notifications par email</p>
+                        </div>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none">
+                            <input type="checkbox" name="email_notifications" id="email_notifications" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-0"/>
+                            <label for="email_notifications" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-600 cursor-pointer"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Desktop</p>
+                            <p class="text-sm text-gray-400">Notifications sur le bureau</p>
+                        </div>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none">
+                            <input type="checkbox" name="desktop_notifications" id="desktop_notifications" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                            <label for="desktop_notifications" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-600 cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
 </body>
 </html>
