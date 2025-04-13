@@ -49,22 +49,32 @@ class AuthController extends Controller
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Identifiants invalides'], 401);
+            $request->session()->regenerate();
+            
+            $user = Auth::user();
+            
+            // Rediriger en fonction du rôle
+            if ($user->role === 'Agent') {
+                return redirect()->route('agent.dashboard');
+            } elseif ($user->role === 'Admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('user.dashboard');
+            }
         }
 
-        $user = User::where('email', $request->email)->firstOrFail();
-
-        return response()->json([
-            'access_token' => $user->createToken('auth_token')->plainTextToken,
-            'token_type' => 'Bearer',
-            'user' => $user
-        ]);
+        return back()->withErrors([
+            'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+        ])->withInput($request->except('password'));
     }
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-
-        return response()->json(['message' => 'Déconnecté avec succès']);
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('login');
     }
 }
