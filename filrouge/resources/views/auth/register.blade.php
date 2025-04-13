@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-tech-pattern {
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/register%20fil%20rouge-h9xztZfyrSORCsy7uG6NSz5wfcZgLG.png');
-            background-size: cover;
+            background-image: url('a.jpg');
+                        background-size: cover;
             background-blend-mode: overlay;
         }
         .dropdown-toggle:focus + .dropdown-menu {

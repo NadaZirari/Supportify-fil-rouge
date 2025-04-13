@@ -29,7 +29,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Routes d'enregistrement
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 // Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
