@@ -30,9 +30,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Routes d'enregistrement
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-// Route::post('/register', [RegisterController::class, 'register']);
-
-Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+// Ajouter cette nouvelle route pour traiter la soumission du formulaire
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
 // Route pour soumettre un ticket

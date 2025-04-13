@@ -407,7 +407,7 @@
         <div class="hero-content">
             <h1>Support client <span>intelligent et efficace</span></h1>
             <p class="subtitle">Optimisez votre service client grâce à notre technologie avancée. Gérez les tickets, communiquez en temps réel et analysez les données pour un support exceptionnel.</p>
-            <a href="#" class="btn">Essayer gratuitement</a>
+            <a href="{{ route('login') }}" class="btn">Essayer gratuitement</a>
         </div>
         
         <div class="hero-image">
@@ -512,7 +512,7 @@
     <section class="cta container">
         <h2 class="cta-title">Prêt à améliorer votre support client ?</h2>
         <p class="cta-subtitle">Commencez votre essai gratuit de 14 jours. Aucune carte de crédit requise. Annulez à tout moment.</p>
-        <a href="#" class="btn">Commencer maintenant</a>
+        <a href="{{ route('login') }}" class="btn">Commencer maintenant</a>
     </section>
     
     <footer>

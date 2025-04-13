@@ -23,9 +23,25 @@
             <a href="{{ route('register') }}" class="text-xl font-bold text-gray-400 hover:text-white">REGISTER</a>
         </div>
 
-        <form class="space-y-4">
+        <form class="space-y-4" action="{{ route('login') }}" method="POST">
             
-
+        @csrf
+    
+    @if(session('success'))
+        <div class="bg-green-500/20 p-4 rounded-lg mb-4">
+            <p class="text-white text-sm">{{ session('success') }}</p>
+        </div>
+    @endif
+    
+    @if($errors->any())
+        <div class="bg-red-500/20 p-4 rounded-lg mb-4">
+            <ul class="list-disc pl-5">
+                @foreach($errors->all() as $error)
+                    <li class="text-white text-sm">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
             <div>
                 <label for="email" class="mb-1 block text-xs font-medium uppercase text-white">Email</label>
                 <input

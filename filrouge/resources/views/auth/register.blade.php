@@ -23,8 +23,9 @@
             <a href="{{ route('login') }}" class="text-xl font-bold text-gray-400 hover:text-white">LOGIN</a>
         </div>
 
-        <form class="space-y-4">
-            <div>
+        <form class="space-y-4" action="{{ route('register') }}" method="POST">
+        @csrf
+        <div>
                 <label for="username" class="mb-1 block text-xs font-medium uppercase text-white">Username</label>
                 <input
                     id="username"

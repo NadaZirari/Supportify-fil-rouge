@@ -24,22 +24,22 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|string|in:User,Admin,Agent',
+
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
+
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user
-        ]);
-    }
+     // Rediriger vers la page de connexion avec un message de succès
+     return redirect()->route('login')
+     ->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
+}
 
     public function login(Request $request)
     {
