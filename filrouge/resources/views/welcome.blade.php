@@ -400,7 +400,7 @@
             </ul>
         </nav>
         
-        <a href="#" class="btn">Démarrer</a>
+        <a href="{{ route('register') }}" class="btn">Démarrer</a>
     </header>
     
     <section class="hero container">

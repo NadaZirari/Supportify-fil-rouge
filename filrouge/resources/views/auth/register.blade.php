@@ -87,9 +87,9 @@
                         <button
                             type="button"
                             class="block w-full px-4 py-2 text-left text-white hover:bg-[#3a4562]"
-                            onclick="selectRole('Developer')"
+                            onclick="selectRole('Agent')"
                         >
-                            Developer
+                            Agent
                         </button>
                     </div>
                 </div>
