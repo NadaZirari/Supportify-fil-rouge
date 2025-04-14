@@ -21,15 +21,14 @@ Route::get('/auth', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);
 });
-
-
 // Routes d'authentification
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Routes d'enregistrement
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');;
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
 // Ajouter cette nouvelle route pour traiter la soumission du formulaire
 Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');

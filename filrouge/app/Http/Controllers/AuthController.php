@@ -19,27 +19,26 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-       
+        // Validation des données d'entrée
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'role' => 'required|string|in:User,Admin,Agent',
-
         ]);
-
+    
+        // Création de l'utilisateur dans la base de données
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => $validated['role'],
-
         ]);
-
-     // Rediriger vers la page de connexion avec un message de succès
-     return redirect()->route('login')
-     ->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
-}
+    
+        // Redirection avec un message de succès
+        return redirect()->route('login')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
+    }
+    
 
     public function login(Request $request)
     {

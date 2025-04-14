@@ -24,85 +24,76 @@
         </div>
 
         <form class="space-y-4" action="{{ route('register') }}" method="POST">
-        @csrf
-        <div>
-                <label for="username" class="mb-1 block text-xs font-medium uppercase text-white">Username</label>
-                <input
-                    id="username"
-                    type="text"
-                    class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder=""
-                >
-            </div>
+    @csrf
+    <div>
+        <label for="name" class="mb-1 block text-xs font-medium uppercase text-white">Username</label>
+        <input
+            id="name"
+            name="name"
+            type="text"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder=""
+            required
+        >
+    </div>
 
-            <div>
-                <label for="email" class="mb-1 block text-xs font-medium uppercase text-white">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder=""
-                >
-            </div>
+    <div>
+        <label for="email" class="mb-1 block text-xs font-medium uppercase text-white">Email</label>
+        <input
+            id="email"
+            name="email"
+            type="email"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder=""
+            required
+        >
+    </div>
 
-            <div>
-                <label for="password" class="mb-1 block text-xs font-medium uppercase text-white">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder=""
-                >
-            </div>
+    <div>
+        <label for="password" class="mb-1 block text-xs font-medium uppercase text-white">Password</label>
+        <input
+            id="password"
+            name="password"
+            type="password"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder=""
+            required
+        >
+    </div>
 
-            <div class="relative">
-                <label for="role" class="mb-1 block text-xs font-medium uppercase text-white">Role</label>
-                <button
-                    type="button"
-                    id="roleDropdown"
-                    class="dropdown-toggle flex w-full items-center justify-between rounded bg-white/20 p-3 text-left text-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onclick="toggleDropdown()"
-                >
-                    <span id="selectedRole"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+    <div>
+        <label for="password_confirmation" class="mb-1 block text-xs font-medium uppercase text-white">Confirm Password</label>
+        <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder=""
+            required
+        >
+    </div>
 
-                <div id="roleDropdownMenu" class="dropdown-menu absolute z-10 mt-1 hidden w-full rounded-md bg-[#2a3552] shadow-lg">
-                    <div class="py-1">
-                        <button
-                            type="button"
-                            class="block w-full px-4 py-2 text-left text-white hover:bg-[#3a4562]"
-                            onclick="selectRole('User')"
-                        >
-                            User
-                        </button>
-                        <button
-                            type="button"
-                            class="block w-full px-4 py-2 text-left text-white hover:bg-[#3a4562]"
-                            onclick="selectRole('Admin')"
-                        >
-                            Admin
-                        </button>
-                        <button
-                            type="button"
-                            class="block w-full px-4 py-2 text-left text-white hover:bg-[#3a4562]"
-                            onclick="selectRole('Agent')"
-                        >
-                            Agent
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div>
+        <label for="role" class="mb-1 block text-xs font-medium uppercase text-white">Role</label>
+        <select
+            id="role"
+            name="role"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+        >
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+            <option value="Agent">Agent</option>
+        </select>
+    </div>
 
-            <button
-                type="submit"
-                class="mt-6 w-full rounded-md bg-[#ff6b45] p-3 text-center font-medium text-white hover:bg-[#ff5a30] focus:outline-none focus:ring-2 focus:ring-[#ff6b45] focus:ring-offset-2"
-            >
-                REGISTER
-            </button>
-        </form>
+    <button
+        type="submit"
+        class="mt-6 w-full rounded-md bg-[#ff6b45] p-3 text-center font-medium text-white hover:bg-[#ff5a30] focus:outline-none focus:ring-2 focus:ring-[#ff6b45] focus:ring-offset-2"
+    >
+        REGISTER
+    </button>
+</form>
 
         <div class="mt-4 text-center">
             <a href="#" class="text-sm text-gray-300 hover:text-white">Forgot Password?</a>
