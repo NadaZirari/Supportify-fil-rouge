@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
@@ -58,9 +58,11 @@ Route::get('/dashboard/admin', function () {
     return 'Bienvenue sur le tableau de bord Admin';
 })->middleware('role:Admin')->name('admin.dashboard');
 
+
 Route::get('/dashboard/agent', function () {
-    return 'Bienvenue sur le tableau de bord Agent';
+    return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
 })->middleware('role:Agent')->name('agent.dashboard');
+
 
 Route::get('/dashboard/user', function () {
     return 'Bienvenue sur le tableau de bord Utilisateur';
