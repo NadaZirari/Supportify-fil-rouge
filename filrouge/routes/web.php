@@ -24,8 +24,12 @@ Route::middleware(['auth'])->group(function () {
 // Routes d'authentification
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');;
+
+
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
@@ -50,8 +54,19 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::get('/dashboard/admin', function () {
+    return 'Bienvenue sur le tableau de bord Admin';
+})->middleware('role:Admin')->name('admin.dashboard');
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function() {
+Route::get('/dashboard/agent', function () {
+    return 'Bienvenue sur le tableau de bord Agent';
+})->middleware('role:Agent')->name('agent.dashboard');
+
+Route::get('/dashboard/user', function () {
+    return 'Bienvenue sur le tableau de bord Utilisateur';
+})->middleware('role:User')->name('user.dashboard');
+
+Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');

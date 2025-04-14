@@ -41,31 +41,36 @@ class AuthController extends Controller
     
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    // Affiche les données soumises dans le formulaire
+    $request->all();
+    
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (!Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            $user = Auth::user();
-            
-            // Rediriger en fonction du rôle
-            if ($user->role === 'Agent') {
-                return redirect()->route('agent.dashboard');
-            } elseif ($user->role === 'Admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('user.dashboard');
-            }
+   if (Auth::attempt($credentials)) {
+        $request->session()->regenerate(); // Regénère la session
+
+        // Récupère l'utilisateur authentifié
+        $user = Auth::user();
+
+        // Redirection en fonction du rôle de l'utilisateur
+        if ($user->role === 'Admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'Agent') {
+            return redirect()->route('agent.dashboard');
+        } else { // Par défaut, c'est un utilisateur normal
+            return redirect()->route('user.dashboard');
         }
-
-        return back()->withErrors([
-            'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-        ])->withInput($request->except('password'));
     }
+    // Si l'authentification échoue
+    return back()->withErrors([
+        'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+    ])->withInput($request->except('password'));
+}
+
 
     public function logout(Request $request)
     {

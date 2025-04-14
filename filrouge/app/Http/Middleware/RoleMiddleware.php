@@ -13,9 +13,9 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
-        if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
+        if (!$request->user() || $request->user()->role !== $role) {
             return response()->json(['message' => 'Accès non autorisé.'], 403);
         }
         return $next($request);

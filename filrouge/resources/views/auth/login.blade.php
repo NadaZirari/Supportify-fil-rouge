@@ -23,55 +23,38 @@
             <a href="{{ route('register') }}" class="text-xl font-bold text-gray-400 hover:text-white">REGISTER</a>
         </div>
 
-        <form class="space-y-4" action="{{ route('login') }}" method="POST">
-            
-        @csrf
-    
-    @if(session('success'))
-        <div class="bg-green-500/20 p-4 rounded-lg mb-4">
-            <p class="text-white text-sm">{{ session('success') }}</p>
-        </div>
-    @endif
-    
-    @if($errors->any())
-        <div class="bg-red-500/20 p-4 rounded-lg mb-4">
-            <ul class="list-disc pl-5">
-                @foreach($errors->all() as $error)
-                    <li class="text-white text-sm">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-            <div>
-                <label for="email" class="mb-1 block text-xs font-medium uppercase text-white">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder=""
-                >
-            </div>
+        <form action="{{ route('login') }}" method="POST">
+    @csrf
+    <div>
+        <label for="email" class="mb-1 block text-xs font-medium uppercase text-white">Email</label>
+        <input
+            id="email"
+            name="email" 
+            type="email"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+        >
+    </div>
 
-            <div>
-                <label for="password" class="mb-1 block text-xs font-medium uppercase text-white">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder=""
-                >
-            </div>
+    <div>
+        <label for="password" class="mb-1 block text-xs font-medium uppercase text-white">Password</label>
+        <input
+            id="password"
+            name="password" 
+            type="password"
+            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+        >
+    </div>
 
-            
-               
+    <button
+        type="submit"
+        class="mt-6 w-full rounded-md bg-[#ff6b45] p-3 text-center font-medium text-white hover:bg-[#ff5a30] focus:outline-none focus:ring-2 focus:ring-[#ff6b45] focus:ring-offset-2"
+    >
+        LOGIN
+    </button>
+</form>
 
-            <button
-                type="submit"
-                class="mt-6 w-full rounded-md bg-[#ff6b45] p-3 text-center font-medium text-white hover:bg-[#ff5a30] focus:outline-none focus:ring-2 focus:ring-[#ff6b45] focus:ring-offset-2"
-            >
-                LOGIN
-            </button>
-        </form>
 
         <div class="mt-4 text-center">
             <a href="#" class="text-sm text-gray-300 hover:text-white">Forgot Password?</a>
