@@ -154,7 +154,19 @@
                 </table>
             </div>
 
-           
+            <!-- Pagination -->
+            <div class="flex justify-center mt-6">
+                <nav class="flex items-center space-x-1">
+                    <a href="#" class="px-3 py-1 rounded-md bg-gray-700 text-gray-300">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#" class="px-3 py-1 rounded-md bg-blue-600 text-white">1</a>
+                    <a href="#" class="px-3 py-1 rounded-md bg-gray-700 text-gray-300">2</a>
+                    <a href="#" class="px-3 py-1 rounded-md bg-gray-700 text-gray-300">3</a>
+                    <a href="#" class="px-3 py-1 rounded-md bg-gray-700 text-gray-300">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </nav>
             </div>
         </main>
     </div>
