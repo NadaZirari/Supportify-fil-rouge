@@ -63,6 +63,9 @@ Route::get('/dashboard/agent', function () {
     return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
 })->middleware('role:Agent')->name('agent.dashboard');
 
+Route::get('/user/dashboard', function () {
+    return view('user.dashboarUser');
+})->middleware(['auth', 'role:User'])->name('user.dashboard');
 
 Route::get('/dashboard/user', function () {
     return 'Bienvenue sur le tableau de bord Utilisateur';

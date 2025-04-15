@@ -61,9 +61,11 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         } elseif ($user->role === 'Agent') {
             return redirect()->route('agent.dashboard');
-        } else { // Par défaut, c'est un utilisateur normal
+        } elseif ($user->role === 'User') {
             return redirect()->route('user.dashboard');
         }
+        
+        return redirect('/home');
     }
     // Si l'authentification échoue
     return back()->withErrors([
