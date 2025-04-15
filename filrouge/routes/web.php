@@ -43,10 +43,7 @@ Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:User'])->name('user.Soumettre_ticket');
 
-// Route pour le dashboard de l'agent
-Route::get('/agent/dashboard', function () {
-    return view('dashboard_agent');
-})->name('agent.dashboard');
+
 
 // Routes de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -59,6 +56,11 @@ Route::get('/dashboard/admin', function () {
     return 'Bienvenue sur le tableau de bord Admin';
 })->middleware('role:Admin')->name('admin.dashboard');
 
+// Route pour le dashboard de l'agent
+Route::get('/agent/dashboard', function () {
+    return view('dashboard_agent');
+})->name('agent.dashboard');
+
 
 Route::get('/dashboard/agent', function () {
     return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
@@ -68,10 +70,10 @@ Route::get('/user/dashboard', function () {
     return view('user.dashboardUser');
 })->middleware(['auth', 'role:User'])->name('user.dashboard');
 
-Route::get('/dashboard/user', function () {
-    return view('user.dashboardUser'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
-})->middleware('role:User')->name('agent.dashboard');
-
+// Route pour le dashboard de l'agent
+Route::get('/agent/dashboard', function () {
+    return view('dashboard_agent');
+})->name('agent.dashboard');
 
 Route::get('/user/myticket', function () {
     return view('user.myticket');
