@@ -64,12 +64,12 @@ Route::get('/dashboard/agent', function () {
 })->middleware('role:Agent')->name('agent.dashboard');
 
 Route::get('/user/dashboard', function () {
-    return view('user.dashboarUser');
+    return view('user.dashboardUser');
 })->middleware(['auth', 'role:User'])->name('user.dashboard');
 
 Route::get('/dashboard/user', function () {
-    return 'Bienvenue sur le tableau de bord Utilisateur';
-})->middleware('role:User')->name('user.dashboard');
+    return view('user.dashboardUser'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
+})->middleware('role:User')->name('agent.dashboard');
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
