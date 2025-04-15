@@ -113,8 +113,8 @@
 
         <!-- Boutons -->
         <div class="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
-          <a href="#" class="text-sm text-gray-400 hover:text-white order-2 sm:order-1">← Retour</a>
-          <button type="submit" class="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg flex items-center justify-center gap-2 order-1 sm:order-2">
+        <a href="{{ route('user.myticket') }}" class="text-sm text-gray-400 hover:text-white order-2 sm:order-1">← Retour</a>
+        <button type="submit" class="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg flex items-center justify-center gap-2 order-1 sm:order-2">
             📤 Envoyer le ticket
           </button>
         </div>

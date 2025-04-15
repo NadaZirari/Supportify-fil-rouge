@@ -37,10 +37,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
-// Route pour soumettre un ticket
-Route::get('/ticket/nouveau', function () {
-    return view('Soumettre_ticket');
-})->name('ticket.nouveau');
+
+
+Route::get('/user/Soumettre_ticket', function () {
+    return view('user.Soumettre_ticket');
+})->middleware(['auth', 'role:User'])->name('user.Soumettre_ticket');
 
 // Route pour le dashboard de l'agent
 Route::get('/agent/dashboard', function () {
@@ -75,6 +76,13 @@ Route::get('/dashboard/user', function () {
 Route::get('/user/myticket', function () {
     return view('user.myticket');
 })->middleware(['auth', 'role:User'])->name('user.myticket');
+
+
+
+Route::get('/user/submit-ticket', function () {
+    return view('user.Soumettre_ticket');
+})->middleware(['auth', 'role:User'])->name('user.submit-ticket');
+
 
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function() {
