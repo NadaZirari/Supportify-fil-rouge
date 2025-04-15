@@ -55,7 +55,53 @@
         </nav>
     </div>
 
-  
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-sidebar p-2 flex items-center justify-between border-b border-gray-700">
+            <div class="relative w-64">
+                <input type="text" placeholder="Rechercher..." class="bg-gray-700 text-white rounded-md px-3 py-1 w-full pl-8">
+                <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-300 hover:text-white">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="flex-1 overflow-auto p-6">
+            <!-- Filters and Actions -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex space-x-4">
+                    <div class="relative">
+                        <select class="bg-sidebar text-white rounded-md px-3 py-2 pr-8 appearance-none">
+                            <option>Tous les statuts</option>
+                            <option>Actif</option>
+                            <option>Fermé</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <select class="bg-sidebar text-white rounded-md px-3 py-2 pr-8 appearance-none">
+                            <option>Toutes les priorités</option>
+                            <option>Haute</option>
+                            <option>Moyenne</option>
+                            <option>Basse</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <input type="date" class="bg-sidebar text-white rounded-md px-3 py-2" placeholder="mm/dd/yyyy">
+                </div>
+
     </div>
 </body>
 </html>
