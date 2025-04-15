@@ -78,7 +78,7 @@
         <select
             id="role"
             name="role"
-            class="w-full rounded bg-white/20 p-3 text-white placeholder-gray-300 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full rounded bg-black/20 p-3 text-white placeholder-orange-600 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
         >
             <option value="User">User</option>
