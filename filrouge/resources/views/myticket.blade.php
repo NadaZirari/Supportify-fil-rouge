@@ -101,7 +101,62 @@
                     </div>
                     <input type="date" class="bg-sidebar text-white rounded-md px-3 py-2" placeholder="mm/dd/yyyy">
                 </div>
+                <button class="bg-btn-blue hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Nouveau ticket
+                </button>
+            </div>
 
+            <!-- Tickets Table -->
+            <div class="bg-sidebar rounded-md overflow-hidden">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-700">
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Titre</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Date</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Priorité</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Statut</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">Problème de connexion</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">01/03/2023</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 py-1 rounded-full text-xs bg-high">Haute</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 py-1 rounded-full text-xs bg-closed">Fermé</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+                                    Voir détails
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">Bug interface utilisateur</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">28/02/2023</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 py-1 rounded-full text-xs bg-medium">Moyenne</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 py-1 rounded-full text-xs bg-active">Actif</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+                                    Voir détails
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+           
+            </div>
+        </main>
     </div>
 </body>
 </html>
