@@ -65,7 +65,7 @@
                     href="#"
                     class="mt-2 block w-full rounded-md bg-[#3b82f6] p-3 text-center font-medium text-white hover:bg-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-offset-2"
                 >
-                    LOGIN
+                    REGISTER
                 </a>
             </div>
         </div>
