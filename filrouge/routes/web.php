@@ -43,6 +43,14 @@ Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:User'])->name('user.Soumettre_ticket');
 
+Route::get('user-management', function() {
+    return view('admin.user_management');
+})->name('user_management');
+
+
+Route::get('ticket-management', function() {
+    return view('admin.ticket_management');
+})->name('ticket_management');
 
 
 // Routes de réinitialisation de mot de passe
@@ -52,9 +60,11 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+
 Route::get('/dashboard/admin', function () {
-    return 'Bienvenue sur le tableau de bord Admin';
-})->middleware('role:Admin')->name('admin.dashboard');
+    return view('dashboard.admin-dashboard');
+})->middleware(['auth', 'role:Admin'])->name('dashboard.admin-dashboard');
+
 
 // Route pour le dashboard de l'agent
 Route::get('/agent/dashboard', function () {
