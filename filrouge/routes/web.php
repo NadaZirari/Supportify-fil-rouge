@@ -13,6 +13,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/home', function () {
+    return view('home');  // Remarquez que 'home' fait référence à 'home.blade.php'
+})->name('home');
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
     return view('auth.register');
