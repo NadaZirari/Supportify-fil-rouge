@@ -51,6 +51,10 @@ Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:User'])->name('user.Soumettre_ticket');
 
+Route::get('/user/profil', function () {
+    return view('user.profil');
+})->middleware(['auth', 'role:User'])->name('user.profil');
+
 Route::get('user-management', function() {
     return view('admin.user_management');
 })->name('user_management');
