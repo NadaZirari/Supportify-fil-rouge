@@ -53,6 +53,11 @@ Route::get('ticket-management', function() {
 })->name('ticket_management');
 
 
+Route::get('admin-dashboard', function() {
+    return view('dashboard.admin-dashboard');
+})->name('admin-dashboard');
+
+
 // Routes de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
