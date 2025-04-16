@@ -393,7 +393,7 @@
         
         <nav>
             <ul>
-                <li><a href="#">Fonctionnalités</a></li>
+                <li><a href="{{ route('fonctionnalite') }}">Fonctionnalités</a></li>
                 <li><a href="#">Solutions</a></li>
                 <li><a href="#">Tarification</a></li>
                 <li><a href="#">Témoignages</a></li>

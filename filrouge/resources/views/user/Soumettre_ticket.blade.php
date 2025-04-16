@@ -9,31 +9,12 @@
 <body class="bg-[#0f172a] text-white font-sans min-h-screen flex flex-col">
 
   <!-- Barre de navigation horizontale -->
-  <header class="bg-[#1e293b] p-4 flex flex-col sm:flex-row justify-between items-center shadow-md">
-    <div class="text-xl font-bold text-orange-500 mb-4 sm:mb-0">Supportify</div>
-    <nav class="hidden md:flex space-x-6 text-sm">
-      <a href="#" class="hover:underline">Tableau de bord</a>
-      <a href="#" class="hover:underline">Mes tickets</a>
-      <a href="#" class="hover:underline">Base de connaissances</a>
-      <a href="#" class="hover:underline">Paramètres</a>
-    </nav>
-    <!-- Menu hamburger pour mobile -->
-    <button class="md:hidden text-white text-2xl mb-4 sm:mb-0">
-      ☰
-    </button>
-    <div class="flex items-center space-x-4">
-      <button class="relative">
-        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-        🔔
-      </button>
-      <img src="/photo.jpeg" alt="User" class="rounded-full w-8 h-8" />
-    </div>
-  </header>
+ 
   <!-- Contenu principal -->
   <div class="flex flex-col md:flex-row flex-1">
 
     <!-- Menu latéral - caché sur mobile, visible sur tablette/desktop -->
-    @include('partials.sidebaruser')
+     @include('partials.sidebaruser')
 
     <!-- Formulaire -->
     <main class="flex-1 p-4 sm:p-6 md:p-10">

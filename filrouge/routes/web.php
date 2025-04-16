@@ -18,6 +18,11 @@ Route::get('/auth', function () {
     return view('auth.register');
 })->name('auth.form');
 
+Route::get('/fonctionnalites', function () {
+    return view('fonctionnalite');
+})->name('fonctionnalite');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);
 });
