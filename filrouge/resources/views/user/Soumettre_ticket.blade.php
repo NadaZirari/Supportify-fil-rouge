@@ -33,18 +33,7 @@
   <div class="flex flex-col md:flex-row flex-1">
 
     <!-- Menu latéral - caché sur mobile, visible sur tablette/desktop -->
-    <aside class="w-full md:w-64 bg-[#1e293b] p-6 space-y-6 md:block">
-      <nav class="space-y-4 text-sm">
-        <a href="#" class="block text-white hover:text-orange-400 font-medium">🏠 Accueil</a>
-        <a href="#" class="block text-orange-500 font-bold">🎫 Nouveau ticket</a>
-        <a href="#" class="block text-white hover:text-orange-400">📄 Mes tickets</a>
-      </nav>
-      <div class="mt-10 text-sm text-gray-400">
-        <p class="mb-2">Support</p>
-        <a href="#" class="block hover:text-white">📚 Documentation</a>
-        <a href="#" class="block hover:text-white">💬 Chat en direct</a>
-      </div>
-    </aside>
+    @include('partials.sidebaruser')
 
     <!-- Formulaire -->
     <main class="flex-1 p-4 sm:p-6 md:p-10">

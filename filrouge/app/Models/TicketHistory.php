@@ -4,16 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TicketHistory extends Model
+class messageHistory extends Model
 {
-    public function ticket()
+    public function message()
 {
-    return $this->belongsTo(Ticket::class);
+    return $this->belongsTo(Message::class);
 }
 
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
+
 
 }

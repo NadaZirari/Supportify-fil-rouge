@@ -27,7 +27,7 @@
 </head>
 <body class="bg-main-bg text-white flex h-screen">
      <!-- Sidebar -->
-     <div class="w-64 bg-sidebar flex-shrink-0">
+     <!-- <div class="w-64 bg-sidebar flex-shrink-0">
             <div class="p-4">
                 <h1 class="text-primary font-bold text-xl">Supportify</h1>
             </div>
@@ -83,8 +83,9 @@
 
                 
             </nav>
-        </div>
-        
+        </div> -->
+        @include('partials.sidebaruser')
+
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
