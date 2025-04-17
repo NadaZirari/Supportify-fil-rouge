@@ -70,6 +70,11 @@ Route::get('admin-dashboard', function() {
 })->name('admin-dashboard');
 
 
+
+
+Route::resource('tickets', TicketController::class);
+Route::post('tickets/archive', [TicketController::class, 'archiveResolvedTickets'])->name('tickets.archive');
+
 // Routes de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
