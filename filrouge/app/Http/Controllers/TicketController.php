@@ -55,10 +55,11 @@ class TicketController extends Controller
 
         // Vérifier user  est le propriétaire du ticket ou un agent
         if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
-            return response()->json(['message' => 'Non autorisé'], 403);
+            abort(403, 'Non autorisé');        
+
         }
 
-        return response()->json($ticket);
+        return view('tickets.show', compact('ticket'));
     }
     
 
@@ -82,17 +83,12 @@ class TicketController extends Controller
     
           
             if (!Auth::user()->hasRole('support')) {
-                return response()->json(['message' => 'Non autorisé'], 403);
-            }
-    
+                abort(403, 'Non autorisé');
+                        }
+         $oldStatus = $ticket->status;
             $ticket->update($request->only('status', 'priority'));
     
-            return response()->json($ticket);
-        $ticket->update([
-    'status' => $request->status,
-    // autres champs à mettre à jour
-]);
-
+       
 if ($oldStatus !== $request->status) {
     TicketHistory::create([
         'ticket_id' => $ticket->id,
@@ -100,7 +96,8 @@ if ($oldStatus !== $request->status) {
         'old_status' => $oldStatus,
         'new_status' => $request->status,
     ]);
-}
+       }
+return redirect()->route('tickets.show', $ticket)->with('success', 'Ticket mis à jour');
     }
 
     /**
@@ -112,15 +109,21 @@ if ($oldStatus !== $request->status) {
 
         // Vérifier user est admin 
         if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
-            return response()->json(['message' => 'Non autorisé'], 403);
-        }
+            abort(403, 'Non autorisé');
+                }
 
         $ticket->delete();
 
-        return response()->json(['message' => 'Ticket supprimé']);
+        return redirect()->route('tickets.index')->with('success', 'Ticket supprimé');
     }
+
+
+
     public function archiveResolvedTickets()
 {
+    if (!Auth::user()->hasRole('support')) {
+        abort(403, 'Non autorisé');
+    }
     $tickets = Ticket::where('status', 'résolu')->whereNull('archived_at')->get();
 
     foreach ($tickets as $ticket) {
@@ -128,7 +131,7 @@ if ($oldStatus !== $request->status) {
         $ticket->save();
     }
 
-    return response()->json(['message' => 'Tickets résolus archivés avec succès.']);
+    return redirect()->route('tickets.index')->with('success', 'Tickets archivés avec succès.');
 }
     
 }
