@@ -14,7 +14,9 @@ class Ticket extends Model
         'description',
         'priority',
         'user_id',
-        'status', // Vous pourriez vouloir ajouter un statut par défaut
+        'status',
+        'assigned_to',
+        'fichier'
     ];
     
     public function user()
