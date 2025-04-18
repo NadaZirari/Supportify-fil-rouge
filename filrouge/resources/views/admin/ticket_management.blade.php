@@ -23,7 +23,7 @@
 </head>
 <body class="bg-content text-white flex h-screen">
     <!-- Sidebar -->
-    <div class="w-[200px] bg-sidebar flex-shrink-0 flex flex-col">
+    <!-- <div class="w-[200px] bg-sidebar flex-shrink-0 flex flex-col">
         <div class="p-4 font-bold text-xl border-b text-orange-600 border-gray-700">
             Supportify
         </div>
@@ -71,7 +71,8 @@
 </form>
 
         </nav>
-    </div>
+    </div> -->
+    @include('partials.sidebaradmin')
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <div class="p-6">

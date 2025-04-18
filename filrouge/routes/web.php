@@ -93,6 +93,9 @@ Route::get('/agent/dashboard', function () {
     return view('dashboard_agent');
 })->name('agent.dashboard');
 
+Route::get('/ticket/detail', function () {
+    return view('ticket.detail');
+});
 
 Route::get('/dashboard/agent', function () {
     return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard

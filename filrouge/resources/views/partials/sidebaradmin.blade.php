@@ -1,6 +1,5 @@
- <!-- Sidebar -->
- <div class="w-[200px] bg-sidebar flex-shrink-0 flex flex-col">
-        <div class="p-4 font-bold text-xl border-b text-orange-500 border-gray-700">
+<div class="w-[200px] bg-sidebar flex-shrink-0 flex flex-col">
+        <div class="p-4 font-bold text-xl border-b text-orange-500">
             Supportify
         </div>
         <nav class="flex-1 py-4">
@@ -16,8 +15,8 @@
                 </svg>
                 Utilisateurs
             </a>
-            <a href="{{ route('ticket_management') }}" class="flex items-center px-4 py-3  text-gray-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href="{{ route('ticket_management') }}" class="flex items-center px-4 py-3 text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
                 Tickets
