@@ -10,6 +10,8 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
+use App\Http\Controllers\GoogleAuthController;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -132,3 +134,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
 });
+
+Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+
+Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');

@@ -69,6 +69,12 @@
                 </a>
             </div>
         </div>
+        <div class="flex gap-4 mb-6">
+                    <a href="{{ route('auth.google.redirect') }}"
+                        class="w-1/2 border bg-white border-gray-300 rounded-md py-3 flex justify-center hover:bg-green-500">Google</a>
+                    <button
+                        class="w-1/2 border  bg-white border-gray-300 rounded-md py-3 flex justify-center hover:bg-green-500">GitHub</button>
+                </div>
     </div>
 
   
