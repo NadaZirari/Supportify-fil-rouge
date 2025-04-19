@@ -26,13 +26,21 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'role' => 'required|string|in:User,Admin,Agent',
         ]);
-    
+
+        $role = Role::where('nom', $validated['role'])->first();
+
+         // Vérifier que le rôle existe
+         if (!$role) {
+            return back()->withErrors(['role' => 'Le rôle spécifié n\'existe pas.'])->withInput();
+        }
+
+
         // Création de l'utilisateur dans la base de données
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
+           'role_id' => $role->id,
         ]);
     
         // Redirection avec un message de succès
@@ -57,11 +65,11 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Redirection en fonction du rôle de l'utilisateur
-        if ($user->role === 'Admin') {
+        if ($user->role_id === 1) {
             return redirect()->route('dashboard.admin-dashboard');
-        } elseif ($user->role === 'Agent') {
+        } elseif ($user->role_id === 2) {
             return redirect()->route('agent.dashboard');
-        } elseif ($user->role === 'User') {
+        } elseif ($user->role_id === 3) {
             return redirect()->route('user.dashboard');
         }
         
