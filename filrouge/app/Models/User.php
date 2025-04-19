@@ -1,31 +1,25 @@
 <?php
 
 namespace App\Models;
-use Spatie\Permission\Traits\HasRoles;
+
 use Laravel\Sanctum\HasApiTokens;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasRoles;
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Les attributs qui sont massivement assignables.
      *
      * @var list<string>
      */
-   
-     
-    protected $fillable = ['name', 'email', 'password', 'role'];
-
+    protected $fillable = ['name', 'email', 'password', 'role_id'];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Les attributs qui doivent être cachés lors de la sérialisation.
      *
      * @var list<string>
      */
@@ -35,7 +29,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Les attributs qui doivent être castés.
      *
      * @return array<string, string>
      */
@@ -46,17 +40,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function hasRole($role)
+
+    /**
+     * Relation avec le modèle Role
+     */
+    public function role()
     {
-        // Supposons que le rôle est un simple attribut dans la table users
-        return $this->role === $role;
+        return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Relation avec les tickets de l'utilisateur
+     */
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }
-    
-    
 
-
+    /**
+     * Vérifie si l'utilisateur a un rôle spécifique
+     */
+    public function hasRole($role)
+    {
+        return $this->role->nom === $role;  // Vérifie le nom du rôle
+    }
 }
