@@ -31,10 +31,16 @@ class AuthController extends Controller
 
          // Vérifier que le rôle existe
          if (!$role) {
+            
+            \Log::error('Rôle non trouvé: ' . $validated['role']);
+
+            $availableRoles = Role::all();
+            \Log::info('Rôles disponibles: ', $availableRoles->toArray());
+            
             return back()->withErrors(['role' => 'Le rôle spécifié n\'existe pas.'])->withInput();
         }
 
-
+        try {
         // Création de l'utilisateur dans la base de données
         $user = User::create([
             'name' => $validated['name'],
@@ -42,9 +48,15 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
            'role_id' => $role->id,
         ]);
-    
+        \Log::info('Utilisateur créé avec succès: ', ['id' => $user->id, 'email' => $user->email]);
+
         // Redirection avec un message de succès
         return redirect()->route('login')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
+
+    } catch (\Exception $e) {
+        \Log::error('Erreur lors de la création de l\'utilisateur: ' . $e->getMessage());
+        return back()->withErrors(['general' => 'Une erreur est survenue lors de l\'inscription.'])->withInput();
+    }
     }
     
 

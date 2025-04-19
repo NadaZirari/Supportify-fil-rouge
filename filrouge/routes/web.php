@@ -51,11 +51,11 @@ Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store
 
 Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
-})->middleware(['auth', 'role:User'])->name('user.Soumettre_ticket');
+})->middleware(['auth', 'role:3'])->name('user.Soumettre_ticket');
 
 Route::get('/user/profil', function () {
     return view('user.profil');
-})->middleware(['auth', 'role:User'])->name('user.profil');
+})->middleware(['auth', 'role:3'])->name('user.profil');
 
 Route::get('user-management', function() {
     return view('admin.user_management');
@@ -87,7 +87,7 @@ Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.ed
 
 Route::get('/dashboard/admin', function () {
     return view('dashboard.admin-dashboard');
-})->middleware(['auth', 'role:Admin'])->name('dashboard.admin-dashboard');
+})->middleware(['auth', 'role:1'])->name('dashboard.admin-dashboard');
 
 
 // Route pour le dashboard de l'agent
@@ -101,11 +101,11 @@ Route::get('/ticket/detail', function () {
 
 Route::get('/dashboard/agent', function () {
     return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
-})->middleware('role:Agent')->name('agent.dashboard');
+})->middleware('role:2')->name('agent.dashboard');
 
 Route::get('/user/dashboard', function () {
     return view('user.dashboardUser');
-})->middleware(['auth', 'role:User'])->name('user.dashboard');
+})->middleware(['auth', 'role:3'])->name('user.dashboard');
 
 // Route pour le dashboard de l'agent
 Route::get('/agent/dashboard', function () {
@@ -114,17 +114,17 @@ Route::get('/agent/dashboard', function () {
 
 Route::get('/user/myticket', function () {
     return view('user.myticket');
-})->middleware(['auth', 'role:User'])->name('user.myticket');
+})->middleware(['auth', 'role:3'])->name('user.myticket');
 
 
 
 Route::get('/user/submit-ticket', function () {
     return view('user.Soumettre_ticket');
-})->middleware(['auth', 'role:User'])->name('user.submit-ticket');
+})->middleware(['auth', 'role:3'])->name('user.submit-ticket');
 
 
 
-Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function() {
+Route::middleware(['auth', 'role:1'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');

@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 class RoleMiddleware
 {
     /**
@@ -15,9 +14,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if (!$request->user() || $request->user()->role !== $role) {
+        // Vérifie si l'utilisateur est authentifié et si son role_id correspond au rôle spécifié
+        if (!$request->user() || $request->user()->role_id !== (int) $role) {
             return response()->json(['message' => 'Accès non autorisé.'], 403);
         }
+
         return $next($request);
     }
 }
