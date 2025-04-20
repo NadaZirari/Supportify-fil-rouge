@@ -115,19 +115,18 @@
                             {{ ucfirst($ticket->statut) }}
                         </span>
                     </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            <a href="{{ route('ticket.detail', $ticket->id') }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
-    <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+    <a href="{{ route('ticket.detail', $ticket->id) }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs inline-block">
         Voir détails
-    </button>
-</a>
-                            </td>
+    </a>
+</td>
                         </tr>
                         @empty
 
                         <tr>
                     <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-400">
-                        Aucun ticket trouvé. <a href="{{ route('user.Soumettre_ticket') }}" class="text-blue-400 hover:underline">Créer un ticket</a>
+                        Aucun ticket trouvé. 
+                        <a href="{{ route('user.Soumettre_ticket') }}" class="text-blue-400 hover:underline">Créer un ticket</a>
                     </td>
                 </tr>
             @endforelse

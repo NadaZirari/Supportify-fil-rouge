@@ -39,14 +39,18 @@
                 </div>
                 
                 <div class="flex items-center mb-4">
-                    <span class="bg-red-900 text-red-200 text-xs px-2 py-1 rounded mr-2">Haute priorité</span>
-                    <span class="bg-yellow-900 text-yellow-200 text-xs px-2 py-1 rounded mr-4">En cours</span>
-                    <span class="text-gray-400 text-sm">Créé le 01/03/2025</span>
-                </div>
-                
-                <p class="text-gray-300 mb-6">
-                    Je n'arrive pas à me connecter à mon compte depuis ce matin. J'ai essayé de réinitialiser mon mot de passe mais je ne reçois pas l'email de confirmation.
-                </p>
+                <span class="bg-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-900 text-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-200 text-xs px-2 py-1 rounded mr-2">
+                    {{ ucfirst($ticket->priority) }} priorité
+                </span>
+                <span class="bg-{{ $ticket->statut == 'ouvert' ? 'green' : ($ticket->statut == 'en cours' ? 'yellow' : 'gray') }}-900 text-{{ $ticket->statut == 'ouvert' ? 'green' : ($ticket->statut == 'en cours' ? 'yellow' : 'gray') }}-200 text-xs px-2 py-1 rounded mr-4">
+                    {{ ucfirst($ticket->statut) }}
+                </span>
+                <span class="text-gray-400 text-sm">Créé le {{ $ticket->created_at->format('d/m/Y') }}</span>
+            </div>
+            
+            <p class="text-gray-300 mb-6">
+                {{ $ticket->description }}
+            </p>
                 
                 <div>
                     <h3 class="text-sm font-medium text-gray-400 mb-2">Pièces jointes</h3>
