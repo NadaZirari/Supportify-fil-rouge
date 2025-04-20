@@ -105,9 +105,11 @@
                                 <span class="px-2 py-1 rounded-full text-xs bg-closed">Fermé</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
-                                    Voir détails
-                                </button>
+                            <a href="{{ route('ticket.detail') }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+    <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+        Voir détails
+    </button>
+</a>
                             </td>
                         </tr>
                         <tr>

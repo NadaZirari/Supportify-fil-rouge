@@ -116,6 +116,8 @@ Route::get('/user/myticket', function () {
     return view('user.myticket');
 })->middleware(['auth', 'role:3'])->name('user.myticket');
 
+// Ajoutez cette route pour afficher les détails d'un ticket
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
 
 
 Route::get('/user/submit-ticket', function () {
