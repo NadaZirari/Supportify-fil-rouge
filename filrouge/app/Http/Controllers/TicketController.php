@@ -36,8 +36,9 @@ class TicketController extends Controller
             'title' => 'required|string',
             'description' => 'required',
             'priority' => 'required|in:basse,moyenne,haute',
-            'categorie_id' => 'required|exists:categories,id'
-        
+            'categorie_id' => 'required|exists:categories,id',
+            'fichier' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf|max:10240', // 10MB max
+
 
         ]);
         $ticket =Ticket::create([
@@ -49,7 +50,11 @@ class TicketController extends Controller
             'assigned_to' => null, // Assigné à personne par défaut
             'user_id' => auth()->id(),
         ]);
-    
+     // Gestion du fichier
+     if ($request->hasFile('fichier')) {
+        $path = $request->file('fichier')->store('ticket-attachments', 'public');
+        $ticketData['fichier'] = $path;
+    }
         \Log::info('Ticket créé', ['ticket_id' => $ticket->id, 'user_id' => auth()->id()]);
 
         return redirect()->route('user.myticket')->with('success', 'Ticket soumis avec succès');

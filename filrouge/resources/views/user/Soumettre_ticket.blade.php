@@ -68,15 +68,16 @@
           </div>
         </div>
 
-        <!-- Fichier -->
+         <!-- Fichier -->
   <div>
     <label class="block text-sm font-medium mb-2">Pièces jointes</label>
-    <div class="border border-dashed border-gray-500 rounded-lg p-4 sm:p-6 text-center bg-[#1e293b]">
-      <input type="file" name="fichier" class="hidden" id="file-upload" />
+    <div class="border border-dashed border-gray-500 rounded-lg p-4 sm:p-6 text-center bg-[#1e293b]" id="drop-area">
+      <input type="file" name="fichier" class="hidden" id="file-upload" onchange="updateFileLabel(this)" />
       <label for="file-upload" class="cursor-pointer text-orange-400 hover:underline">
         Glissez vos fichiers ici ou <span class="underline">parcourir</span>
       </label>
       <p class="text-xs text-gray-400 mt-1">PNG, JPG, PDF jusqu'à 10MB</p>
+      <div id="file-name" class="mt-2 text-sm text-white"></div>
     </div>
   </div>
 

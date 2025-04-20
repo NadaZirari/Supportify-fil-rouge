@@ -26,7 +26,11 @@ class Ticket extends Model
     }
 
   
-
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+    
 public function messages()
 {
     return $this->hasMany(Message::class);
