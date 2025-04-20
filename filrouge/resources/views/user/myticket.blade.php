@@ -95,42 +95,45 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @forelse($tickets as $ticket)
+
                         <tr class="border-b border-gray-700">
                             <td class="px-6 py-4 whitespace-nowrap text-sm">Problème de connexion</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">01/03/2023</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 rounded-full text-xs bg-high">Haute</span>
-                            </td>
+                            <span class="px-2 py-1 rounded-full text-xs 
+                            @if($ticket->priority == 'haute') bg-high 
+                            @elseif($ticket->priority == 'moyenne') bg-medium 
+                            @else bg-low @endif">
+                            {{ ucfirst($ticket->priority) }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <span class="px-2 py-1 rounded-full text-xs 
+                            @if($ticket->statut == 'ouvert' || $ticket->statut == 'en cours') bg-active 
+                            @else bg-closed @endif">
+                            {{ ucfirst($ticket->statut) }}
+                        </span>
+                    </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 rounded-full text-xs bg-closed">Fermé</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            <a href="{{ route('ticket.detail') }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
+                            <a href="{{ route('ticket.detail', $ticket->id') }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
     <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
         Voir détails
     </button>
 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">Bug interface utilisateur</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">28/02/2023</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 rounded-full text-xs bg-medium">Moyenne</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="px-2 py-1 rounded-full text-xs bg-active">Actif</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <button class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
-                                    Voir détails
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        @empty
 
+                        <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-400">
+                        Aucun ticket trouvé. <a href="{{ route('user.Soumettre_ticket') }}" class="text-blue-400 hover:underline">Créer un ticket</a>
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+    </div>
             <!-- Pagination -->
             <div class="flex justify-center mt-6">
                 <nav class="flex items-center space-x-1">

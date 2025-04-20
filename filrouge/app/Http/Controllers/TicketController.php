@@ -13,8 +13,8 @@ class TicketController extends Controller
     // Affiche la liste des tickets
     public function index()
     {
-        $tickets = Ticket::all();
-        return view('tickets.index', compact('tickets'));
+        $tickets = Ticket::where('user_id', Auth::id())->get();
+        return view('user.myticket', compact('tickets'));
     }
 
     // Formulaire de création
@@ -22,9 +22,9 @@ class TicketController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        return view('tickets.create', compact('categories'));
+        return view('user.Soumettre_ticket', compact('categories'));
 
-        // return view('Soumettre_ticket');
+        
     }
 
      // Enregistrement d'un nouveau ticket
@@ -49,14 +49,19 @@ class TicketController extends Controller
             'user_id' => auth()->id(),
         ]);
     
-        return redirect()->route('tickets.index')->with('success', 'Ticket soumis avec succès');
+        return redirect()->route('user.myticket')->with('success', 'Ticket soumis avec succès');
     }
 
        // Afficher un ticket spécifique
     
-        public function show(Ticket $ticke)
+        public function show(Ticket $ticket)
     {
-        return view('tickets.show', compact('ticket'));    
+                // Vérifier que l'utilisateur a le droit de voir ce ticket
+                if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('Agent') && !Auth::user()->hasRole('Admin')) {
+                    abort(403, 'Non autorisé');
+                }        
+        // $ticket = Ticket::findOrFail($id); 
+        return view('ticket.detail', compact('ticket'));    
 
         }
 
@@ -76,7 +81,7 @@ class TicketController extends Controller
         $request->validate([
             'titre' => 'required|string|max:255',
             'description' => 'required',
-            'priorite' => 'required|in:faible,moyenne,élevée',
+            'priority' => 'required|in:faible,moyenne,élevée',
             'categorie_id' => 'required|exists:categories,id',
             'statut' => 'required|in:ouvert,en cours,résolu,fermé'
         ]);

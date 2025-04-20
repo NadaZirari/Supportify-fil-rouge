@@ -117,7 +117,21 @@ Route::get('/user/myticket', function () {
 })->middleware(['auth', 'role:3'])->name('user.myticket');
 
 // Ajoutez cette route pour afficher les détails d'un ticket
-Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
+Route::get('/tickets', [TicketController::class, 'show'])->name('ticket.detail');
+// Routes pour les tickets
+Route::middleware(['auth'])->group(function () {
+    // Liste des tickets de l'utilisateur
+    Route::get('/user/myticket', [TicketController::class, 'index'])->name('user.myticket');
+    
+    // Formulaire de création de ticket
+    Route::get('/user/Soumettre_ticket', [TicketController::class, 'create'])->name('user.Soumettre_ticket');
+    
+    // Enregistrer un nouveau ticket
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    
+    // Afficher les détails d'un ticket
+    Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
+});
 
 
 Route::get('/user/submit-ticket', function () {

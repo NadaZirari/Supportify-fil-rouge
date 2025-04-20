@@ -22,11 +22,11 @@
       <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8">Décrivez votre problème en détail pour obtenir l'aide la plus adaptée</p>
 
       <form class="space-y-4 sm:space-y-6 max-w-2xl">
-
+      @csrf
         <!-- Titre -->
         <div>
-          <label class="block text-sm font-medium mb-1" for="titre">Titre du ticket *</label>
-          <input id="titre" type="text" placeholder="Ex: Problème de connexion à l'application" class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          <label class="block text-sm font-medium mb-1" for="title">Titre du ticket *</label>
+          <input id="title" type="text" placeholder="Ex: Problème de connexion à l'application" class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500" />
         </div>
 
         <!-- Description -->
@@ -42,15 +42,15 @@
             <label class="block text-sm font-medium mb-2">Priorité</label>
             <div class="space-y-2">
               <label class="flex items-center space-x-2">
-                <input type="radio" name="priorite" class="accent-green-500" />
+                <input type="radio" name="priority" class="accent-green-500" />
                 <span class="text-sm">🟢 Basse</span>
               </label>
               <label class="flex items-center space-x-2">
-                <input type="radio" name="priorite" class="accent-yellow-500" />
+                <input type="radio" name="priority" class="accent-yellow-500" />
                 <span class="text-sm">🟠 Moyenne</span>
               </label>
               <label class="flex items-center space-x-2">
-                <input type="radio" name="priorite" class="accent-red-500" />
+                <input type="radio" name="priority" class="accent-red-500" />
                 <span class="text-sm">🔴 Haute</span>
               </label>
             </div>
@@ -58,13 +58,12 @@
 
           <!-- Catégorie -->
           <div class="flex-1">
-            <label class="block text-sm font-medium mb-2">Catégorie</label>
-            <select class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500">
-              <option disabled selected>Sélectionnez une catégorie</option>
-              <option>Connexion</option>
-              <option>Facturation</option>
-              <option>Bug</option>
-              <option>Demande d'amélioration</option>
+          <label class="block text-sm font-medium mb-2">Catégorie</label>
+            <select name="categorie_id" class="w-full px-4 py-2 rounded-lg bg-[#1e293b] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                <option disabled selected value="">Sélectionnez une catégorie</option>
+                @foreach($categories as $categorie)
+                    <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                @endforeach
             </select>
           </div>
         </div>
