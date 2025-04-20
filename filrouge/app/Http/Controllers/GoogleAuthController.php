@@ -52,7 +52,7 @@ class GoogleAuthController extends Controller
         }
 
         // Redirect the user to the dashboard or any other secure page
-        return redirect('/dashboard.dashboardUser');
+        return redirect('/user.dashboardUser');
     }
 }
 
