@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\categorie;
 use App\Models\TicketHistory;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CategorieController;
 
 
 class TicketController extends Controller

@@ -139,15 +139,23 @@ Route::get('/user/submit-ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:3'])->name('user.submit-ticket');
 
+Route::middleware(['auth', 'role:1'])->group(function () {
 
+Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
+Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
+Route::get('/categories/{categorie}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
+Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('ategories.update');
+Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
+Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categories.show');
+Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 
-Route::middleware(['auth', 'role:1'])->prefix('admin')->name('admin.')->group(function() {
+}); 
+Route::middleware(['auth', 'role:1'])->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
-    Route::get('/admin/categories/{id}', [CategorieController::class, 'show'])->name('admin.categories.show');
-    Route::resource('categories', CategoryController::class);
-
+   
     Route::get('users', [AdminController::class, 'manageUsers'])->name('manageUsers');
     Route::post('users/{id}/role', [AdminController::class, 'updateUserRole'])->name('updateUserRole');
     Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');

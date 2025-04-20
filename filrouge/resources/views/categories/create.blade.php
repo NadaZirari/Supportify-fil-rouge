@@ -1,6 +1,6 @@
 <!-- resources/views/categories/create.blade.php -->
 
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('content')
     <div class="p-6 flex-1 overflow-auto">
