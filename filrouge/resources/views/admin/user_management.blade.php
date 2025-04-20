@@ -45,7 +45,7 @@
                         <th class="pb-3 font-medium">Nom</th>
                         <th class="pb-3 font-medium">Email</th>
                         <th class="pb-3 font-medium">Rôle</th>
-                        <th class="pb-3 font-medium">Statut</th>
+                        <th class="pb-3 font-medium">Status</th>
                         <th class="pb-3 font-medium">Actions</th>
                     </tr>
                 </thead>

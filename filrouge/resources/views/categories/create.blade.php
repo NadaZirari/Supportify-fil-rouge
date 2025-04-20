@@ -13,8 +13,8 @@
             <form action="{{ route('categories.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="name" class="text-gray-400">Nom de la Catégorie</label>
-                    <input type="text" id="name" name="name" class="mt-2 p-3 bg-content text-white rounded-md w-full" value="{{ old('name') }}" required>
+                    <label for="nom" class="text-gray-400">Nom de la Catégorie</label>
+                    <input type="text" id="nom" name="nom" class="mt-2 p-3 bg-content text-black rounded-md w-full" value="{{ old('nom') }}" required>
                     @error('name')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                     @enderror

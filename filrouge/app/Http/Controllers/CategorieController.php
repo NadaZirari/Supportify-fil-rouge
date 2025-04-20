@@ -33,8 +33,9 @@ class CategorieController extends Controller
             'nom' => 'required|string|max:255',
         ]);
 
-        Categorie::create($request->only('nom'));
-
+        Categorie::create([
+            'nom' => $request->nom,
+        ]);
         return redirect()->route('categories.index')->with('success', 'Catégorie ajoutée avec succès.');
     }
 

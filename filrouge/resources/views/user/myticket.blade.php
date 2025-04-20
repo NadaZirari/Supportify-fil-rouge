@@ -55,7 +55,7 @@
                 <div class="flex space-x-4">
                     <div class="relative">
                         <select class="bg-sidebar text-white rounded-md px-3 py-2 pr-8 appearance-none">
-                            <option>Tous les statuts</option>
+                            <option>Tous les status</option>
                             <option>Actif</option>
                             <option>Fermé</option>
                         </select>
@@ -90,7 +90,7 @@
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Titre</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Date</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Priorité</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Statut</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Status</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-300">Action</th>
                         </tr>
                     </thead>
@@ -98,9 +98,9 @@
                     @forelse($tickets as $ticket)
 
                         <tr class="border-b border-gray-700">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">Problème de connexion</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">01/03/2023</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $ticket->title }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $ticket->created_at->format('d/m/Y') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             <span class="px-2 py-1 rounded-full text-xs 
                             @if($ticket->priority == 'haute') bg-high 
                             @elseif($ticket->priority == 'moyenne') bg-medium 
@@ -110,9 +110,9 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <span class="px-2 py-1 rounded-full text-xs 
-                            @if($ticket->statut == 'ouvert' || $ticket->statut == 'en cours') bg-active 
+                            @if($ticket->status== 'ouvert' || $ticket->status == 'en cours') bg-active 
                             @else bg-closed @endif">
-                            {{ ucfirst($ticket->statut) }}
+                            {{ ucfirst($ticket->status) }}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">

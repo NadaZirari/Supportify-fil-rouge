@@ -149,18 +149,26 @@ Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->n
 Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
 Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categories.show');
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
+Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
 
 }); 
 Route::middleware(['auth', 'role:1'])->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
-   
+       Route::put('/admin/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
+
     Route::get('users', [AdminController::class, 'manageUsers'])->name('manageUsers');
     Route::post('users/{id}/role', [AdminController::class, 'updateUserRole'])->name('updateUserRole');
     Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
 });
+Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
+Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
+Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
+Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 

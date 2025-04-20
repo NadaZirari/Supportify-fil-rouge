@@ -40,16 +40,18 @@ class TicketController extends Controller
         
 
         ]);
-        Ticket::create([
+        $ticket =Ticket::create([
             'title' => $request->title,
             'description' => $request->description,
             'priority' => $request->priority,
-            'statut' => 'ouvert',
+            'status' => 'ouvert',
             'categorie_id' => $request->categorie_id,
             'assigned_to' => null, // Assigné à personne par défaut
             'user_id' => auth()->id(),
         ]);
     
+        \Log::info('Ticket créé', ['ticket_id' => $ticket->id, 'user_id' => auth()->id()]);
+
         return redirect()->route('user.myticket')->with('success', 'Ticket soumis avec succès');
     }
 
@@ -84,7 +86,7 @@ class TicketController extends Controller
             'description' => 'required',
             'priority' => 'required|in:faible,moyenne,élevée',
             'categorie_id' => 'required|exists:categories,id',
-            'statut' => 'required|in:ouvert,en cours,résolu,fermé'
+            'status' => 'required|in:ouvert,en cours,résolu,fermé'
         ]);
 
         $ticket->update($request->all());

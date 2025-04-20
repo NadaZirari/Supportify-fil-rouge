@@ -8,7 +8,7 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Ou si vous utilisez Laravel Mix/Vite -->
+   
     <!-- @vite('resources/css/app.css') -->
     
     <!-- Styles supplémentaires si nécessaire -->
@@ -42,8 +42,8 @@
                 <span class="bg-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-900 text-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-200 text-xs px-2 py-1 rounded mr-2">
                     {{ ucfirst($ticket->priority) }} priorité
                 </span>
-                <span class="bg-{{ $ticket->statut == 'ouvert' ? 'green' : ($ticket->statut == 'en cours' ? 'yellow' : 'gray') }}-900 text-{{ $ticket->statut == 'ouvert' ? 'green' : ($ticket->statut == 'en cours' ? 'yellow' : 'gray') }}-200 text-xs px-2 py-1 rounded mr-4">
-                    {{ ucfirst($ticket->statut) }}
+                <span class="bg-{{ $ticket->status == 'ouvert' ? 'green' : ($ticket->status == 'en cours' ? 'yellow' : 'gray') }}-900 text-{{ $ticket->status == 'ouvert' ? 'green' : ($ticket->status == 'en cours' ? 'yellow' : 'gray') }}-200 text-xs px-2 py-1 rounded mr-4">
+                    {{ ucfirst($ticket->status) }}
                 </span>
                 <span class="text-gray-400 text-sm">Créé le {{ $ticket->created_at->format('d/m/Y') }}</span>
             </div>
