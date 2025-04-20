@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Categorie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -43,7 +43,8 @@ class CategorieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Categorie::findOrFail($id);  // Trouve la catégorie par ID
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -51,6 +52,8 @@ class CategorieController extends Controller
      */
     public function edit(string $id)
     {
+        $category = Categorie::findOrFail($id); // Récupère la catégorie par son ID
+
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -63,6 +66,7 @@ class CategorieController extends Controller
             'nom' => 'required|string|max:255',
         ]);
 
+        $category = Categorie::findOrFail($id); // Récupère la catégorie par son ID
         $category->update($request->only('nom'));
 
         return redirect()->route('admin.categories.index')->with('success', 'Catégorie mise à jour.');
@@ -73,6 +77,8 @@ class CategorieController extends Controller
      */
     public function destroy(string $id)
     {
+        $category = Categorie::findOrFail($id); // Récupère la catégorie par son ID
+
         $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Catégorie supprimée.');
     }

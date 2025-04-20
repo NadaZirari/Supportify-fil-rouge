@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\TicketController;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -144,6 +145,8 @@ Route::middleware(['auth', 'role:1'])->prefix('admin')->name('admin.')->group(fu
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
+    Route::get('/admin/categories/{id}', [CategorieController::class, 'show'])->name('admin.categories.show');
+    Route::resource('categories', CategoryController::class);
 
     Route::get('users', [AdminController::class, 'manageUsers'])->name('manageUsers');
     Route::post('users/{id}/role', [AdminController::class, 'updateUserRole'])->name('updateUserRole');
