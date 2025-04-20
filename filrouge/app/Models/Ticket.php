@@ -15,6 +15,7 @@ class Ticket extends Model
         'priority',
         'user_id',
         'status',
+        'categorie_id',
         'assigned_to',
         'fichier'
     ];
@@ -36,7 +37,11 @@ public function agent()
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class);
+    }
+    
 public function scopeArchived(Builder $query)
 {
     return $query->whereNotNull('archived_at');
