@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
@@ -18,19 +18,23 @@ class MessageController extends Controller
 
     public function store(Request $request, Ticket $ticket)
     {
+
         $this->authorizeAccess($ticket);
 
+        // Validation
         $data = $request->validate([
             'content' => 'required|string',
-        ]);
+    ]);
 
-        $message = $ticket->messages()->create([
-            'user_id' => Auth::id(),
-            'content' => $data['content'],
-        ]);
-
-        return response()->json($message->load('user'), 201);
+      // Création du message
+      $message = $ticket->messages()->create([
+        'user_id' => Auth::id(),
+        'content' => $data['content'],
+    ]);
+    return redirect()->back()->with('success', 'Message envoyé avec succès');
     }
+
+
     private function authorizeAccess(Ticket $ticket)
     {
         $user = Auth::user();

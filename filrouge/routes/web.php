@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -173,3 +173,5 @@ Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index'
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 
 Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+Route::post('/tickets/{ticket}/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
+

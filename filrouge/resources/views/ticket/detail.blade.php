@@ -32,8 +32,8 @@
         <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
             <div class="p-6">
                 <div class="flex justify-between items-start mb-4">
-                    <h1 class="text-xl font-bold">Problème de connexion</h1>
-                    <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm">
+                <h1 class="text-xl font-bold">{{ $ticket->title }}</h1>
+                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm">
                         Fermer le ticket
                     </button>
                 </div>
@@ -79,59 +79,41 @@
         </div>
         
         <!-- Chat section -->
-        <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
-            <div class="p-6">
-                <!-- User message -->
-                <div class="flex mb-6">
-                    <div class="flex-shrink-0 mr-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
-                            {{ substr($ticket->user->name ?? 'U', 0, 1) }}
-                        </div>
-                    </div>
-                    <div>
-                        <div class="bg-blue-600 rounded-lg p-3 mb-1 max-w-md">
-                            <p class="text-white">Bonjour, je n'arrive pas à me connecter à mon compte depuis ce matin.</p>
-                        </div>
-                        <p class="text-xs text-gray-500">01/03/2025 09:15</p>
+<div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+    <div class="p-6">
+        <!-- Affichage des messages existants -->
+        @foreach($ticket->messages as $message)
+            <div class="flex mb-6">
+                <div class="flex-shrink-0 mr-3">
+                    <div class="w-10 h-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-600' : 'bg-gray-600' }} flex items-center justify-center text-white font-bold">
+                        {{ substr($message->user->name ?? 'U', 0, 1) }}
                     </div>
                 </div>
-                
-                <!-- Support agent message -->
-                <div class="flex mb-6">
-                    <div class="flex-shrink-0 mr-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold">
-                            {{ substr($ticket->agent->name ?? 'A', 0, 1) }}
-                        </div>
+                <div>
+                    <div class="{{ $message->user_id === $ticket->user_id ? 'bg-blue-600' : 'bg-gray-700' }} rounded-lg p-3 mb-1 max-w-md">
+                        <p class="text-white">{{ $message->content }}</p>
                     </div>
-                    <div>
-                        <div class="bg-gray-700 rounded-lg p-3 mb-1 max-w-md">
-                            <p class="text-white">Bonjour, je comprends votre problème. Pouvez-vous me dire si vous avez vidé le cache de votre navigateur ?</p>
-                        </div>
-                        <p class="text-xs text-gray-500">01/03/2025 09:20</p>
-                    </div>
-                </div>
-                
-                <!-- Message input -->
-                <div class="flex mt-6">
-                    <div class="flex-grow relative">
-                        <input type="text" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Écrivez votre message...">
-                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <button class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
-                        Envoyer
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
+                    <p class="text-xs text-gray-500">{{ $message->created_at->format('d/m/Y H:i') }}</p>
                 </div>
             </div>
+        @endforeach
+                
+               <!-- Message input -->
+<div class="flex mt-6">
+    <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="w-full flex">
+        @csrf
+        <div class="flex-grow relative">
+            <input type="text" name="content" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Écrivez votre message...">
         </div>
-    </div>
+        <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+            Envoyer
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </form>
+</div>
 
     <!-- Scripts -->
     <script>

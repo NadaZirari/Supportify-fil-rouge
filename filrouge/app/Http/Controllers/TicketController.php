@@ -62,7 +62,9 @@ class TicketController extends Controller
                 // Vérifier que l'utilisateur a le droit de voir ce ticket
                 if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('Agent') && !Auth::user()->hasRole('Admin')) {
                     abort(403, 'Non autorisé');
-                }        
+                }      
+                $ticket->load('messages.user');
+  
         // $ticket = Ticket::findOrFail($id); 
         return view('ticket.detail', compact('ticket'));    
 

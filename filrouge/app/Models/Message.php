@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 
-   
+    protected $fillable = [
+        'content',
+        'user_id',
+        'ticket_id'
+    ];
 
 public function ticket()
 {
@@ -24,4 +28,8 @@ public function response()
 {
     return $this->hasmany(Response::class);
 }
+public function user()
+   {
+       return $this->belongsTo(User::class);
+   }
 }
