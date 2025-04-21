@@ -113,7 +113,7 @@
                             <td class="py-4 px-6">
                                 @if($ticket->status == 'ouvert')
                                     <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-md">Ouvert</span>
-                                @elseif($ticket->status == 'en cours')
+                                @elseif($ticket->status == 'en_cours')
                                     <span class="bg-inprogress text-white text-xs px-2 py-1 rounded-md">En cours</span>
                                 @elseif($ticket->status == 'résolu')
                                     <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-md">Résolu</span>

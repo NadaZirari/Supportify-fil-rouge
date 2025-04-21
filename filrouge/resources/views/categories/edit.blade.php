@@ -26,6 +26,18 @@
                     @enderror
                 </div>
 
+                <div class="mb-4">
+    <label for="status" class="text-gray-400">Statut</label>
+    <select id="status" name="status" class="mt-2 p-3 bg-content text-white rounded-md w-full">
+        <option value="ouvert" {{ old('status', $ticket->status) == 'ouvert' ? 'selected' : '' }}>Ouvert</option>
+        <option value="en_cours" {{ old('status', $ticket->status) == 'en_cours' ? 'selected' : '' }}>En cours</option>
+        <option value="résolu" {{ old('status', $ticket->status) == 'résolu' ? 'selected' : '' }}>Résolu</option>
+    </select>
+    @error('status')
+        <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
+    @enderror
+</div>
+
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Mettre à jour</button>
             </form>
         </div>

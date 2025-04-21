@@ -101,7 +101,7 @@ class TicketController extends Controller
             'description' => 'required',
             'priority' => 'required|in:faible,moyenne,élevée',
             'categorie_id' => 'required|exists:categories,id',
-            'status' => 'required|in:ouvert,en cours,résolu,fermé'
+            'status' => 'required|in:ouvert,en_cours,résolu,fermé'
         ]);
 
         $ticket->update($request->all());
@@ -151,7 +151,7 @@ public function assignTicket(Request $request, Ticket $ticket)
 
     $ticket->update([
         'assigned_to' => $request->agent_id,
-        'status' => 'en cours' // Optionnel: mettre automatiquement le ticket en cours
+        'status' => 'en_cours' // Optionnel: mettre automatiquement le ticket en cours
     ]);
 
     // Enregistrer l'historique de l'assignation (optionnel)
