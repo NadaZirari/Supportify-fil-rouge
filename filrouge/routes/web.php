@@ -162,6 +162,8 @@ Route::middleware(['auth', 'role:1'])->group(function() {
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
        Route::put('/admin/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
+// Route pour assigner un ticket à un agent
+Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assignTicket'])->name('tickets.assign');
 
     Route::get('users', [AdminController::class, 'manageUsers'])->name('manageUsers');
     Route::post('users/{id}/role', [AdminController::class, 'updateUserRole'])->name('updateUserRole');

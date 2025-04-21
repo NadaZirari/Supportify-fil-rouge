@@ -16,7 +16,7 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = Ticket::where('user_id', Auth::id())->latest()->paginate(5);
-                return view('user.myticket', compact('tickets'));
+        return view('user.myticket', compact('tickets'));
     }
 
     // Formulaire de création
@@ -130,7 +130,7 @@ class TicketController extends Controller
 public function adminIndex()
 {
     // Récupérer tous les tickets avec leurs relations
-    $tickets = Ticket::with(['user', 'agent', 'categorie'])->latest()->paginate(10);
+    $tickets = Ticket::with(['user', 'agent', 'categorie'])->latest()->paginate(5);
     
     // Récupérer les catégories pour les filtres
     $categories = Categorie::all();
@@ -142,6 +142,30 @@ public function adminIndex()
 }
 
 
+
+public function assignTicket(Request $request, Ticket $ticket)
+{
+    $request->validate([
+        'agent_id' => 'required|exists:users,id'
+    ]);
+
+    $ticket->update([
+        'assigned_to' => $request->agent_id,
+        'status' => 'en cours' // Optionnel: mettre automatiquement le ticket en cours
+    ]);
+
+    // Enregistrer l'historique de l'assignation (optionnel)
+    if (class_exists('TicketHistory')) {
+        TicketHistory::create([
+            'ticket_id' => $ticket->id,
+            'user_id' => Auth::id(),
+            'action' => 'assign',
+            'description' => 'Ticket assigné à l\'agent #' . $request->agent_id
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Ticket assigné avec succès');
+}
 
     public function archiveResolvedTickets()
 {

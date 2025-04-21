@@ -136,7 +136,8 @@
                                     {{ $ticket->categorie->nom ?? 'Non catégorisé' }}
                                 </span>
                             </td>
-                            <td class="py-4 px-6">
+                            <!--  colonne "Assigned To" u -->
+                            <!-- <td class="py-4 px-6">
                                 @if($ticket->assigned_to && $ticket->agent)
                                 <div class="flex items-center">
                                     <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center mr-2 text-white text-xs">
@@ -147,7 +148,35 @@
                                 @else
                                 <span class="text-gray-400">Non assigné</span>
                                 @endif
-                            </td>
+                            </td> -->
+
+                            <td class="py-4 px-6">
+    @if($ticket->assigned_to && $ticket->agent)
+    <div class="flex items-center">
+        <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center mr-2 text-white text-xs">
+            {{ substr($ticket->agent->name ?? 'NA', 0, 2) }}
+        </div>
+        <span>{{ $ticket->agent->name ?? 'Non assigné' }}</span>
+        
+        <!-- Bouton pour changer l'assignation -->
+        <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+        </button>
+    </div>
+    @else
+    <div class="flex items-center">
+        <span class="text-gray-400">Non assigné</span>
+        <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+        </button>
+    </div>
+    @endif
+</td>
+
                             <td class="py-4 px-6">
                                 <div class="flex space-x-2">
                                     <a href="{{ route('tickets.show', $ticket->id) }}" class="text-blue-400 hover:text-blue-300 bg-blue-900 bg-opacity-30 rounded-full p-2">
@@ -182,15 +211,39 @@
                 </table>
             </div>
 
-            <div class="mt-6 flex items-center justify-between">
+            <div class="mt-1 ml-2 mr-10 flex items-center justify-between">
                 <div class="text-sm text-gray-400">
                     Affichage de {{ $tickets->firstItem() ?? 0 }} à {{ $tickets->lastItem() ?? 0 }} sur {{ $tickets->total() ?? 0 }} tickets
                 </div>
                 <div class="mt-4">
-                {{ $tickets->links() }}
+                    {{ $tickets->links() }}
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal d'assignation -->
+<div id="assignModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-gray-800 rounded-lg p-6 w-96">
+        <h2 class="text-xl font-semibold mb-4">Assigner le ticket</h2>
+        
+        <form id="assignForm" action="" method="POST">
+            @csrf
+            <div class="mb-4">
+                <label for="agent_id" class="block text-gray-400 mb-2">Sélectionner un agent</label>
+                <select id="agent_id" name="agent_id" class="w-full bg-gray-700 text-white rounded-md p-2">
+                    @foreach($agents as $agent)
+                        <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="flex justify-end space-x-2">
+                <button type="button" onclick="closeAssignModal()" class="px-4 py-2 bg-gray-600 text-white rounded-md">Annuler</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Assigner</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
