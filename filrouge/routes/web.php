@@ -28,6 +28,7 @@ Route::get('/fonctionnalites', function () {
     return view('fonctionnalite');
 })->name('fonctionnalite');
 
+Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);

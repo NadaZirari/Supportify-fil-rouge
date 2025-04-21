@@ -55,18 +55,18 @@
             <div>
     <h3 class="text-sm font-medium text-gray-400 mb-2">Pièces jointes</h3>
     <div class="flex space-x-2">
-        @if($ticket->fichier)
-            <a href="{{ asset('storage/' . $ticket->fichier) }}" target="_blank" class="flex items-center bg-gray-700 hover:bg-gray-600 rounded px-3 py-2 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-                {{ basename($ticket->fichier) }}
-            </a>
-        @else
-            <p class="text-gray-500 text-sm">Aucune pièce jointe</p>
+    @if ($ticket->fichier)
+    <div>
+        <p>Pièce jointe :</p>
+        @if(Str::endsWith($ticket->fichier, ['jpg','jpeg','png','gif']))
+            <img src="{{ asset('storage/' . $ticket->fichier) }}" alt="Image" class="max-w-sm">
         @endif
+
+        <a href="{{ asset('storage/' . $ticket->fichier) }}" target="_blank" class="text-blue-500 underline block mt-2">
+            Voir / Télécharger la pièce jointe
+        </a>
+    </div>
+@endif
     </div>
 </div>
 

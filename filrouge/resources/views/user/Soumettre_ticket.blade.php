@@ -21,7 +21,7 @@
       <h1 class="text-xl sm:text-2xl font-bold mb-2">Nouveau ticket de support</h1>
       <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8">Décrivez votre problème en détail pour obtenir l'aide la plus adaptée</p>
 
-      <form class="space-y-4 sm:space-y-6 max-w-2xl" action="{{ route('tickets.store') }}" method="POST">
+      <form class="space-y-4 sm:space-y-6 max-w-2xl" action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
         <!-- Titre -->
         <div>
@@ -77,7 +77,7 @@
         Glissez vos fichiers ici ou <span class="underline">parcourir</span>
       </label>
       <p class="text-xs text-gray-400 mt-1">PNG, JPG, PDF jusqu'à 10MB</p>
-      <div id="file-name" class="mt-2 text-sm text-white"></div>
+      <div id="selected-file" class="mt-2 text-sm text-white"></div>
     </div>
   </div>
 
@@ -103,6 +103,11 @@
         sidebar.classList.toggle('block');
       });
     });
+     // Afficher le nom du fichier sélectionné
+  document.getElementById('file-upload').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'Aucun fichier sélectionné';
+    document.getElementById('selected-file').textContent = fileName;
+  });
   </script>
 </body>
 </html>

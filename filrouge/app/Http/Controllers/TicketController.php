@@ -32,16 +32,16 @@ class TicketController extends Controller
     
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'required',
             'priority' => 'required|in:basse,moyenne,haute',
             'categorie_id' => 'required|exists:categories,id',
             'fichier' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf|max:10240', // 10MB max
 
-
         ]);
-        $ticket =Ticket::create([
+
+        $ticketData = [
             'title' => $request->title,
             'description' => $request->description,
             'priority' => $request->priority,
@@ -49,14 +49,21 @@ class TicketController extends Controller
             'categorie_id' => $request->categorie_id,
             'assigned_to' => null, // Assigné à personne par défaut
             'user_id' => auth()->id(),
-        ]);
-     // Gestion du fichier
+        ];
+     // Traitement du fichier
      if ($request->hasFile('fichier')) {
-        $path = $request->file('fichier')->store('ticket-attachments', 'public');
+        $file = $request->file('fichier');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('ticket-attachments', $filename, 'public');
         $ticketData['fichier'] = $path;
     }
-        \Log::info('Ticket créé', ['ticket_id' => $ticket->id, 'user_id' => auth()->id()]);
+    $ticket = Ticket::create($ticketData);
 
+    \Log::info('Ticket créé avec succès', [
+        'ticket_id' => $ticket->id,
+        'user_id' => auth()->id(),
+        'fichier' => $ticket->fichier ?? 'Aucun fichier'
+    ]);
         return redirect()->route('user.myticket')->with('success', 'Ticket soumis avec succès');
     }
 
