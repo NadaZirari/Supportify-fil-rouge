@@ -125,6 +125,21 @@ class TicketController extends Controller
         return redirect()->route('tickets.index')->with('success', 'Ticket supprimé');
     }
 
+// Ajouter cette méthode à votre TicketController existant
+public function adminIndex()
+{
+    // Récupérer tous les tickets avec leurs relations
+    $tickets = Ticket::with(['user', 'agent', 'categorie'])->latest()->paginate(10);
+    
+    // Récupérer les catégories pour les filtres
+    $categories = Categorie::all();
+    
+    // Récupérer les agents (utilisateurs avec rôle agent)
+    $agents = User::where('role_id', 2)->get(); // Ajustez selon votre structure de rôles
+
+    return view('admin.ticket_management', compact('tickets', 'categories', 'agents'));
+}
+
 
 
     public function archiveResolvedTickets()

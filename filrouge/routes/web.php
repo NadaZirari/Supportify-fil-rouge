@@ -76,6 +76,8 @@ Route::get('admin-dashboard', function() {
 
 Route::resource('categories', CategorieController::class);
 
+// Modifier cette route pour utiliser la méthode adminIndex du TicketController
+Route::get('/admin/ticket-management', [TicketController::class, 'adminIndex'])->name('ticket_management');
 
 
 Route::resource('tickets', TicketController::class);
