@@ -244,6 +244,15 @@
         </form>
     </div>
 </div>
-
+<script>
+    function openAssignModal(ticketId) {
+        document.getElementById('assignForm').action = `/tickets/${ticketId}/assign`;
+        document.getElementById('assignModal').classList.remove('hidden');
+    }
+    
+    function closeAssignModal() {
+        document.getElementById('assignModal').classList.add('hidden');
+    }
+</script>
 </body>
 </html>
