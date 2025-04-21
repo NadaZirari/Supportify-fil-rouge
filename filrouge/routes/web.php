@@ -74,6 +74,8 @@ Route::get('admin-dashboard', function() {
 })->name('admin-dashboard');
 
 
+Route::resource('categories', CategorieController::class);
+
 
 
 Route::resource('tickets', TicketController::class);

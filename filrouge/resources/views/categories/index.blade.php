@@ -7,6 +7,12 @@
         <a href="{{ route('categories.create') }}" class="bg-blue-500 text-white py-2 px-4 rounded-md">Ajouter une Catégorie</a>
     </div>
 
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-md mb-6">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <!-- Liste des catégories -->
     <div class="bg-card rounded-lg p-6">
         <table class="w-full">
@@ -30,12 +36,16 @@
                         </td>
                     </tr>
                 @empty
+
                     <tr>
                         <td colspan="2" class="py-4 px-6 text-center text-gray-400">Aucune catégorie trouvée</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
+    </div>
+    <div class="mt-4">
+        {{ $categories->links() }}
     </div>
 </div>
 @endsection

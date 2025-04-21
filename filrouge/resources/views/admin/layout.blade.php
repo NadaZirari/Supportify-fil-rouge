@@ -10,23 +10,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white">
-
-@include('partials.sidebaradmin')
+    <div class="flex min-h-screen">
+        @include('partials.sidebaradmin')
 
         <!-- Main Content -->
-        <div class="flex-1 p-6">
-            <div class="bg-gray-800 rounded-lg p-4">
-                <!-- Top Navigation -->
-                <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-semibold">Dashboard</h1>
-                    
-                </div>
-
-                <!-- Main Content Here -->
-                @yield('content')
-            </div>
+        <div class="flex-1">
+            @yield('content')
         </div>
     </div>
-
 </body>
 </html>
