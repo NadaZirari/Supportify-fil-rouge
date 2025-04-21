@@ -121,41 +121,73 @@
                                     <span class="bg-gray-600 text-white text-xs px-2 py-1 rounded-md">Fermé</span>
                                 @endif
                             </td>
+                            <td class="py-4 px-6 text-gray-300">{{ $ticket->created_at->format('d/m/Y') }}</td>
+                            <td class="py-4 px-6">
+                                @if($ticket->priority == 'haute')
+                                    <span class="bg-high text-white text-xs px-2 py-1 rounded-md">Haute</span>
+                                @elseif($ticket->priority == 'moyenne')
+                                    <span class="bg-inprogress text-white text-xs px-2 py-1 rounded-md">Moyenne</span>
+                                @elseif($ticket->priority == 'basse')
+                                    <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-md">Basse</span>
+                                @endif
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="bg-technical text-white text-xs px-2 py-1 rounded-md">
+                                    {{ $ticket->categorie->nom ?? 'Non catégorisé' }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                @if($ticket->assigned_to && $ticket->agent)
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center mr-2 text-white text-xs">
+                                        {{ substr($ticket->agent->name ?? 'NA', 0, 2) }}
+                                    </div>
+                                    <span>{{ $ticket->agent->name ?? 'Non assigné' }}</span>
+                                </div>
+                                @else
+                                <span class="text-gray-400">Non assigné</span>
+                                @endif
+                            </td>
                             <td class="py-4 px-6">
                                 <div class="flex space-x-2">
-                                    <button class="text-blue-400 hover:text-blue-300 bg-blue-900 bg-opacity-30 rounded-full p-2">
+                                    <a href="{{ route('tickets.show', $ticket->id) }}" class="text-blue-400 hover:text-blue-300 bg-blue-900 bg-opacity-30 rounded-full p-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                    </button>
-                                    <button class="text-green-400 hover:text-green-300 bg-green-900 bg-opacity-30 rounded-full p-2">
+                                    </a>
+                                    <a href="{{ route('ticket.edit', $ticket->id) }}" class="text-green-400 hover:text-green-300 bg-green-900 bg-opacity-30 rounded-full p-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
-                                    </button>
-                                    <button class="text-red-400 hover:text-red-300 bg-red-900 bg-opacity-30 rounded-full p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    </a>
+                                    <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-400 hover:text-red-300 bg-red-900 bg-opacity-30 rounded-full p-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
+                                            </svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
+                        @empty
+                        <tr class="border-b border-gray-700">
+                            <td colspan="7" class="py-4 px-6 text-center text-gray-400">Aucun ticket trouvé</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
 
             <div class="mt-6 flex items-center justify-between">
                 <div class="text-sm text-gray-400">
-                    Showing 1 to 10 of 50 entries
+                    Affichage de {{ $tickets->firstItem() ?? 0 }} à {{ $tickets->lastItem() ?? 0 }} sur {{ $tickets->total() ?? 0 }} tickets
                 </div>
-                <div class="flex space-x-2">
-                    <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600">Previous</button>
-                    <button class="px-4 py-2 bg-indigo-600 text-white rounded-md">1</button>
-                    <button class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">2</button>
-                    <button class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">3</button>
-                    <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600">Next</button>
+                <div class="mt-4">
+                {{ $tickets->links() }}
                 </div>
             </div>
         </div>

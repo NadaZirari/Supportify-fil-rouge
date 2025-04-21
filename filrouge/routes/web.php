@@ -169,8 +169,8 @@ Route::middleware(['auth', 'role:1'])->group(function() {
 
 });
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
-Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
-Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
 Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
 Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');

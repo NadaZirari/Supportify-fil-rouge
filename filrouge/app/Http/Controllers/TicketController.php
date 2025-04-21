@@ -5,6 +5,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Models\categorie;
 use App\Models\TicketHistory;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategorieController;
 
@@ -14,8 +15,8 @@ class TicketController extends Controller
     // Affiche la liste des tickets
     public function index()
     {
-        $tickets = Ticket::where('user_id', Auth::id())->get();
-        return view('user.myticket', compact('tickets'));
+        $tickets = Ticket::where('user_id', Auth::id())->latest()->paginate(5);
+                return view('user.myticket', compact('tickets'));
     }
 
     // Formulaire de création
@@ -92,7 +93,7 @@ class TicketController extends Controller
 
         // Mettre à jour un ticket
 
-    public function update(Request $request, Ticket $ticke)
+    public function update(Request $request, Ticket $ticket)
     {
         
         $request->validate([
