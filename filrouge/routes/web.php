@@ -156,6 +156,10 @@ Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categ
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
 
+
+Route::get('/admin/users', [App\Http\Controllers\AdminController::class, 'manageUsers'])->name('admin.manageUsers');
+Route::delete('/admin/users/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+Route::put('/admin/users/{id}/role', [App\Http\Controllers\AdminController::class, 'updateUserRole'])->name('admin.updateUserRole');
 }); 
 Route::middleware(['auth', 'role:1'])->group(function() {
     Route::get('tickets', [AdminController::class, 'manageTickets'])->name('manageTickets');
