@@ -39,7 +39,7 @@ class AdminController extends Controller
         // Récupère tous les utilisateurs
         $users = User::all();
 
-        return view('admin.manage-users', compact('users'));
+        return view('admin.user_management', compact('users'));
     }
 
 
