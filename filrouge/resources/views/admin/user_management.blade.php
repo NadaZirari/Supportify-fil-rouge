@@ -27,7 +27,14 @@
    
 @include('partials.sidebaradmin')
     <!-- Main Content -->
+
     <div class="flex-1 flex flex-col overflow-hidden">
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-4 mb-4 mx-6 mt-6 rounded-md">
+        {{ session('success') }}
+    </div>
+@endif
+
         <div class="p-6 flex justify-between items-center">
             <h1 class="text-2xl font-semibold">Gestion des utilisateurs</h1>
             <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center">
