@@ -130,5 +130,16 @@
         </form>
     </div>
 </div>
+<script>
+    function openRoleModal(userId) {
+        document.getElementById('user_id').value = userId;
+        document.getElementById('roleForm').action = `/admin/users/${userId}/role`;
+        document.getElementById('roleModal').classList.remove('hidden');
+    }
+
+    function closeRoleModal() {
+        document.getElementById('roleModal').classList.add('hidden');
+    }
+</script>
 </body>
 </html>
