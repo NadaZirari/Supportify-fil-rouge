@@ -81,11 +81,11 @@
                         </td>
                         <td class="py-4">
                             <div class="flex space-x-2">
-                                <button class="text-gray-400 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </button>
+                            <button onclick="openRoleModal({{ $user->id }})" class="text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+        </button>
                                 <button class="text-gray-400 hover:text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -108,5 +108,27 @@
             </table>
         </div>
     </div>
+    <!-- Modal pour changer le rôle -->
+<div id="roleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-sidebar p-6 rounded-lg w-96">
+        <h2 class="text-xl font-semibold mb-4">Changer le rôle</h2>
+        <form id="roleForm" method="POST" action="">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="user_id" id="user_id">
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2">Sélectionner un rôle</label>
+                <select name="role_id" class="w-full bg-gray-700 text-white px-3 py-2 rounded-md">
+                    <option value="2">Support</option>
+                    <option value="3">Utilisateur</option>
+                </select>
+            </div>
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="closeRoleModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md">Annuler</button>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
