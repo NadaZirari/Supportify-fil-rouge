@@ -52,6 +52,19 @@ class AdminController extends Controller
 
         return redirect()->route('admin.manageUsers')->with('success', 'Rôle utilisateur mis à jour avec succès!');
     }
+
+
+    public function archivedesarchiveuser($id)
+{
+    $user = User::findOrFail($id);
+    $user->is_active = !$user->is_active;
+    $user->save();
+
+    $status = $user->is_active ? 'activé' : 'archivé';
+    return redirect()->route('admin.manageUsers')->with('success', "L'utilisateur a été $status avec succès!");
+}
+
+
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
