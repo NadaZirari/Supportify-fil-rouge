@@ -87,7 +87,7 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         $categories = Categorie::all();
-        return view('tickets.edit', compact('ticket', 'categories'));
+        return view('ticket.edit', compact('ticket', 'categories'));
     }
 
 

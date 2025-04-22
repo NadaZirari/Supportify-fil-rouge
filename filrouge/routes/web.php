@@ -55,9 +55,7 @@ Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:3'])->name('user.Soumettre_ticket');
 
-Route::get('/user/profil', function () {
-    return view('user.profil');
-})->middleware(['auth', 'role:3'])->name('user.profil');
+Route::get('/user/profil', [ProfileController::class, 'show'])->middleware(['auth', 'role:3'])->name('user.profil');
 
 Route::get('user-management', function() {
     return view('admin.user_management');
@@ -170,6 +168,9 @@ Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assignTicket'
     Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
 });
+Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manageUsers');
+
+
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');

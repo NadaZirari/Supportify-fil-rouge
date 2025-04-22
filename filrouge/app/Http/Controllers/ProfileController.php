@@ -13,7 +13,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $tickets = $user->tickets()->latest()->get();
         
-        return view('profil', compact('user', 'tickets'));
+        return view('user.profil', compact('user', 'tickets'));
     }
     public function update(Request $request)
     {
