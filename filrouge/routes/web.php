@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/home', function () {
-    return view('home');  // Remarquez que 'home' fait référence à 'home.blade.php'
+    return view('home');
 })->name('home');
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
@@ -57,9 +57,7 @@ Route::get('/user/Soumettre_ticket', function () {
 
 Route::get('/user/profil', [ProfileController::class, 'show'])->middleware(['auth', 'role:3'])->name('user.profil');
 
-Route::get('user-management', function() {
-    return view('admin.user_management');
-})->name('user_management');
+Route::get('user-management', [AdminController::class, 'manageUsers'])->name('user_management');
 
 
 Route::get('ticket-management', function() {
@@ -74,8 +72,9 @@ Route::get('admin-dashboard', function() {
 
 Route::resource('categories', CategorieController::class);
 
-// Modifier cette route pour utiliser la méthode adminIndex du TicketController
 Route::get('/admin/ticket-management', [TicketController::class, 'adminIndex'])->name('ticket_management');
+Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+Route::put('/admin/users/{id}/role', [AdminController::class, 'updateUserRole'])->name('admin.updateUserRole');
 
 
 Route::resource('tickets', TicketController::class);
@@ -120,7 +119,7 @@ Route::get('/user/myticket', function () {
     return view('user.myticket');
 })->middleware(['auth', 'role:3'])->name('user.myticket');
 
-// Ajoutez cette route pour afficher les détails d'un ticket
+//  afficher les détails d'un ticket
 Route::get('/tickets', [TicketController::class, 'show'])->name('ticket.detail');
 // Routes pour les tickets
 Route::middleware(['auth'])->group(function () {
