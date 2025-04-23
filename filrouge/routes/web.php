@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/home', function () {
-    return view('home');  // Remarquez que 'home' fait référence à 'home.blade.php'
+    return view('home');  
 })->name('home');
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
@@ -45,7 +45,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Ajouter cette nouvelle route pour traiter la soumission du formulaire
 Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
@@ -76,7 +75,6 @@ Route::get('admin-dashboard', function() {
 
 Route::resource('categories', CategorieController::class);
 
-// Modifier cette route pour utiliser la méthode adminIndex du TicketController
 Route::get('/admin/ticket-management', [TicketController::class, 'adminIndex'])->name('ticket_management');
 
 
@@ -125,7 +123,7 @@ Route::get('/user/myticket', function () {
 Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
 
 
-// Ajoutez cette route pour afficher les détails d'un ticket
+// afficher les détails d'un ticket
 Route::get('/tickets', [TicketController::class, 'show'])->name('ticket.detail');
 // Routes pour les tickets
 Route::middleware(['auth'])->group(function () {
@@ -169,6 +167,8 @@ Route::middleware(['auth', 'role:1'])->group(function() {
     Route::post('tickets/{id}/validate', [AdminController::class, 'validateTicket'])->name('validateTicket');
     Route::post('tickets/{id}/archive', [AdminController::class, 'archiveTicket'])->name('archiveTicket');
        Route::put('/admin/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
+       Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
+
 // Route pour assigner un ticket à un agent
 Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assignTicket'])->name('tickets.assign');
 
@@ -181,8 +181,7 @@ Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
 Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
 Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
-Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
-Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.show');
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 
