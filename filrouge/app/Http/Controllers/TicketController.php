@@ -15,6 +15,7 @@ class TicketController extends Controller
     // Affiche la liste des tickets
     public function index()
     {
+        
         $tickets = Ticket::where('user_id', Auth::id())->latest()->paginate(5);
         return view('user.myticket', compact('tickets'));
     }
@@ -117,7 +118,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
 
         // Vérifier user est admin 
-        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
+        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole(3) && !Auth::user()->hasRole(1)) {
             abort(403, 'Non autorisé');
                 }
 
