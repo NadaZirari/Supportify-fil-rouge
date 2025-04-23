@@ -64,9 +64,9 @@ Route::get('user-management', function() {
 })->name('user_management');
 
 
-Route::get('ticket-management', function() {
-    return view('admin.ticket_management');
-})->name('ticket_management');
+// Route::get('ticket-management', function() {
+//     return view('admin.ticket_management');
+// })->name('ticket_management');
 
 
 Route::get('admin-dashboard', function() {
@@ -91,15 +91,16 @@ Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name(
 
 Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
 
+
 Route::get('/dashboard/admin', function () {
     return view('dashboard.admin-dashboard');
 })->middleware(['auth', 'role:1'])->name('dashboard.admin-dashboard');
 
 
 // Route pour le dashboard de l'agent
-Route::get('/agent/dashboard', function () {
-    return view('dashboard_agent');
-})->name('agent.dashboard');
+// Route::get('/agent/dashboard', function () {
+//     return view('dashboard_agent');
+// })->name('agent.dashboard');
 
 Route::get('/ticket/detail', function () {
     return view('ticket.detail');
@@ -114,13 +115,15 @@ Route::get('/user/dashboard', function () {
 })->middleware(['auth', 'role:3'])->name('user.dashboard');
 
 // Route pour le dashboard de l'agent
-Route::get('/agent/dashboard', function () {
-    return view('dashboard_agent');
-})->name('agent.dashboard');
+// Route::get('/agent/dashboard', function () {
+//     return view('dashboard_agent');
+// })->name('agent.dashboard');
 
 Route::get('/user/myticket', function () {
     return view('user.myticket');
 })->middleware(['auth', 'role:3'])->name('user.myticket');
+Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+
 
 // Ajoutez cette route pour afficher les détails d'un ticket
 Route::get('/tickets', [TicketController::class, 'show'])->name('ticket.detail');
@@ -146,11 +149,11 @@ Route::get('/user/submit-ticket', function () {
 
 Route::middleware(['auth', 'role:1'])->group(function () {
 
-Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
+// Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
 Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
 Route::get('/categories/{categorie}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
-Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('ategories.update');
+Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
 Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categories.show');
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
@@ -175,7 +178,7 @@ Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assignTicket'
 
 });
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
-Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
 Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
 Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
 Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
