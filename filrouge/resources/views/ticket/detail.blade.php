@@ -6,14 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Détail du ticket - Problème de connexion</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
    
-    <!-- @vite('resources/css/app.css') -->
-    
-    <!-- Styles supplémentaires si nécessaire -->
+   
     <style>
-        /* Styles personnalisés si besoin */
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -127,9 +123,8 @@
     </form>
 </div>
 
-    <!-- Scripts -->
     <script>
-        // JavaScript personnalisé si nécessaire
+        
     </script>
 </body>
 </html>
