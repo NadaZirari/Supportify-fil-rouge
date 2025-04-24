@@ -44,10 +44,13 @@
             <div class="p-6">
                 <div class="flex justify-between items-start mb-4">
                 <h1 class="text-xl font-bold">{{ $ticket->title }}</h1>
-                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm">
-                        Fermer le ticket
-                    </button>
-                </div>
+                <form action="{{ route('tickets.close', $ticket->id) }}" method="POST">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
+                Fermer le ticket
+            </button>
+        </form>
                 
                 <div class="flex items-center mb-4">
                 <span class="bg-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-900 text-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-200 text-xs px-2 py-1 rounded mr-2">

@@ -48,6 +48,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
+Route::patch('/tickets/{ticket}/close', [TicketController::class, 'closeTicket'])->name('tickets.close');
 
 
 Route::get('/user/Soumettre_ticket', function () {
