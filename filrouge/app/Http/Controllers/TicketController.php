@@ -118,13 +118,13 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
 
         // Vérifier user est admin 
-        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole(3) && !Auth::user()->hasRole(1)) {
+        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('Admin') ) {
             abort(403, 'Non autorisé');
                 }
 
         $ticket->delete();
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket supprimé');
+        return redirect()->back()->with('success', 'Ticket supprimé avec succès');
     }
 
 // Ajouter cette méthode à votre TicketController existant
