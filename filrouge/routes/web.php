@@ -17,7 +17,8 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/home', function () {
-    return view('home');  
+
+    return view('home');
 })->name('home');
 // Afficher le formulaire d'inscription/connexion
 Route::get('/auth', function () {
@@ -55,13 +56,9 @@ Route::get('/user/Soumettre_ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:3'])->name('user.Soumettre_ticket');
 
-Route::get('/user/profil', function () {
-    return view('user.profil');
-})->middleware(['auth', 'role:3'])->name('user.profil');
+Route::get('/user/profil', [ProfileController::class, 'show'])->middleware(['auth', 'role:3'])->name('user.profil');
 
-Route::get('user-management', function() {
-    return view('admin.user_management');
-})->name('user_management');
+Route::get('user-management', [AdminController::class, 'manageUsers'])->name('user_management');
 
 
 // Route::get('ticket-management', function() {
@@ -77,6 +74,8 @@ Route::get('admin-dashboard', function() {
 Route::resource('categories', CategorieController::class);
 
 Route::get('/admin/ticket-management', [TicketController::class, 'adminIndex'])->name('ticket_management');
+Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+Route::put('/admin/users/{id}/role', [AdminController::class, 'updateUserRole'])->name('admin.updateUserRole');
 
 
 Route::resource('tickets', TicketController::class);
@@ -124,7 +123,8 @@ Route::get('/user/myticket', function () {
 Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
 
 
-// afficher les détails d'un ticket
+
+//  afficher les détails d'un ticket
 Route::get('/tickets', [TicketController::class, 'show'])->name('ticket.detail');
 // Routes pour les tickets
 Route::middleware(['auth'])->group(function () {
@@ -178,6 +178,9 @@ Route::middleware(['auth', 'role:1'])->group(function() {
     Route::delete('users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
 });
+Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manageUsers');
+
+
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
 Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
