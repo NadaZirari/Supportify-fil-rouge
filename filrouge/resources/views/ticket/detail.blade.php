@@ -18,6 +18,7 @@
 </head>
 <body class="bg-gray-900 text-white">
     <!-- Header -->
+    @if(Auth::id() === $ticket->user_id)
     <div class="p-4 border-b border-gray-800">
         <a href="{{ route('tickets.show') }}" class="flex items-center text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -26,6 +27,16 @@
             Retour aux tickets
         </a>
     </div>
+    @elseif(Auth::user()->role_id === 1)
+    <div class="p-4 border-b border-gray-800">
+        <a href="{{ route('ticket_management') }}" class="flex items-center text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Retour à la gestion des tickets
+        </a>
+    </div>
+@endif
 
     <!-- Ticket details -->
     <div class="max-w-4xl mx-auto p-4">
