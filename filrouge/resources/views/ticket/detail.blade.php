@@ -69,10 +69,10 @@
                 
             <div>
     <h3 class="text-sm font-medium text-gray-400 mb-2">Pièces jointes</h3>
-    <div class="flex space-x-2">
+    <div class="flex space-x-2 justify-center">
     @if ($ticket->fichier)
     <div>
-        <p>Pièce jointe :</p>
+        
         @if(Str::endsWith($ticket->fichier, ['jpg','jpeg','png','gif']))
             <img src="{{ asset('storage/' . $ticket->fichier) }}" alt="Image" class="max-w-sm">
         @endif
