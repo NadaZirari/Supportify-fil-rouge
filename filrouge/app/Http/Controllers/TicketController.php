@@ -15,6 +15,7 @@ class TicketController extends Controller
     // Affiche la liste des tickets
     public function index()
     {
+        
         $tickets = Ticket::where('user_id', Auth::id())->latest()->paginate(5);
         return view('user.myticket', compact('tickets'));
     }
@@ -117,13 +118,13 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
 
         // Vérifier user est admin 
-        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('support')) {
+        if ($ticket->user_id !== Auth::id() && !Auth::user()->hasRole('Admin') ) {
             abort(403, 'Non autorisé');
                 }
 
         $ticket->delete();
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket supprimé');
+        return redirect()->back()->with('success', 'Ticket supprimé avec succès');
     }
 
 // Ajouter cette méthode à votre TicketController existant
@@ -142,6 +143,19 @@ public function adminIndex()
 }
 
 
+
+
+public function closeTicket(Ticket $ticket)
+{
+    // Vérifier que l'utilisateur est bien le propriétaire du ticket
+    if ($ticket->user_id !== Auth::id()) {
+        abort(403, 'Non autorisé');
+    }
+    
+    $ticket->update(['status' => 'fermé']);
+    
+    return redirect()->back()->with('success', 'Le ticket a été fermé avec succès');
+}
 
 public function assignTicket(Request $request, Ticket $ticket)
 {
