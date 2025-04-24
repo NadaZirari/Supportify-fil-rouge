@@ -144,6 +144,19 @@ public function adminIndex()
 
 
 
+
+public function closeTicket(Ticket $ticket)
+{
+    // Vérifier que l'utilisateur est bien le propriétaire du ticket
+    if ($ticket->user_id !== Auth::id()) {
+        abort(403, 'Non autorisé');
+    }
+    
+    $ticket->update(['status' => 'fermé']);
+    
+    return redirect()->back()->with('success', 'Le ticket a été fermé avec succès');
+}
+
 public function assignTicket(Request $request, Ticket $ticket)
 {
     $request->validate([
