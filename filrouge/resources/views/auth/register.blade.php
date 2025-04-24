@@ -22,7 +22,7 @@
 @include('partials.navbar')
 
 
-    <div class="w-full max-w-md rounded-lg bg-[#2a3552] bg-opacity-90 p-8 shadow-lg bg-tech-pattern">
+    <div class="w-full self-center max-w-md rounded-lg bg-[#2a3552] bg-opacity-90 p-8 shadow-lg bg-tech-pattern">
         <div class="mb-6 flex items-center justify-center space-x-4">
             <h1 class="text-xl font-bold text-white">REGISTER</h1>
             <a href="{{ route('login') }}" class="text-xl font-bold text-gray-400 hover:text-white">LOGIN</a>
