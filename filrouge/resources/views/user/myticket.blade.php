@@ -116,7 +116,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
-    <a href="{{ route('tickets.show', $ticket->id) }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs inline-block">
+    <a href="{{ route('ticket.detail', $ticket->id) }}" class="bg-btn-blue hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs inline-block">
         Voir détails
     </a>
 </td>
