@@ -195,5 +195,23 @@ public function assignTicket(Request $request, Ticket $ticket)
 
     return redirect()->route('tickets.index')->with('success', 'Tickets archivés avec succès.');
 }
+
+
+
+
+public function agentTickets()
+{
+    // Récupérer l'ID de l'agent connecté
+    $agentId = Auth::id();
+    
+    // Récupérer uniquement les tickets assignés à cet agent
+    $tickets = Ticket::where('assigned_to', $agentId)
+                    ->with(['user', 'categorie'])
+                    ->latest()
+                    ->paginate(10);
+    
+    return view('agent.tickets', compact('tickets'));
+}
+
     
 }
