@@ -136,19 +136,7 @@
                                     {{ $ticket->categorie->nom ?? 'Non catégorisé' }}
                                 </span>
                             </td>
-                            <!--  colonne "Assigned To" u -->
-                            <!-- <td class="py-4 px-6">
-                                @if($ticket->assigned_to && $ticket->agent)
-                                <div class="flex items-center">
-                                    <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center mr-2 text-white text-xs">
-                                        {{ substr($ticket->agent->name ?? 'NA', 0, 2) }}
-                                    </div>
-                                    <span>{{ $ticket->agent->name ?? 'Non assigné' }}</span>
-                                </div>
-                                @else
-                                <span class="text-gray-400">Non assigné</span>
-                                @endif
-                            </td> -->
+                           
 
                             <td class="py-4 px-6">
     @if($ticket->assigned_to && $ticket->agent)
@@ -185,11 +173,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </a>
-                                    <a href="{{ route('ticket.edit', $ticket->id) }}" class="text-green-400 hover:text-green-300 bg-green-900 bg-opacity-30 rounded-full p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
+                                   
                                     <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket?');">
                                         @csrf
                                         @method('DELETE')
