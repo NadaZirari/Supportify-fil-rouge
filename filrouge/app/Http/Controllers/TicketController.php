@@ -210,7 +210,7 @@ public function agentTickets()
                     ->latest()
                     ->paginate(10);
     
-    return view('agent.tickets', compact('tickets'));
+    return view('agent.TicketAgent', compact('tickets'));
 }
 
     

@@ -194,6 +194,6 @@ Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name(
 Route::post('/tickets/{ticket}/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
 // Route pour agents
 Route::middleware(['auth', 'role:2'])->group(function() {
-    Route::get('/agent/tickets', [TicketController::class, 'agentTickets'])->name('agent.tickets');
+    Route::get('/agent/tickets', [TicketController::class, 'agentTickets'])->name('TicketAgent');;
     
 });
