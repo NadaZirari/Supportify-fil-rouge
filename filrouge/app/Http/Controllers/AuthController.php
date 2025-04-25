@@ -70,9 +70,14 @@ class AuthController extends Controller
         'password' => 'required',
     ]);
 
+// Vérifier si l'utilisateur existe et est actif
+$user = User::where('email', $credentials['email'])->first();
 
-
-
+if ($user && !$user->is_active) {
+    return back()->withErrors([
+        'email' => 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.',
+    ])->withInput($request->except('password'));
+}
 
 
     
