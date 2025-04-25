@@ -108,6 +108,8 @@
                 
                <!-- Message input -->
 <div class="flex mt-6">
+@if(Auth::user()->role_id != 1) 
+
     <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="w-full flex">
         @csrf
         <div class="flex-grow relative">
@@ -122,6 +124,8 @@
         </button>
     </form>
 </div>
+@endif
+
 
     <script>
         
