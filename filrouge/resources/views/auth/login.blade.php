@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'inscription</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         .bg-tech-pattern {
             background-image: url('a.jpg');
@@ -27,6 +29,17 @@
             <h1 class="text-xl font-bold text-white">LOGIN</h1>
             <a href="{{ route('register') }}" class="text-xl font-bold text-gray-400 hover:text-white">REGISTER</a>
         </div>
+
+
+@if($errors->any())
+    <div class="bg-red-500 text-white p-4 mb-4 rounded-md">
+        @if($errors->has('inactive'))
+            {{ $errors->first('inactive') }}
+        @else
+            {{ $errors->first('email') }}
+        @endif
+    </div>
+@endif
 
         <form action="{{ route('login') }}" method="POST">
             @csrf
@@ -82,4 +95,17 @@
         </div>
     </div>
 </body>
+<script>
+    // Vérifier si un message SweetAlert est présent dans la session
+    @if(session('sweet_alert'))
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: '{{ session('sweet_alert.type') }}',
+                title: '{{ session('sweet_alert.title') }}',
+                text: '{{ session('sweet_alert.text') }}',
+                confirmButtonColor: '#ff6b45'
+            });
+        });
+    @endif
+</script>
 </html>

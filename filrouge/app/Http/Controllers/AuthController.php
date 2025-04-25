@@ -60,7 +60,7 @@ class AuthController extends Controller
     }
     
 
-    public function login(Request $request)
+public function login(Request $request)
 {
     // Affiche les données soumises dans le formulaire
     $request->all();
@@ -70,18 +70,22 @@ class AuthController extends Controller
         'password' => 'required',
     ]);
 
-// Vérifier si l'utilisateur existe et est actif
-$user = User::where('email', $credentials['email'])->first();
+    // Vérifier si l'utilisateur existe et est actif
+    $user = User::where('email', $credentials['email'])->first();
+    if ($user && !$user->is_active) {
 
-if ($user && !$user->is_active) {
-    return back()->withErrors([
-        'email' => 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.',
+    // Utiliser with pour passer un message flash pour SweetAlert
+    return back()->with('sweet_alert', [
+        'type' => 'error',
+        'title' => 'Compte désactivé',
+        'text' => 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.'
     ])->withInput($request->except('password'));
 }
+    // Ajouter la condition is_active aux credentials
+    $credentials['is_active'] = true;
 
-
-    
-   if (Auth::attempt($credentials)) {
+        
+    if (Auth::attempt($credentials)) {
         $request->session()->regenerate(); // Regénère la session
 
         // Récupère l'utilisateur authentifié
@@ -102,7 +106,10 @@ if ($user && !$user->is_active) {
     return back()->withErrors([
         'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
     ])->withInput($request->except('password'));
+
 }
+
+
 
 
     public function logout(Request $request)
