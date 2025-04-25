@@ -38,9 +38,13 @@ class AdminController extends Controller
     public function manageUsers()
     {
         // Récupère tous les utilisateurs
-        $users = User::all();
+        // $users = User::all();
 
-        return view('admin.user_management', compact('users'));
+        $activeUsers = User::where('is_active', true)->get();
+
+        $archivedUsers = User::where('is_active', false)->get();
+
+        return view('admin.user_management', compact('activeUsers', 'archivedUsers'));
     }
 
 
@@ -54,7 +58,7 @@ class AdminController extends Controller
     }
 
 
-    public function archivedesarchiveuser($id)
+    public function archiveToggleUser($id)
 {
     $user = User::findOrFail($id);
     $user->is_active = !$user->is_active;

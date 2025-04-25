@@ -178,6 +178,9 @@ Route::middleware(['auth', 'role:1'])->group(function() {
 });
 Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manageUsers');
 
+///////////////////////
+Route::post('/admin/users/{id}/archive-toggle', [AdminController::class, 'archiveToggleUser'])->name('admin.archiveToggleUser');
+/////////////////////////////
 
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.detail');
