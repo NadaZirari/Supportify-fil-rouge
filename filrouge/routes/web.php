@@ -197,3 +197,20 @@ Route::middleware(['auth', 'role:2'])->group(function() {
     Route::get('/agent/tickets', [TicketController::class, 'agentTickets'])->name('TicketAgent');;
     
 });
+
+Route::get('/back-to-dashboard', function () {
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+    
+    switch(auth()->user()->role_id) {
+        case 1: 
+            return redirect()->route('admin.dashboard');
+        case 2: 
+            return redirect()->route('agent.dashboard');
+        case 3: 
+            return redirect()->route('user.dashboard');
+        default:
+            return redirect()->route('home');
+    }
+})->name('back.to.dashboard');

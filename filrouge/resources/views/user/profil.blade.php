@@ -24,7 +24,7 @@
     <!-- Header -->
     <header class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
         <div class="flex items-center">
-        <a href="{{ route('user.dashboard') }}">
+        <a href="{{ route('back.to.dashboard') }}">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
     </svg>
