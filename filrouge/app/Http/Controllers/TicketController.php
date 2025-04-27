@@ -225,7 +225,7 @@ public function updateStatus(Request $request)
 {
     $validated = $request->validate([
         'ticket_id' => 'required|exists:tickets,id',
-        'status' => 'required|in:ouvert,en_cours,résolu,fermé',
+        'status' => 'required|in:ouvert,en_cours,résolu',
         'comment' => 'nullable|string|max:500',
     ]);
     

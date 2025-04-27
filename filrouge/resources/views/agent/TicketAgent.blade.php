@@ -195,7 +195,6 @@
                         <option value="ouvert">Ouvert</option>
                         <option value="en_cours">En cours</option>
                         <option value="résolu">Résolu</option>
-                        <option value="fermé">Fermé</option>
                     </select>
                 </div>
                 
