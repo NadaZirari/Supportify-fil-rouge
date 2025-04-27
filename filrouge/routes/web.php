@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Controllers\AgentDashboardController;
+
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -103,9 +105,9 @@ Route::get('/ticket/detail', function () {
     return view('ticket.detail');
 });
 
-Route::get('/dashboard/agent', function () {
-    return view('dashboard.dashboardAgent'); // Charge la vue dashboardAgent.blade.php dans le dossier dashboard
-})->middleware('role:2')->name('agent.dashboard');
+Route::get('/dashboard/agent', [AgentDashboardController::class, 'index'])
+    ->middleware('role:2')
+    ->name('agent.dashboard');
 
 Route::get('/user/dashboard', function () {
     return view('user.dashboardUser');

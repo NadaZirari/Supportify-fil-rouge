@@ -44,7 +44,7 @@
         
         <!-- Main Content -->
         <div class="flex-1 overflow-auto p-6">
-            <!-- Search Bar -->
+            <!-- Search  -->
             <div class="relative mb-6 w-[300px]">
                 <input type="text" placeholder="Search tickets..." class="w-full pl-10 pr-4 py-2 bg-dark-card border-none rounded-md text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,12 +52,12 @@
                 </svg>
             </div>
             
-            <!-- Stats Cards -->
+            <!-- Stats  -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <!-- Open Tickets -->
+                <!-- Open  -->
                 <div class="bg-dark-card rounded-lg p-4">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Open Tickets</h3>
+                        <h3 class="text-sm text-gray-400">Tickets ouverts</h3>
                         <div class="bg-primary p-1 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
@@ -65,12 +65,12 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">248</h2>
+                        <h2 class="text-2xl font-bold">{{ $openTicketsCount }}</h2>
                         <div class="flex items-center text-green-500 text-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                             </svg>
-                            <span>10% last week</span>
+                            <span>{{ $openTicketsPercentage }}% dernière semaine</span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                 <!-- Resolved -->
                 <div class="bg-dark-card rounded-lg p-4">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Resolved</h3>
+                        <h3 class="text-sm text-gray-400">Résolus</h3>
                         <div class="bg-secondary p-1 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -86,20 +86,20 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">1,842</h2>
+                        <h2 class="text-2xl font-bold">{{ $resolvedTicketsCount }}</h2>
                         <div class="flex items-center text-green-500 text-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                             </svg>
-                            <span>8% last week</span>
+                            <span>{{ $resolvedTicketsPercentage }}% dernière semaine</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Response Time -->
+                <!-- repondree temps -->
                 <div class="bg-dark-card rounded-lg p-4">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Response Time</h3>
+                        <h3 class="text-sm text-gray-400">Temps de réponse</h3>
                         <div class="bg-accent p-1 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -107,20 +107,20 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">1.8h</h2>
-                        <div class="flex items-center text-red-500 text-xs">
+                        <h2 class="text-2xl font-bold">{{ $averageResponseTime }}h</h2>
+                        <div class="flex items-center {{ $responseTimeChange < 0 ? 'text-green-500' : 'text-red-500' }} text-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                             </svg>
-                            <span>4% last week</span>
+                            <span>{{ abs($responseTimeChange) }}% dernière semaine</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Customer Satisfaction -->
+                <!-- client avis -->
                 <div class="bg-dark-card rounded-lg p-4">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Customer Satisfaction</h3>
+                        <h3 class="text-sm text-gray-400">Satisfaction client</h3>
                         <div class="bg-accent-green p-1 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
@@ -128,12 +128,12 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">94%</h2>
+                        <h2 class="text-2xl font-bold">{{ $satisfactionRate }}%</h2>
                         <div class="flex items-center text-green-500 text-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                             </svg>
-                            <span>2% last week</span>
+                            <span>{{ $satisfactionChange }}% dernière semaine</span>
                         </div>
                     </div>
                 </div>
@@ -142,52 +142,31 @@
             <!-- Recent Tickets -->
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold">Recent Tickets</h2>
-                    <button class="bg-primary hover:bg-[#ff5252] text-white px-4 py-2 rounded-md text-sm">View All</button>
+                    <h2 class="text-xl font-bold">Tickets récents</h2>
+                    <a href="{{ route('TicketAgent') }}" class="bg-primary hover:bg-[#ff5252] text-white px-4 py-2 rounded-md text-sm">Voir tous</a>
                 </div>
                 
                 <div class="space-y-3">
-                    <!-- Ticket 1 -->
+                    @forelse($recentTickets as $ticket)
                     <div class="bg-dark-card rounded-lg p-4 flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Wilson" class="w-full h-full object-cover">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($ticket->user->name) }}&background=random" alt="{{ $ticket->user->name }}" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h3 class="font-medium">Login Authentication Issue</h3>
-                                <p class="text-sm text-gray-400">Sarah Wilson • 3 hours ago</p>
+                                <h3 class="font-medium">{{ $ticket->title }}</h3>
+                                <p class="text-sm text-gray-400">{{ $ticket->user->name }} • {{ $ticket->created_at->diffForHumans() }}</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 bg-yellow-600 text-white text-xs rounded-full">In Progress</span>
+                        <span class="px-3 py-1 bg-{{ $ticket->status == 'ouvert' ? 'yellow' : ($ticket->status == 'en_cours' ? 'blue' : ($ticket->status == 'resolu' ? 'green' : 'gray')) }}-600 text-white text-xs rounded-full">
+                            {{ ucfirst(str_replace('_', ' ', $ticket->status)) }}
+                        </span>
                     </div>
-                    
-                    <!-- Ticket 2 -->
-                    <div class="bg-dark-card rounded-lg p-4 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mike Thompson" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h3 class="font-medium">Database Connection Error</h3>
-                                <p class="text-sm text-gray-400">Mike Thompson • 5 hours ago</p>
-                            </div>
-                        </div>
-                        <span class="px-3 py-1 bg-red-600 text-white text-xs rounded-full">High Priority</span>
+                    @empty
+                    <div class="bg-dark-card rounded-lg p-4 text-center">
+                        <p class="text-gray-400">Aucun ticket récent à afficher</p>
                     </div>
-                    
-                    <!-- Ticket 3 -->
-                    <div class="bg-dark-card rounded-lg p-4 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Chen" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h3 class="font-medium">Feature Request: Dark Mode</h3>
-                                <p class="text-sm text-gray-400">Emily Chen • 5 hours ago</p>
-                            </div>
-                        </div>
-                        <span class="px-3 py-1 bg-green-600 text-white text-xs rounded-full">New</span>
-                    </div>
+                    @endforelse
                 </div>
             </div>
             
@@ -195,9 +174,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Resolution Time Chart -->
                 <div class="bg-dark-card rounded-lg p-4">
-                    <h2 class="text-xl font-bold mb-4">Resolution Time</h2>
+                    <h2 class="text-xl font-bold mb-4">Temps de résolution</h2>
                     <div class="h-[200px] bg-dark flex items-center justify-center text-gray-500">
-                        <!-- Chart would go here -->
+                        <!-- Chart je vais lajouté -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
@@ -206,7 +185,7 @@
                 
                 <!-- Ticket Categories Chart -->
                 <div class="bg-dark-card rounded-lg p-4">
-                    <h2 class="text-xl font-bold mb-4">Ticket Categories</h2>
+                    <h2 class="text-xl font-bold mb-4">Catégories de tickets</h2>
                     <div class="h-[200px] bg-dark flex items-center justify-center text-gray-500">
                         <!-- Chart would go here -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">

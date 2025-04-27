@@ -44,7 +44,6 @@ class AgentDashboardController extends Controller
             : 0;
             
         // Calculer le temps de réponse moyen (en heures)
-        // Note: Ceci est un exemple simplifié. Vous devrez adapter selon votre structure de données
         $averageResponseTime = 1.8; // Valeur par défaut
         $responseTimeChange = -4; // Valeur par défaut
         
