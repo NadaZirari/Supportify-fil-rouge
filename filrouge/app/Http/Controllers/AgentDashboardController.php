@@ -43,14 +43,10 @@ class AgentDashboardController extends Controller
             ? round((($resolvedTicketsCount - $lastWeekResolvedTickets) / $lastWeekResolvedTickets) * 100) 
             : 0;
             
-        // Calculer le temps de réponse moyen (en heures)
-        $averageResponseTime = 1.8; // Valeur par défaut
-        $responseTimeChange = -4; // Valeur par défaut
         
-        // Taux de satisfaction client (exemple)
-        $satisfactionRate = 94; // Valeur par défaut
-        $satisfactionChange = 2; // Valeur par défaut
         
+        
+            $totalTickets = Ticket::where('assigned_to', $agent_id)->count();
         // Récupérer les tickets récents
         $recentTickets = Ticket::where('assigned_to', $agent_id)
             ->with('user')
@@ -60,13 +56,11 @@ class AgentDashboardController extends Controller
             
         return view('dashboard.dashboardAgent', compact(
             'openTicketsCount',
+            'totalTickets',
+
             'resolvedTicketsCount',
             'openTicketsPercentage',
             'resolvedTicketsPercentage',
-            'averageResponseTime',
-            'responseTimeChange',
-            'satisfactionRate',
-            'satisfactionChange',
             'recentTickets'
         ));
     }

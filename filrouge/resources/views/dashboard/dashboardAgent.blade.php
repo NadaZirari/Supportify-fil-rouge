@@ -105,47 +105,24 @@
                     </div>
                 </div>
                 
-                <!-- repondree temps -->
+                <!-- Open  -->
                 <div class="bg-dark-card rounded-lg p-4">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Temps de réponse</h3>
-                        <div class="bg-accent p-1 rounded-md">
+                        <h3 class="text-sm text-gray-400">Total Tickets </h3>
+                        <div class="bg-primary p-1 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                             </svg>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">{{ $averageResponseTime }}h</h2>
-                        <div class="flex items-center {{ $responseTimeChange < 0 ? 'text-green-500' : 'text-red-500' }} text-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                            </svg>
-                            <span>{{ abs($responseTimeChange) }}% dernière semaine</span>
-                        </div>
+                        <h2 class="text-2xl font-bold">{{ $totalTickets }}</h2>
+                        
                     </div>
                 </div>
                 
                 <!-- client avis -->
-                <div class="bg-dark-card rounded-lg p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-sm text-gray-400">Satisfaction client</h3>
-                        <div class="bg-accent-green p-1 rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold">{{ $satisfactionRate }}%</h2>
-                        <div class="flex items-center text-green-500 text-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                            </svg>
-                            <span>{{ $satisfactionChange }}% dernière semaine</span>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             
             <!-- Recent Tickets -->
