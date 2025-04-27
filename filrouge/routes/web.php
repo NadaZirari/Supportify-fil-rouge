@@ -105,7 +105,7 @@ Route::get('/ticket/detail', function () {
     return view('ticket.detail');
 });
 
-Route::get('/dashboard/agent', [AgentDashboardController::class, 'index'])
+Route::get('/dashboard/agent', [AgentDashboardController::class, 'statistics'])
     ->middleware('role:2')
     ->name('agent.dashboard');
 
