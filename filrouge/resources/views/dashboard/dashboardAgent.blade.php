@@ -189,8 +189,71 @@
                         </svg>
                     </div>
                 </div>
+
+
+                <div class="bg-dark-card rounded-lg p-4">
+                <h2 class="text-lg font-semibold mb-4">Répartition des Tickets</h2>
+    <canvas 
+        id="ticketsChart"
+        data-open="{{ $openTickets }}"
+        data-inprogress="{{ $inProgressTickets }}"
+        data-resolved="{{ $resolvedTickets }}"
+        width="400" height="400"
+    ></canvas>
+    
+</div>
+<div class="mt-8 p-4 bg-dark-card shadow rounded">
+    <h2 class="text-lg font-semibold mb-4">Détails des Performances</h2>
+
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr>
+                <th class="border-b p-2">Statistique</th>
+                <th class="border-b p-2">Nombre</th>
+                <th class="border-b p-2">Pourcentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border-b p-2">Tickets Ouverts</td>
+                <td class="border-b p-2">{{ $openTickets }}</td>
+                <td class="border-b p-2">
+                    @if($totalTickets > 0)
+                        {{ round(($openTickets / $totalTickets) * 100, 2) }}%
+                    @else
+                        0%
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td class="border-b p-2">Tickets En Cours</td>
+                <td class="border-b p-2">{{ $inProgressTickets }}</td>
+                <td class="border-b p-2">
+                    @if($totalTickets > 0)
+                        {{ round(($inProgressTickets / $totalTickets) * 100, 2) }}%
+                    @else
+                        0%
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td class="border-b p-2">Tickets Résolus</td>
+                <td class="border-b p-2">{{ $resolvedTickets }}</td>
+                <td class="border-b p-2">
+                    @if($totalTickets > 0)
+                        {{ round(($resolvedTickets / $totalTickets) * 100, 2) }}%
+                    @else
+                        0%
+                    @endif
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
             </div>
         </div>
     </div>
+    
 </body>
 </html>
