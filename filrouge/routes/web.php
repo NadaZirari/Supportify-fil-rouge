@@ -197,6 +197,8 @@ Route::middleware(['auth', 'role:2'])->group(function() {
     Route::get('/agent/tickets', [TicketController::class, 'agentTickets'])->name('TicketAgent');;
     
 });
+// Ajoutez cette route
+Route::post('/ticket/update-status', [TicketController::class, 'updateStatus'])->name('ticket.update.status');
 
 Route::get('/back-to-dashboard', function () {
     if (!auth()->check()) {

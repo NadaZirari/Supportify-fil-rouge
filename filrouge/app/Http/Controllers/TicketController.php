@@ -199,19 +199,48 @@ public function assignTicket(Request $request, Ticket $ticket)
 
 
 
-public function agentTickets()
+public function agentTickets(Request $request, $status = null)
 {
     // Récupérer l'ID de l'agent connecté
-    $agentId = Auth::id();
+    $query = Ticket::where('assigned_to', auth()->id());
     
-    // Récupérer uniquement les tickets assignés à cet agent
-    $tickets = Ticket::where('assigned_to', $agentId)
-                    ->with(['user', 'categorie'])
-                    ->latest()
-                    ->paginate(10);
-    
-    return view('agent.TicketAgent', compact('tickets'));
+  // Filtrer par statut si spécifié
+  if ($status) {
+    $query->where('status', $status);
 }
 
+$tickets = $query->orderBy('created_at', 'desc')->paginate(10);
+
+return view('agent.TicketAgent', [
+    'tickets' => $tickets,
+    'currentStatus' => $status
+]);
+}
+
+
+/**
+ * Met à jour le statut d'un ticket 
+ */
+public function updateStatus(Request $request)
+{
+    $validated = $request->validate([
+        'ticket_id' => 'required|exists:tickets,id',
+        'status' => 'required|in:ouvert,en_cours,résolu,fermé',
+        'comment' => 'nullable|string|max:500',
+    ]);
     
+    $ticket = Ticket::findOrFail($validated['ticket_id']);
+    $oldStatus = $ticket->status;
+    $ticket->status = $validated['status'];
+    $ticket->save();
+    
+
+    
+    // Message de succès avec détails du changement
+    $message = "Le ticket a été déplacé de \"" . ucfirst(str_replace('_', ' ', $oldStatus)) . 
+               "\" vers \"" . ucfirst(str_replace('_', ' ', $validated['status'])) . "\"";
+    
+    // Rediriger vers la section correspondant au nouveau statut
+    return redirect()->route('TicketAgent', ['status' => $validated['status']])->with('success', $message);
+}
 }
