@@ -6,37 +6,46 @@
     <title>Supportify - Tableau de bord</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: {
-                            DEFAULT: '#1e1e2d',
-                            lighter: '#252547',
-                            sidebar: '#252547',
-                            card: '#252547'
-                        },
-                        primary: {
-                            DEFAULT: '#ff6b6b',
-                        },
-                        secondary: {
-                            DEFAULT: '#6b77ff',
-                        },
-                        accent: {
-                            DEFAULT: '#ff9f6b',
-                            green: '#6bffb8'
-                        }
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'sidebar': '#1e293b',
+                    'main-bg': '#0f172a',
+                    'btn-blue': '#3b82f6',
+                    'high': '#ef4444',
+                    'medium': '#f59e0b',
+                    'low': '#10b981',
+                    'active': '#10b981',
+                    'closed': '#f59e0b',
+                    dark: {
+                        DEFAULT: '#1e1e2d',
+                        lighter: '#252547',
+                        sidebar: '#252547',
+                        card: '#252547'
+                    },
+                    primary: {
+                        DEFAULT: '#ff6b6b',
+                    },
+                    secondary: {
+                        DEFAULT: '#6b77ff',
+                    },
+                    accent: {
+                        DEFAULT: '#ff9f6b',
+                        green: '#6bffb8'
                     }
                 }
             }
         }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+    }
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+</style>
+
 </head>
 <body class="bg-dark text-white">
     <div class="flex h-screen overflow-hidden">

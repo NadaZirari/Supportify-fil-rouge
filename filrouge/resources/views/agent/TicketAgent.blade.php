@@ -11,19 +11,34 @@
             theme: {
                 extend: {
                     colors: {
-                        'sidebar': '#1e293b',
+                        'sidebar': '#252547', 
                         'main-bg': '#0f172a',
                         'btn-blue': '#3b82f6',
                         'high': '#ef4444',
                         'medium': '#f59e0b',
                         'low': '#10b981',
                         'active': '#10b981',
-                        'closed': '#f59e0b'
+                        'closed': '#f59e0b',
+                        dark: {
+                        DEFAULT: '#1e1e2d',
+                        lighter: '#252547',
+                        sidebar: '#252547',
+                        card: '#252547'
+                    },
+                    primary: {
+                        DEFAULT: '#ff6b6b',
+                    }
                     }
                 }
             }
         }
     </script>
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 <body class="bg-main-bg text-white flex h-screen">
     <!-- Sidebar -->

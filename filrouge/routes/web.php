@@ -113,10 +113,6 @@ Route::get('/user/dashboard', function () {
     return view('user.dashboardUser');
 })->middleware(['auth', 'role:3'])->name('user.dashboard');
 
-// Route pour le dashboard de l'agent
-// Route::get('/agent/dashboard', function () {
-//     return view('dashboard_agent');
-// })->name('agent.dashboard');
 
 Route::get('/user/myticket', function () {
     return view('user.myticket');
