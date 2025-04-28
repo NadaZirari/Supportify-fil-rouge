@@ -199,6 +199,11 @@ Route::middleware(['auth', 'role:2'])->group(function() {
 Route::post('/ticket/update-status', [TicketController::class, 'updateStatus'])->name('ticket.update.status');
 Route::get('/agent/tickets/{status?}', [TicketController::class, 'agentTickets'])->name('TicketAgent');
 
+
+Route::post('/profile/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
+
+
+
 Route::get('/back-to-dashboard', function () {
     if (!auth()->check()) {
         return redirect()->route('login');

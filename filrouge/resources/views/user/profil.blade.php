@@ -40,9 +40,23 @@
         <!-- Profile Card -->
         <div class="bg-gray-800 bg-opacity-50 rounded-lg p-6 mb-6">
             <div class="flex flex-col md:flex-row items-center md:items-start">
-                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-6">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Nada ZIRARI" class="w-full h-full object-cover">
-                </div>
+            <div class="w-20 h-20 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-6 relative group">
+    @if($user->photo)
+        <img src="{{ Storage::url($user->photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+    @else
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="{{ $user->name }}" class="w-full h-full object-cover">
+    @endif
+    
+    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button type="button" onclick="document.getElementById('photo-upload-modal').classList.remove('hidden')" class="text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
                 <div class="flex-1 text-center md:text-left">
                     <h2 class="text-xl font-bold">{{ $user->name ?? 'Nada ZIRARI' }}</h2>
                     <p class="text-gray-400">{{ $user->email ?? 'NADA@GMAIL.com' }}</p>
@@ -187,5 +201,28 @@
             </div>
         </div>
     </div>
+    <div id="photo-upload-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+        <h3 class="text-lg font-semibold mb-4">Modifier la photo de profil</h3>
+        
+        <form action="{{ route('profile.update.photo') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label class="block text-gray-400 text-sm mb-2">Sélectionner une nouvelle photo</label>
+                <input type="file" name="photo" accept="image/*" class="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white">
+                <p class="text-xs text-gray-400 mt-1">Formats acceptés: JPG, PNG, GIF. Taille max: 2MB</p>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="document.getElementById('photo-upload-modal').classList.add('hidden')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm">
+                    Annuler
+                </button>
+                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm">
+                    Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
