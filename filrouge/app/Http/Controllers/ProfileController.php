@@ -30,4 +30,31 @@ class ProfileController extends Controller
         
         return redirect()->route('profile.show')->with('success', 'Profil mis à jour avec succès');
     }
+
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
+        $user = Auth::user();
+        
+        // Delete old photo if exists
+        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            Storage::disk('public')->delete($user->photo);
+        }
+        
+        // Store the new photo
+        $photoPath = $request->file('photo')->store('profile-photos', 'public');
+        
+        // Update user record
+        $user->update([
+            'photo' => $photoPath
+        ]);
+        
+        return redirect()->route('profile.show')->with('success', 'Photo de profil mise à jour avec succès');
+    }
+
+
+
 }
