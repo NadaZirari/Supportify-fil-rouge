@@ -63,13 +63,22 @@
                     <tr class="border-b border-gray-700">
                         <td class="py-4">
                             <div class="flex items-center">
+
+                               
                                 <div class="h-10 w-10 rounded-full 
-                                    @if($user->role_id == 1) bg-admin 
-                                    @elseif($user->role_id == 2) bg-support 
-                                    @else bg-user @endif 
-                                    flex items-center justify-center mr-3 text-white font-medium">
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
+                                @if(!$user->photo) 
+                                @if($user->role_id == 1) bg-admin 
+                                @elseif($user->role_id == 2) bg-support 
+                                @else bg-user @endif 
+                                 @endif
+                                flex items-center justify-center mr-3 text-white font-medium overflow-hidden">
+                                 @if($user->photo)
+                               <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}" class="h-full w-full object-cover">
+                                @else
+                            {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
+                               @endif
                                 </div>
+
                                 <span>{{ $user->name }}</span>
                             </div>
                         </td>
