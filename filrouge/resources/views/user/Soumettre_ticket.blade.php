@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nouveau ticket de support</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body class="bg-[#0f172a] text-white font-sans min-h-screen flex flex-col">
 
@@ -20,6 +22,18 @@
     <main class="flex-1 p-4 sm:p-6 md:p-10">
       <h1 class="text-xl sm:text-2xl font-bold mb-2">Nouveau ticket de support</h1>
       <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8">Décrivez votre problème en détail pour obtenir l'aide la plus adaptée</p>
+
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Erreur!</strong>
+        <span class="block sm:inline">{{ session('error') }}</span>
+    </div>
+
+@if(session('success'))
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Succès!</strong>
+        <span class="block sm:inline">{{ session('success') }}</span>
+    </div>
+@endif
 
       <form class="space-y-4 sm:space-y-6 max-w-2xl" action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
@@ -108,6 +122,18 @@
     const fileName = e.target.files[0] ? e.target.files[0].name : 'Aucun fichier sélectionné';
     document.getElementById('selected-file').textContent = fileName;
   });
-  </script>
+
+
+  
+
+   
+  document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Limite de tickets atteinte',
+                text: '{{ session('error') }}',
+            });
+        });
+          </script>
 </body>
 </html>
