@@ -1,6 +1,35 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supportify - Système de tickets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sidebar': '#1e293b',
+                        'main-bg': '#0f172a',
+                        'btn-blue': '#3b82f6',
+                        'high': '#ef4444',
+                        'medium': '#f59e0b',
+                        'low': '#10b981',
+                        'active': '#10b981',
+                        'closed': '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-main-bg text-white flex h-screen">
+    
+        @include('partials.sidebaruser')
 
-@section('content')
 <div class="max-w-3xl mx-auto py-16 px-6">
     <div class="bg-white shadow-xl rounded-2xl p-8 text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Passez en mode Premium</h1>
@@ -29,4 +58,8 @@
         @endif
     </div>
 </div>
-@endsection
+
+</main>
+    </div>
+</body>
+</html>
