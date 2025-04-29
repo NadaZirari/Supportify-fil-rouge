@@ -6,6 +6,8 @@
     <title>Supportify - Support client intelligent et efficace</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-dark: #0f1123;
@@ -22,8 +24,8 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
             color: var(--text-primary);
             line-height: 1.6;
         }
@@ -88,7 +90,7 @@
         }
         
         .btn:hover {
-            background-color: #e64a19;
+            background-color: #;
         }
         
         .btn-outline {
@@ -106,6 +108,7 @@
             display: flex;
             align-items: center;
             padding: 80px 0;
+            background-color:#78c0ff;
         }
         
         .hero-content {
@@ -120,7 +123,7 @@
         .hero-image img {
             width: 100%;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.0);
         }
         
         h1 {
@@ -130,11 +133,11 @@
         }
         
         h1 span {
-            color: var(--accent);
+            color: #052485;
         }
         
         .subtitle {
-            color: var(--text-secondary);
+            color: black;
             margin-bottom: 30px;
             font-size: 1.1rem;
         }
@@ -411,7 +414,7 @@
         </div>
         
         <div class="hero-image">
-            <img src="/home.jpg" alt="Dashboard Supportify" onerror="this.src='https://hebbkx1anhila5yf.public.blob.vercel-storage.com/homepagefil-AKFfVIbp0ACJ9CrVIXB8ATpPA7VHAo.png'">
+            <img src="/photo2.jpeg" alt="Dashboard Supportify" onerror="this.src='https://hebbkx1anhila5yf.public.blob.vercel-storage.com/homepagefil-AKFfVIbp0ACJ9CrVIXB8ATpPA7VHAo.png'">
         </div>
     </section>
     

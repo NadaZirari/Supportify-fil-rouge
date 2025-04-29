@@ -34,6 +34,14 @@ class TicketController extends Controller
     
     public function store(Request $request)
     {
+
+
+
+        if (auth()->user()->status === 'free' && $ticketCount >= 3) {
+            // Retourn msg derreur
+            return redirect()->route('user.myticket')->with('error', 'Vous avez atteint la limite de 3 tickets (utilisateurs gratuits).');
+        }
+
         $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'required',
@@ -127,7 +135,7 @@ class TicketController extends Controller
         return redirect()->back()->with('success', 'Ticket supprimé avec succès');
     }
 
-// Ajouter cette méthode à votre TicketController existant
+
 public function adminIndex()
 {
     // Récupérer tous les tickets avec leurs relations
@@ -137,7 +145,7 @@ public function adminIndex()
     $categories = Categorie::all();
     
     // Récupérer les agents (utilisateurs avec rôle agent)
-    $agents = User::where('role_id', 2)->get(); // Ajustez selon votre structure de rôles
+    $agents = User::where('role_id', 2)->get(); 
 
     return view('admin.ticket_management', compact('tickets', 'categories', 'agents'));
 }
@@ -165,10 +173,10 @@ public function assignTicket(Request $request, Ticket $ticket)
 
     $ticket->update([
         'assigned_to' => $request->agent_id,
-        'status' => 'en_cours' // Optionnel: mettre automatiquement le ticket en cours
+        'status' => 'en_cours' 
     ]);
 
-    // Enregistrer l'historique de l'assignation (optionnel)
+    // Enregistrer l'historique de l'assignation 
     if (class_exists('TicketHistory')) {
         TicketHistory::create([
             'ticket_id' => $ticket->id,
