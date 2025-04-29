@@ -202,6 +202,7 @@ Route::get('/agent/tickets/{status?}', [TicketController::class, 'agentTickets']
 
 Route::post('/profile/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
 
+Route::get('/upgrade', [UserController::class, 'upgrade'])->name('user.upgrade');
 
 
 Route::get('/back-to-dashboard', function () {
