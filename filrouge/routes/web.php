@@ -203,7 +203,13 @@ Route::get('/agent/tickets/{status?}', [TicketController::class, 'agentTickets']
 Route::post('/profile/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
 
 Route::get('/upgrade', [UserController::class, 'upgrade'])->name('user.upgrade');
+Route::get('/premium', function () {
+    return view('user.premium');
+})->name('user.premium');
 
+// Route::get('/upgrade', function () {
+//     return redirect()->route('user.premium')->with('success', 'Votre compte a été mis à niveau avec succès!');
+// })->name('user.upgrade');
 
 Route::get('/back-to-dashboard', function () {
     if (!auth()->check()) {

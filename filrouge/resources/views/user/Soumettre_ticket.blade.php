@@ -132,8 +132,18 @@
                 icon: 'error',
                 title: 'Limite de tickets atteinte',
                 text: '{{ session('error') }}',
+                showCancelButton: true,
+                confirmButtonColor: '#4f46e5', // Indigo-600
+                cancelButtonColor: '#6b7280', // Gray-500
+                confirmButtonText: 'Passer en Premium',
+                cancelButtonText: 'Rester en mode gratuit',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('user.premium') }}";
+                }
             });
         });
-          </script>
+    </script>
 </body>
 </html>

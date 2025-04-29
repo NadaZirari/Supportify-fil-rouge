@@ -39,7 +39,10 @@ class TicketController extends Controller
         $ticketCount = auth()->user()->tickets()->count();
         if ($ticketCount >= 3) {
             // Retourn msg derreur
-            return redirect()->back()->with('error', 'Vous avez atteint la limite de 3 tickets (utilisateurs gratuits).');
+            return redirect()->back()->with([
+                'error' => 'Vous avez atteint la limite de 3 tickets (utilisateurs gratuits).',
+                'show_premium' => true
+            ]);
         }
 
         $validated = $request->validate([
