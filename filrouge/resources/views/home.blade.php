@@ -33,8 +33,10 @@
         .container {
             width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
+            /* margin: 0 auto; */
             padding: 0 20px;
+            background-color: white;
+
         }
         
         header {
@@ -49,13 +51,14 @@
             align-items: center;
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-primary);
+            color:#001968;
             text-decoration: none;
         }
         
         .logo i {
-            color: var(--accent);
+            color: #077ae6;
             margin-right: 8px;
+            margin-left: 20px;
         }
         
         nav ul {
@@ -80,8 +83,9 @@
         
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: var(--accent);
+            padding: 10px 30px;
+            margin-right: 40px;
+            background-color: #001968;
             color: white;
             border-radius: 6px;
             text-decoration: none;
@@ -90,17 +94,17 @@
         }
         
         .btn:hover {
-            background-color: #;
+            background-color: green;
         }
         
         .btn-outline {
             background-color: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
+            border: 1px solid #E0F0FE;
+            color: #E0F0FE;
         }
         
         .btn-outline:hover {
-            background-color: var(--accent);
+            background-color: #E0F0FE;
             color: white;
         }
         
@@ -108,17 +112,20 @@
             display: flex;
             align-items: center;
             padding: 80px 0;
-            background-color:#78c0ff;
+            background-color:#E0F0FE;
         }
         
         .hero-content {
             flex: 1;
             padding-right: 40px;
+            margin-left: 40px;
         }
         
         .hero-image {
             flex: 1;
+            margin-right: 20px;
         }
+        
         
         .hero-image img {
             width: 100%;
@@ -159,7 +166,7 @@
         
         .role-card {
             flex: 1;
-            background-color: var(--bg-card);
+            background-color: #052485;
             border-radius: 10px;
             padding: 30px;
             display: flex;
@@ -178,7 +185,7 @@
         }
         
         .role-icon i {
-            color: var(--accent);
+            color: #E0F0FE;
             font-size: 1.5rem;
         }
         
@@ -204,7 +211,7 @@
         
         .feature-card {
             flex: 1;
-            background-color: var(--bg-card);
+            background-color: #052485;
             border-radius: 10px;
             padding: 30px;
         }
@@ -221,7 +228,7 @@
         }
         
         .feature-icon i {
-            color: var(--accent);
+            color: #E0F0FE
             font-size: 1.5rem;
         }
         
@@ -245,7 +252,7 @@
         
         .testimonial-card {
             flex: 1;
-            background-color: var(--bg-card);
+            background-color: #052485;
             border-radius: 10px;
             padding: 30px;
         }
@@ -302,7 +309,7 @@
         }
         
         footer {
-            background-color: var(--bg-card);
+            background-color: #061031;
             padding: 60px 0 30px;
         }
         
@@ -387,8 +394,8 @@
         }
     </style>
 </head>
-<body>
-    <header class="container">
+<body >
+    <header class="">
         <a href="#" class="logo">
             <i class="fas fa-headset"></i>
             Supportify
@@ -406,7 +413,7 @@
         <a href="{{ route('register') }}" class="btn">Démarrer</a>
     </header>
     
-    <section class="hero container">
+    <section class="hero ">
         <div class="hero-content">
             <h1>Support client <span>intelligent et efficace</span></h1>
             <p class="subtitle">Optimisez votre service client grâce à notre technologie avancée. Gérez les tickets, communiquez en temps réel et analysez les données pour un support exceptionnel.</p>
@@ -418,7 +425,7 @@
         </div>
     </section>
     
-    <section class="roles container">
+    <section class="roles ">
         <h2 class="section-title">Choisissez votre rôle</h2>
         
         <div class="roles-container">
@@ -442,7 +449,7 @@
         </div>
     </section>
     
-    <section class="features container">
+    <section class="features ">
         <h2 class="section-title">Fonctionnalités Principales</h2>
         
         <div class="features-container">
@@ -472,7 +479,7 @@
         </div>
     </section>
     
-    <section class="testimonials container">
+    <section class="testimonials ">
         <h2 class="section-title">Ce que disent nos clients</h2>
         
         <div class="testimonials-container">
@@ -512,14 +519,13 @@
         </div>
     </section>
     
-    <section class="cta container">
+    <section class="cta ">
         <h2 class="cta-title">Prêt à améliorer votre support client ?</h2>
         <p class="cta-subtitle">Commencez votre essai gratuit de 14 jours. Aucune carte de crédit requise. Annulez à tout moment.</p>
         <a href="{{ route('login') }}" class="btn">Commencer maintenant</a>
     </section>
     
     <footer>
-        <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <a href="#" class="logo">
@@ -563,14 +569,13 @@
             <div class="footer-bottom">
                 <p>© 2023 Supportify. Tous droits réservés.</p>
                 
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
             </div>
-        </div>
     </footer>
 </body>
 </html>
