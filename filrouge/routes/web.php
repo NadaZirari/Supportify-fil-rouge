@@ -29,6 +29,9 @@ Route::get('/auth', function () {
 Route::get('/fonctionnalites', function () {
     return view('fonctionnalite');
 })->name('fonctionnalite');
+Route::get('/solutions', function () {
+    return view('solutions');
+})->name('solutions');
 
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 

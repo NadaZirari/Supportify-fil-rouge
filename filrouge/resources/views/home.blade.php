@@ -71,14 +71,15 @@
         }
         
         nav ul li a {
-            color: var(--text-secondary);
+            color: black;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 600;
             transition: color 0.3s;
         }
         
         nav ul li a:hover {
-            color: var(--text-primary);
+            color: gray;
         }
         
         .btn {
@@ -87,7 +88,7 @@
             margin-right: 40px;
             background-color: #001968;
             color: white;
-            border-radius: 6px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s;
@@ -137,10 +138,11 @@
             font-size: 3rem;
             line-height: 1.2;
             margin-bottom: 20px;
+            color:#052485;
         }
         
         h1 span {
-            color: #052485;
+            color: black;
         }
         
         .subtitle {
@@ -404,7 +406,7 @@
         <nav>
             <ul>
                 <li><a href="{{ route('fonctionnalite') }}">Fonctionnalités</a></li>
-                <li><a href="#">Solutions</a></li>
+                <li><a href="{{ route('solutions') }}">Solutions</a></li>
                 <li><a href="#">Tarification</a></li>
                 <li><a href="#">Témoignages</a></li>
             </ul>

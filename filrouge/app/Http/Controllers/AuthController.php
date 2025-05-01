@@ -8,14 +8,9 @@ use App\Models\User;
 use App\Models\Role;
 class AuthController extends Controller
 {
-    public function showLoginForm()
+    public function showAuthForm()
     {
         return view('auth.login');
-    }
-
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
     }
     public function register(Request $request)
     {
@@ -59,55 +54,45 @@ class AuthController extends Controller
     }
     }
     
-
-public function login(Request $request)
-{
-    // Affiche les données soumises dans le formulaire
-    $request->all();
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
     
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    // Vérifier si l'utilisateur existe et est actif
-    $user = User::where('email', $credentials['email'])->first();
-    if ($user && !$user->is_active) {
-
-    // Utiliser with pour passer un message flash pour SweetAlert
-    return back()->with('sweet_alert', [
-        'type' => 'error',
-        'title' => 'Compte désactivé',
-        'text' => 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.'
-    ])->withInput($request->except('password'));
-}
-    // Ajouter la condition is_active aux credentials
-    $credentials['is_active'] = true;
-
-        
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate(); // Regénère la session
-
-        // Récupère l'utilisateur authentifié
-        $user = Auth::user();
-
-        // Redirection en fonction du rôle de l'utilisateur
-        if ($user->role_id === 1) {
-            return redirect()->route('dashboard.admin-dashboard');
-        } elseif ($user->role_id === 2) {
-            return redirect()->route('agent.dashboard');
-        } elseif ($user->role_id === 3) {
-            return redirect()->route('user.dashboard');
+        // Vérifier si l'utilisateur existe et est actif
+        $user = User::where('email', $credentials['email'])->first();
+        if ($user && !$user->is_active) {
+            return back()->with('sweet_alert', [
+                'type' => 'error',
+                'title' => 'Compte désactivé',
+                'text' => 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.'
+            ])->withInput($request->except('password'));
         }
-        
-        return redirect('/home');
+    
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            $roleName = $user->role->nom; // Assurez-vous que la relation 'role' est définie dans le modèle User
+    
+            if ($roleName === 'Admin') {
+                return redirect()->route('dashboard.admin-dashboard');
+            } elseif ($roleName === 'Agent') {
+                return redirect()->route('agent.dashboard');
+            } elseif ($roleName === 'User') {
+                return redirect()->route('user.dashboard');
+            }
+    
+            return redirect()->route('home');
+        }
+    
+        return back()->with('sweet_alert', [
+            'type' => 'error',
+            'title' => 'Échec de la connexion',
+            'text' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.'
+        ])->withInput($request->except('password'));
     }
-    // Si l'authentification échoue
-    return back()->withErrors([
-        'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-    ])->withInput($request->except('password'));
-
-}
 
 
 
