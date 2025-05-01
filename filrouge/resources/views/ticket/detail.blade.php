@@ -4,131 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Détail du ticket - Problème de connexion</title>
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Détail du ticket - {{ $ticket->title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-   
-   
-    <style>
-    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bleuciel': '#052485',
+                        'bleuciel-light': '#3b4db5',
+                        'inprogress': '#f59e0b',
+                        'high': '#ef4444',
+                        'technical': '#3b82f6',
+                        'resolved': '#10b981',
+                        'medium': '#3b82f6',
+                        'low': '#10b981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-900 text-white">
-    <!-- Header -->
-    @if(Auth::id() === $ticket->user_id)
-    <div class="p-4 border-b border-gray-800">
-        <a href="{{ route('tickets.show') }}" class="flex items-center text-gray-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Retour aux tickets
-        </a>
-    </div>
-    @elseif(Auth::user()->role_id === 1)
-    <div class="p-4 border-b border-gray-800">
-        <a href="{{ route('ticket_management') }}" class="flex items-center text-gray-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Retour à la gestion des tickets
-        </a>
-    </div>
-@endif
-
-    <!-- Ticket details -->
-    <div class="max-w-4xl mx-auto p-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-4">
-                <h1 class="text-xl font-bold">{{ $ticket->title }}</h1>
-                
-                @if(Auth::id() === $ticket->user_id)
-                    <form action="{{ route('tickets.close', $ticket->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm">
-                            Fermer le ticket
-                        </button>
-                    </form>
-                @endif
-
-                </div>
-                
-                <div class="flex items-center mb-4">
-                <span class="bg-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-900 text-{{ $ticket->priority == 'haute' ? 'red' : ($ticket->priority == 'moyenne' ? 'yellow' : 'green') }}-200 text-xs px-2 py-1 rounded mr-2">
-                    {{ ucfirst($ticket->priority) }} priorité
-                </span>
-                <span class="bg-{{ $ticket->status == 'ouvert' ? 'green' : ($ticket->status == 'en cours' ? 'yellow' : 'gray') }}-900 text-{{ $ticket->status == 'ouvert' ? 'green' : ($ticket->status == 'en cours' ? 'yellow' : 'gray') }}-200 text-xs px-2 py-1 rounded mr-4">
-                    {{ ucfirst($ticket->status) }}
-                </span>
-                <span class="text-gray-400 text-sm">Créé le {{ $ticket->created_at->format('d/m/Y') }}</span>
+<body class="bg-gray-100 text-gray-800 font-sans flex h-screen">
+    <!-- Sidebar -->
+    @include('partials.sidebaradmin')
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="p-6 flex-1 overflow-auto max-w-4xl mx-auto w-full">
+            <!-- Header -->
+            <div class="mb-8">
+                <a href="{{ Auth::id() === $ticket->user_id ? route('tickets.show') : route('ticket_management') }}" class="flex items-center text-bleuciel-light font-semibold space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    <span>{{ Auth::id() === $ticket->user_id ? 'Retour aux tickets' : 'Retour à la gestion des tickets' }}</span>
+                </a>
             </div>
-            
-            <p class="text-gray-300 mb-6">
-                {{ $ticket->description }}
-            </p>
-                
-            <div>
-    <h3 class="text-sm font-medium text-gray-400 mb-2">Pièces jointes</h3>
-    <div class="flex space-x-2 justify-center">
-    @if ($ticket->fichier)
-    <div>
-        
-        @if(Str::endsWith($ticket->fichier, ['jpg','jpeg','png','gif']))
-            <img src="{{ asset('storage/' . $ticket->fichier) }}" alt="Image" class="max-w-sm">
-        @endif
 
-        <a href="{{ asset('storage/' . $ticket->fichier) }}" target="_blank" class="text-blue-500 underline block mt-2">
-            Voir / Télécharger la pièce jointe
-        </a>
-    </div>
-@endif
-    </div>
-</div>
-
-        
-        <!-- Chat section -->
-<div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
-    <div class="p-6">
-        <!-- Affichage des messages existants -->
-        @foreach($ticket->messages as $message)
-            <div class="flex mb-6">
-                <div class="flex-shrink-0 mr-3">
-                    <div class="w-10 h-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-blue-600' : 'bg-gray-600' }} flex items-center justify-center text-white font-bold">
-                        {{ substr($message->user->name ?? 'U', 0, 1) }}
+            <!-- Ticket Details -->
+            <div class="bg-white rounded-2xl shadow-lg border-4 {{ $ticket->priority == 'haute' ? 'border-high' : ($ticket->priority == 'moyenne' ? 'border-inprogress' : 'border-low') }} bg-gradient-to-br {{ $ticket->priority == 'haute' ? 'from-high/10 to-white' : ($ticket->priority == 'moyenne' ? 'from-inprogress/10 to-white' : 'from-low/10 to-white') }} mb-8">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h1 class="text-2xl font-bold text-gray-800">{{ $ticket->title }}</h1>
+                        @if(Auth::id() === $ticket->user_id && $ticket->status != 'fermé')
+                            <button onclick="openModal('closeTicketModal')" class="bg-high text-white py-2 px-4 rounded-xl shadow-lg border-2 border-red-600 font-semibold text-sm">
+                                Fermer le ticket
+                            </button>
+                        @endif
                     </div>
-                </div>
-                <div>
-                    <div class="{{ $message->user_id === $ticket->user_id ? 'bg-blue-600' : 'bg-gray-700' }} rounded-lg p-3 mb-1 max-w-md">
-                        <p class="text-white">{{ $message->content }}</p>
+                    <div class="flex items-center mb-4 space-x-4">
+                        <span class="bg-{{ $ticket->priority == 'haute' ? 'high' : ($ticket->priority == 'moyenne' ? 'inprogress' : 'low') }} bg-opacity-20 text-{{ $ticket->priority == 'haute' ? 'high' : ($ticket->priority == 'moyenne' ? 'inprogress' : 'low') }} text-sm px-4 py-1 rounded-full font-semibold border border-{{ $ticket->priority == 'haute' ? 'high' : ($ticket->priority == 'moyenne' ? 'inprogress' : 'low') }}">
+                            {{ ucfirst($ticket->priority) }} priorité
+                        </span>
+                        <span class="bg-{{ $ticket->status == 'ouvert' ? 'resolved' : ($ticket->status == 'en cours' ? 'inprogress' : 'gray-600') }} bg-opacity-20 text-{{ $ticket->status == 'ouvert' ? 'resolved' : ($ticket->status == 'en cours' ? 'inprogress' : 'gray-600') }} text-sm px-4 py-1 rounded-full font-semibold border border-{{ $ticket->status == 'ouvert' ? 'resolved' : ($ticket->status == 'en cours' ? 'inprogress' : 'gray-600') }}">
+                            {{ ucfirst($ticket->status) }}
+                        </span>
+                        <span class="text-gray-600 text-sm">Créé le {{ $ticket->created_at->format('d/m/Y') }}</span>
                     </div>
-                    <p class="text-xs text-gray-500">{{ $message->created_at->format('d/m/Y H:i') }}</p>
+                    <p class="text-gray-600 mb-6">{{ $ticket->description }}</p>
+                    @if($ticket->fichier)
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-600 mb-2">Pièce jointe</h3>
+                            <div class="bg-gray-100 rounded-xl p-4 border border-gray-200">
+                                @if(Str::endsWith($ticket->fichier, ['jpg', 'jpeg', 'png', 'gif']))
+                                    <img src="{{ asset('storage/' . $ticket->fichier) }}" alt="Pièce jointe" class="max-w-xs rounded-lg mb-2">
+                                @endif
+                                <a href="{{ asset('storage/' . $ticket->fichier) }}" target="_blank" class="text-bleuciel-light font-semibold flex items-center space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                        <polyline points="7 10 12 15 17 10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                    <span>Voir / Télécharger</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
-        @endforeach
-                
-               <!-- Message input -->
-<div class="flex mt-6">
-@if(Auth::user()->role_id != 1) 
 
-    <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="w-full flex">
-        @csrf
-        <div class="flex-grow relative">
-            <input type="text" name="content" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Écrivez votre message...">
+            <!-- Chat Section -->
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 mb-8">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Messages</h2>
+                    @foreach($ticket->messages as $message)
+                        <div class="flex mb-6 {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                            <div class="flex {{ $message->user_id === Auth::id() ? 'flex-row-reverse' : 'flex-row' }} items-start max-w-md">
+                                <div class="flex-shrink-0 {{ $message->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
+                                    <div class="w-12 h-12 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-bleuciel' : 'bg-gray-600' }} flex items-center justify-center text-white font-semibold">
+                                        {{ substr($message->user->name ?? 'U', 0, 1) }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="{{ $message->user_id === Auth::id() ? 'bg-bleuciel bg-opacity-10 border-bleuciel' : 'bg-gray-100 border-gray-200' }} rounded-xl p-4 border">
+                                        <p class="text-gray-800">{{ $message->content }}</p>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1 {{ $message->user_id === Auth::id() ? 'text-right' : 'text-left' }}">{{ $message->created_at->format('d/m/Y H:i') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if($ticket->status != 'fermé')
+                        <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="mt-6 flex items-center">
+                            @csrf
+                            <div class="flex-grow">
+                                <input type="text" name="content" class="w-full bg-gray-100 border border-gray-200 rounded-xl py-3 px-4 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel" placeholder="Écrivez votre message..." required>
+                                @error('content')
+                                    <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="ml-3 bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold flex items-center space-x-2">
+                                <span>Envoyer</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Modal pour confirmer la fermeture -->
+            <div id="closeTicketModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
+                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer la Fermeture</h2>
+                    <p class="text-gray-600 text-lg mb-6">Voulez-vous vraiment fermer ce ticket ? Cette action est irréversible.</p>
+                    <div class="flex justify-end space-x-4">
+                        <button onclick="closeModal('closeTicketModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
+                        <form action="{{ route('tickets.close', $ticket->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="bg-high text-white py-3 px-6 rounded-xl shadow-lg border-2 border-red-600 font-semibold">Fermer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
-            Envoyer
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-        </button>
-    </form>
-</div>
-@endif
-
+    </div>
 
     <script>
-        
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        document.querySelectorAll('.fixed').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
     </script>
 </body>
 </html>
