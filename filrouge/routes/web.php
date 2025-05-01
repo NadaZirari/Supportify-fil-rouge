@@ -39,14 +39,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);
 });
 // Routes d'authentification
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'showAuthForm'])->name('login');
 
-
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
+Route::get('/register', [AuthController::class, 'showAuthForm'])->name('register');
+Route::get('/auth', [AuthController::class, 'showAuthForm'])->name('auth.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
