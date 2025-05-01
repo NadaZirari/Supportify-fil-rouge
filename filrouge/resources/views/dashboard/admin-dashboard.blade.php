@@ -37,7 +37,7 @@
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h1 class="text-2xl font-semibold">Dashboard Overview</h1>
-                    <p class="text-gray-400">Welcome back, Admin</p>
+                    <p class="text-gray-400">Welcome back, {{ Auth::user()->name }}</p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <button class="text-gray-400 hover:text-white">
@@ -49,8 +49,7 @@
                         <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center mr-2 overflow-hidden">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Admin" class="h-full w-full object-cover">
                         </div>
-                        <span>John Admin</span>
-                    </div>
+                        <span>{{ Auth::user()->name }}</span>                    </div>
                 </div>
             </div>
 
@@ -61,7 +60,7 @@
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <p class="text-gray-400 text-sm">Total Tickets</p>
-                            <h2 class="text-3xl font-bold mt-1">1,482</h2>
+                            <h2 class="text-3xl font-bold mt-1">{{ $totalTickets }}</h2>
                         </div>
                         <div class="bg-blue bg-opacity-20 p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,20 +68,15 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="flex items-center text-green text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                        </svg>
-                        <span>12% from last month</span>
-                    </div>
+                   
                 </div>
 
-                <!-- Avg. Resolution Time -->
+                <!-- Atop categoryy -->
                 <div class="bg-card rounded-lg p-6 relative overflow-hidden">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <p class="text-gray-400 text-sm">Top category</p>
-                            <h2 class="text-3xl font-bold mt-1">4.2h</h2>
+                            <h2 class="text-3xl font-bold mt-1">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</h2>
                         </div>
                         <div class="bg-purple bg-opacity-20 p-2 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,6 +85,9 @@
                         </div>
                     </div>
                     
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <span>{{ $topCategory ? $topCategory->total : 0 }} tickets</span>
+                    </div>
                 </div>
 
                 
@@ -100,7 +97,7 @@
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <p class="text-gray-400 text-sm">Open Tickets</p>
-                            <h2 class="text-3xl font-bold mt-1">246</h2>
+                            <h2 class="text-3xl font-bold mt-1">{{ $openTickets }}</h2>
                         </div>
                         <div class="bg-orange bg-opacity-20 p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,7 +109,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                         </svg>
-                        <span>Same as last month</span>
+                        <span>{{ round(($openTickets / $totalTickets) * 100) }}% of total tickets</span>
                     </div>
                 </div>
             </div>
@@ -121,47 +118,33 @@
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-4">Top Performing Agents</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Agent 1 -->
+                @forelse($topAgents as $agent)
                     <div class="bg-card rounded-lg p-6">
                         <div class="flex items-center mb-4">
-                            <div class="h-12 w-12 rounded-full bg-purple-500 flex items-center justify-center mr-4 overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="h-full w-full object-cover">
+                            <div class="h-12 w-12 rounded-full bg-indigo-500 flex items-center justify-center mr-4 overflow-hidden">
+                                @if($agent->profile_photo_path)
+                                    <img src="{{ asset('storage/' . $agent->profile_photo_path) }}" alt="{{ $agent->name }}" class="h-full w-full object-cover">
+                                @else
+                                    <div class="h-full w-full flex items-center justify-center bg-indigo-500 text-white">
+                                        {{ substr($agent->name, 0, 2) }}
+                                    </div>
+                                @endif
                             </div>
                             <div>
-                                <h3 class="font-semibold">Sarah Johnson</h3>
-                                <p class="text-green text-sm">98% satisfaction rate</p>
+                                <h3 class="font-semibold">{{ $agent->name }}</h3>
+                                <p class="text-green text-sm">
+                                    {{ $agent->assignedTickets->where('status', 'résolu')->count() }} tickets resolved
+                                </p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Agent 2 -->
+                    @empty
                     <div class="bg-card rounded-lg p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center mr-4 overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Mike Chen" class="h-full w-full object-cover">
-                            </div>
-                            <div>
-                                <h3 class="font-semibold">Mike Chen</h3>
-                                <p class="text-green text-sm">95% satisfaction rate</p>
-                            </div>
-                        </div>
+                        <p class="text-gray-400">No agents found</p>
                     </div>
-
-                    <!-- Agent 3 -->
-                    <div class="bg-card rounded-lg p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="h-12 w-12 rounded-full bg-pink-500 flex items-center justify-center mr-4 overflow-hidden">
-                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Parker" class="h-full w-full object-cover">
-                            </div>
-                            <div>
-                                <h3 class="font-semibold">Emily Parker</h3>
-                                <p class="text-green text-sm">93% satisfaction rate</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
-
             <!-- Recent Tickets -->
             <div>
                 <div class="flex justify-between items-center mb-4">
