@@ -32,6 +32,9 @@ Route::get('/fonctionnalites', function () {
 Route::get('/solutions', function () {
     return view('solutions');
 })->name('solutions');
+Route::get('/temoignage', function () {
+    return view('temoignage');
+})->name('temoignage');
 
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 

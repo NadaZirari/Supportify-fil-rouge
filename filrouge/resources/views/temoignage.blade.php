@@ -27,7 +27,7 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
  
-  <!-- @include('partials.navbar') -->
+ @include('partials.navbar') 
 
   <!-- Hero -->
   <section class="bg-bleuciel text-white text-center py-20">

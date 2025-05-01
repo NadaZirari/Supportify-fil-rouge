@@ -104,7 +104,7 @@ return [
             explode(',', env('APP_PREVIOUS_KEYS', ''))
         ),
     ],
-
+'pagination' => 'tailwind',
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    
 ];

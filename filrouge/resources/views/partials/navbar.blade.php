@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <header class="flex justify-between items-center p-5 bg-white">
-    <a href="#" class="flex items-center text-xl font-bold text-blue-900">
+    <a href="{{ route('home') }}" class="flex items-center text-xl font-bold text-blue-900">
         <i class="fas fa-headset text-blue-500 mr-2"></i>
         Supportify
     </a>
@@ -18,7 +18,7 @@
             <li><a href="{{ route('fonctionnalite') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Fonctionnalités</a></li>
             <li><a href="{{ route('solutions') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Solutions</a></li>
             <li><a href="#" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Tarification</a></li>
-            <li><a href="#" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Témoignages</a></li>
+            <li><a href="{{ route('temoignage') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Témoignages</a></li>
         </ul>
     </nav>
     
