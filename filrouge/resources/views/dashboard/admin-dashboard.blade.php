@@ -81,7 +81,7 @@
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <p class="text-gray-600 text-sm">Top category</p>
-                            <h2 class="text-3xl font-bold mt-1 text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</h2>
+                            <h2 class="text-xl font-bold mt-1 text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</h2>
                         </div>
                         <div class="bg-technical bg-opacity-10 p-2 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">

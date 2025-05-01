@@ -3,235 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supportify - Gestion des utilisateurs</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Supportify - Gestion des Utilisateurs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'sidebar': '#1a2234',
-                        'content': '#1e293b',
-                        'admin': '#6366f1',
-                        'support': '#8b5cf6',
-                        'user': '#3b82f6',
+                        'bleuciel': '#052485',
+                        'bleuciel-light': '#3b4db5',
+                        'inprogress': '#f59e0b',
+                        'high': '#ef4444',
+                        'technical': '#3b82f6',
+                        'resolved': '#10b981',
+                        'medium': '#3b82f6',
+                        'low': '#10b981',
+                        'admin': '#1e40af',
+                        'support': '#3b82f6',
+                        'user': '#10b981',
                         'active': '#10b981',
-                        'inactive': '#ef4444',
+                        'inactive': '#6b7280'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui']
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-content text-white flex h-screen">
-   
-@include('partials.sidebaradmin')
+<body class="bg-gray-100 text-gray-800 font-sans flex h-screen">
+    <!-- Sidebar -->
+    @include('partials.sidebaradmin')
     <!-- Main Content -->
-
     <div class="flex-1 flex flex-col overflow-hidden">
-    @if(session('success'))
-    <div class="bg-green-500 text-white p-4 mb-4 mx-6 mt-6 rounded-md">
-        {{ session('success') }}
-    </div>
-    @endif
+        <div class="p-6 flex-1 overflow-auto max-w-7xl mx-auto w-full">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-bleuciel">Gestion des Utilisateurs</h1>
+                <button onclick="openModal('createUserModal')" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light flex items-center space-x-2 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span>Ajouter un Utilisateur</span>
+                </button>
+            </div>
 
-        <div class="p-6 flex justify-between items-center">
-            <h1 class="text-2xl font-semibold">Gestion des utilisateurs</h1>
-            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                Ajouter un utilisateur
-            </button>
-        </div>
-
-        <!-- Section des utilisateurs actifs -->
-        <div class="flex-1 overflow-auto px-6 pb-6">
-            <h2 class="text-xl font-semibold mb-4">Utilisateurs Actifs</h2>
-            <table class="w-full">
-                <thead>
-                    <tr class="text-left text-gray-400 border-b border-gray-700">
-                        <th class="pb-3 font-medium">Nom</th>
-                        <th class="pb-3 font-medium">Email</th>
-                        <th class="pb-3 font-medium">Rôle</th>
-                        <th class="pb-3 font-medium">Status</th>
-                        <th class="pb-3 font-medium">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($activeUsers as $user)
-                    <tr class="border-b border-gray-700">
-                        <td class="py-4">
-                            <div class="flex items-center">
-
-                               
-                                <div class="h-10 w-10 rounded-full 
-                                @if(!$user->photo) 
-                                @if($user->role_id == 1) bg-admin 
-                                @elseif($user->role_id == 2) bg-support 
-                                @else bg-user @endif 
-                                 @endif
-                                flex items-center justify-center mr-3 text-white font-medium overflow-hidden">
-                                 @if($user->photo)
-                               <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}" class="h-full w-full object-cover">
-                                @else
-                            {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
-                               @endif
+            <!-- Utilisateurs Actifs -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Utilisateurs Actifs</h2>
+                <table class="w-full bg-white rounded-2xl ">
+                    <thead>
+                        <tr class="text-left text-gray-600 border-b border-gray-200">
+                            <th class="p-4 font-semibold">Nom</th>
+                            <th class="p-4 font-semibold">Email</th>
+                            <th class="p-4 font-semibold">Rôle</th>
+                            <th class="p-4 font-semibold">Statut</th>
+                            <th class="p-4 font-semibold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($activeUsers as $index => $user)
+                        <tr class="border-b border-gray-200 ">
+                            <td class="p-4">
+                                <div class="flex items-center">
+                                    <div class="h-12 w-12 rounded-full flex items-center justify-center mr-3 text-white font-semibold overflow-hidden {{ $user->role_id == 1 ? 'bg-admin' : ($user->role_id == 2 ? 'bg-support' : 'bg-user') }}">
+                                        @if($user->photo)
+                                            <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}" class="h-full w-full object-cover">
+                                        @else
+                                            {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
+                                        @endif
+                                    </div>
+                                    <span class="text-gray-800">{{ $user->name }}</span>
                                 </div>
-
-                                <span>{{ $user->name }}</span>
-                            </div>
-                        </td>
-                        <td class="py-4 text-gray-300">{{ $user->email }}</td>
-                        <td class="py-4">
-                            <span class="
-                                @if($user->role_id == 1) bg-admin 
-                                @elseif($user->role_id == 2) bg-support 
-                                @else bg-user @endif 
-                                text-white text-xs px-2 py-1 rounded-md">
-                                @if($user->role_id == 1) Admin
-                                @elseif($user->role_id == 2) Support
-                                @else Utilisateur @endif
-                            </span>
-                        </td>
-                        <td class="py-4">
-                            <span class="bg-active text-white text-xs px-2 py-1 rounded-md">Actif</span>
-                        </td>
-                        <td class="py-4">
-                            <div class="flex space-x-2">
-                                <button onclick="openRoleModal({{ $user->id }})" class="text-gray-400 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </button>
-                                <form method="POST" action="{{ route('admin.archiveToggleUser', $user->id) }}" class="inline">
-                                    @csrf
-                                    <button type="submit" class="text-gray-400 hover:text-white" title="Archiver l'utilisateur">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            </td>
+                            <td class="p-4 text-gray-600">{{ $user->email }}</td>
+                            <td class="p-4">
+                                <span class="text-sm px-4 py-1 rounded-full font-semibold ">
+                                    {{ $user->role_id == 1 ? 'Admin' : ($user->role_id == 2 ? 'Support' : 'Utilisateur') }}
+                                </span>
+                            </td>
+                            <td class="p-4">
+                                <span class="bg-active bg-opacity-20 text-active text-sm px-4 py-1 rounded-full font-semibold border border-active">Actif</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex space-x-4">
+                                    <button onclick="openRoleModal({{ $user->id }})" class="text-bleuciel-light font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        <span>Éditer</span>
+                                    </button>
+                                    <button onclick="openArchiveModal(document.getElementById('archive-form-{{ $user->id }}'))" class="text-high font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                         </svg>
+                                        <span>Archiver</span>
                                     </button>
-                                </form>
-                                <form action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-gray-400 hover:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <form id="archive-form-{{ $user->id }}" method="POST" action="{{ route('admin.archiveToggleUser', $user->id) }}" class="hidden">
+                                        @csrf
+                                    </form>
+                                    <button onclick="openDeleteModal(document.getElementById('delete-form-{{ $user->id }}'))" class="text-high font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
+                                        <span>Supprimer</span>
                                     </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            
-            <!-- Section des utilisateurs archivés -->
-            @if(count($archivedUsers) > 0)
-            <h2 class="text-xl font-semibold mb-4 mt-8">Utilisateurs Archivés</h2>
-            <table class="w-full">
-                <thead>
-                    <tr class="text-left text-gray-400 border-b border-gray-700">
-                        <th class="pb-3 font-medium">Nom</th>
-                        <th class="pb-3 font-medium">Email</th>
-                        <th class="pb-3 font-medium">Rôle</th>
-                        <th class="pb-3 font-medium">Status</th>
-                        <th class="pb-3 font-medium">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($archivedUsers as $user)
-                    <tr class="border-b border-gray-700">
-                        <td class="py-4">
-                            <div class="flex items-center">
-                                <div class="h-10 w-10 rounded-full 
-                                    @if($user->role_id == 1) bg-admin 
-                                    @elseif($user->role_id == 2) bg-support 
-                                    @else bg-user @endif 
-                                    flex items-center justify-center mr-3 text-white font-medium opacity-50">
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
+                                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="hidden">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </div>
-                                <span class="text-gray-400">{{ $user->name }}</span>
-                            </div>
-                        </td>
-                        <td class="py-4 text-gray-400">{{ $user->email }}</td>
-                        <td class="py-4">
-                            <span class="
-                                @if($user->role_id == 1) bg-admin 
-                                @elseif($user->role_id == 2) bg-support 
-                                @else bg-user @endif 
-                                text-white text-xs px-2 py-1 rounded-md opacity-50">
-                                @if($user->role_id == 1) Admin
-                                @elseif($user->role_id == 2) Support
-                                @else Utilisateur @endif
-                            </span>
-                        </td>
-                        <td class="py-4">
-                            <span class="bg-inactive text-white text-xs px-2 py-1 rounded-md">Archivé</span>
-                        </td>
-                        <td class="py-4">
-                            <div class="flex space-x-2">
-                                <form method="POST" action="{{ route('admin.archiveToggleUser', $user->id) }}" class="inline">
-                                    @csrf
-                                    <button type="submit" class="text-gray-400 hover:text-white" title="Réactiver l'utilisateur">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Utilisateurs Archivés -->
+            @if(count($archivedUsers) > 0)
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Utilisateurs Archivés</h2>
+                <table class="w-full bg-white rounded-2xl">
+                    <thead>
+                        <tr class="text-left text-gray-600 border-b border-gray-200">
+                            <th class="p-4 font-semibold">Nom</th>
+                            <th class="p-4 font-semibold">Email</th>
+                            <th class="p-4 font-semibold">Rôle</th>
+                            <th class="p-4 font-semibold">Statut</th>
+                            <th class="p-4 font-semibold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($archivedUsers as $index => $user)
+                        <tr class="border-b border-gray-200 {{ $index % 3 === 0 ? 'bg-gradient-to-br from-bleuciel/10 to-white' : ($index % 3 === 1 ? 'bg-gradient-to-br from-inprogress/10 to-white' : 'bg-gradient-to-br from-resolved/10 to-white') }}">
+                            <td class="p-4">
+                                <div class="flex items-center">
+                                    <div class="h-12 w-12 rounded-full flex items-center justify-center mr-3 text-white font-semibold opacity-50 {{ $user->role_id == 1 ? 'bg-admin' : ($user->role_id == 2 ? 'bg-support' : 'bg-user') }}">
+                                        {{ strtoupper(substr($user->name, 0, 1)) }}{{ strtoupper(substr($user->name, strpos($user->name, ' ') + 1, 1)) }}
+                                    </div>
+                                    <span class="text-gray-600">{{ $user->name }}</span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-gray-600">{{ $user->email }}</td>
+                            <td class="p-4">
+                                <span class="text-sm px-4 py-1 rounded-full font-semibold opacity-50 {{ $index % 3 === 0 ? 'bg-medium bg-opacity-20 text-medium border border-medium' : ($index % 3 === 1 ? 'bg-low bg-opacity-20 text-low border border-low' : 'bg-inprogress bg-opacity-20 text-inprogress border border-inprogress') }}">
+                                    {{ $user->role_id == 1 ? 'Admin' : ($user->role_id == 2 ? 'Support' : 'Utilisateur') }}
+                                </span>
+                            </td>
+                            <td class="p-4">
+                                <span class="bg-inactive bg-opacity-20 text-inactive text-sm px-4 py-1 rounded-full font-semibold border border-inactive">Archivé</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex space-x-4">
+                                    <button onclick="openArchiveModal(document.getElementById('archive-form-{{ $user->id }}'))" class="text-bleuciel-light font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                         </svg>
+                                        <span>Réactiver</span>
                                     </button>
-                                </form>
-                                <form action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-gray-400 hover:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <form id="archive-form-{{ $user->id }}" method="POST" action="{{ route('admin.archiveToggleUser', $user->id) }}" class="hidden">
+                                        @csrf
+                                    </form>
+                                    <button onclick="openDeleteModal(document.getElementById('delete-form-{{ $user->id }}'))" class="text-high font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
+                                        <span>Supprimer</span>
                                     </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="hidden">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             @endif
+
+            <!-- Message de succès -->
+            @if(session('success'))
+            <div class="bg-resolved bg-opacity-10 text-resolved p-4 rounded-xl mb-8 border-2 border-resolved border-opacity-20 font-semibold">
+                {{ session('success') }}
+            </div>
+            @endif
+
+           
+            <!-- Modal pour changer le rôle -->
+            <div id="roleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-bleuciel">Changer le Rôle</h2>
+                        <button onclick="closeModal('roleModal')" class="text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <form id="roleForm" method="POST" action="">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="user_id" id="user_id">
+                        <div class="mb-6">
+                            <label for="role_id" class="text-gray-600 font-semibold text-lg">Sélectionner un Rôle</label>
+                            <select id="role_id" name="role_id" class="mt-2 p-4 bg-gray-100 text-gray-800 rounded-xl w-full border border-gray-200 focus:ring-2 focus:ring-bleuciel focus:outline-none">
+                                <option value="2">Support</option>
+                                <option value="3">Utilisateur</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" onclick="closeModal('roleModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
+                            <button type="submit" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal pour confirmer l'archivage -->
+            <div id="archiveModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
+                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer l'Archivage</h2>
+                    <p class="text-gray-600 text-lg mb-6">Voulez-vous vraiment archiver/réactiver cet utilisateur ?</p>
+                    <div class="flex justify-end space-x-4">
+                        <button onclick="closeModal('archiveModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
+                        <button onclick="confirmArchive()" class="bg-high text-white py-3 px-6 rounded-xl shadow-lg border-2 border-red-600 font-semibold">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal pour confirmer la suppression -->
+            <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
+                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer la Suppression</h2>
+                    <p class="text-gray-600 text-lg mb-6">Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible.</p>
+                    <div class="flex justify-end space-x-4">
+                        <button onclick="closeModal('deleteModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
+                        <button onclick="confirmDelete()" class="bg-high text-white py-3 px-6 rounded-xl shadow-lg border-2 border-red-600 font-semibold">Supprimer</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- Modal pour changer le rôle -->
-    <div id="roleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-sidebar p-6 rounded-lg w-96">
-            <h2 class="text-xl font-semibold mb-4">Changer le rôle</h2>
-            <form id="roleForm" method="POST" action="">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="user_id" id="user_id">
-                <div class="mb-4">
-                    <label class="block text-gray-300 mb-2">Sélectionner un rôle</label>
-                    <select name="role_id" class="w-full bg-gray-700 text-white px-3 py-2 rounded-md">
-                        <option value="2">Support</option>
-                        <option value="3">Utilisateur</option>
-                    </select>
-                </div>
-                <div class="flex justify-end space-x-3">
-                    <button type="button" onclick="closeRoleModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md">Annuler</button>
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">Enregistrer</button>
-                </div>
-            </form>
-        </div>
-    </div>
+
     <script>
+        let archiveForm;
+        let deleteForm;
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
         function openRoleModal(userId) {
             document.getElementById('user_id').value = userId;
             document.getElementById('roleForm').action = `/admin/users/${userId}/role`;
-            document.getElementById('roleModal').classList.remove('hidden');
+            openModal('roleModal');
         }
 
-        function closeRoleModal() {
-            document.getElementById('roleModal').classList.add('hidden');
+        function openArchiveModal(form) {
+            archiveForm = form;
+            openModal('archiveModal');
         }
+
+        function confirmArchive() {
+            archiveForm.submit();
+        }
+
+        function openDeleteModal(form) {
+            deleteForm = form;
+            openModal('deleteModal');
+        }
+
+        function confirmDelete() {
+            deleteForm.submit();
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        document.querySelectorAll('.fixed').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
     </script>
 </body>
 </html>
