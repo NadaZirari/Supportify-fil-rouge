@@ -76,5 +76,42 @@ class AdminController extends Controller
 
         return redirect()->route('admin.manageUsers')->with('success', 'Utilisateur supprimé avec succès!');
     }
+
+    public function dashboard()
+    {
+        // Statistiques des tickets
+        $totalTickets = Ticket::count();
+        $openTickets = Ticket::where('status', 'ouvert')->count();
+        
+      
+        // Récupérer la catégorie avec le plus de tickets
+        $topCategory = DB::table('tickets')
+            ->join('categories', 'tickets.categorie_id', '=', 'categories.id')
+            ->select('categories.nom as category_name', DB::raw('count(*) as total'))
+            ->groupBy('categories.id', 'categories.nom')
+            ->orderBy('total', 'desc')
+            ->first();
+        
+        // Top agents performants
+        $topAgents = User::where('role_id', 2) // Agents
+            ->take(3)
+            ->get();
+        
+        // Tickets récents
+        $recentTickets = Ticket::with(['user', 'agent', 'categorie'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        
+        return view('dashboard.admin-dashboard', compact(
+            'totalTickets', 
+            'openTickets', 
+            'ticketGrowth',
+            'topCategory',
+            'topAgents',
+            'recentTickets'
+        ));
+    }
+
 }
 
