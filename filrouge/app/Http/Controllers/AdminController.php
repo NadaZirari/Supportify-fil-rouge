@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
 use App\Http\Controllers\CategorieController;
 use Illuminate\Support\Facades\Hash;
 
@@ -106,7 +107,6 @@ class AdminController extends Controller
         return view('dashboard.admin-dashboard', compact(
             'totalTickets', 
             'openTickets', 
-            'ticketGrowth',
             'topCategory',
             'topAgents',
             'recentTickets'

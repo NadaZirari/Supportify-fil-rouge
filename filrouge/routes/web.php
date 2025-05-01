@@ -95,9 +95,9 @@ Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name(
 Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
 
 
-Route::get('/dashboard/admin', function () {
-    return view('dashboard.admin-dashboard');
-})->middleware(['auth', 'role:1'])->name('dashboard.admin-dashboard');
+Route::get('/dashboard/admin', [AdminController::class, 'dashboard'])
+    ->middleware(['auth', 'role:1'])
+    ->name('dashboard.admin-dashboard');
 
 
 // Route pour le dashboard de l'agent
