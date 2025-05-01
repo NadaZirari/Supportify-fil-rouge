@@ -14,44 +14,38 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        // Validation des données d'entrée
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|string|in:User,Admin,Agent',
+            'role' => 'required|string|exists:roles,nom',
         ]);
-
-        $role = Role::where('nom', $validated['role'])->first();
-
-         // Vérifier que le rôle existe
-         if (!$role) {
-            
-            \Log::error('Rôle non trouvé: ' . $validated['role']);
-
-            $availableRoles = Role::all();
-            \Log::info('Rôles disponibles: ', $availableRoles->toArray());
-            
-            return back()->withErrors(['role' => 'Le rôle spécifié n\'existe pas.'])->withInput();
-        }
-
+    
         try {
-        // Création de l'utilisateur dans la base de données
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-           'role_id' => $role->id,
-        ]);
-        \Log::info('Utilisateur créé avec succès: ', ['id' => $user->id, 'email' => $user->email]);
-
-        // Redirection avec un message de succès
-        return redirect()->route('login')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
-
-    } catch (\Exception $e) {
-        \Log::error('Erreur lors de la création de l\'utilisateur: ' . $e->getMessage());
-        return back()->withErrors(['general' => 'Une erreur est survenue lors de l\'inscription.'])->withInput();
-    }
+            $role = Role::where('nom', $validated['role'])->first();
+    
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role_id' => $role->id,
+            ]);
+    
+            \Log::info('Utilisateur créé avec succès: ', ['id' => $user->id, 'email' => $user->email]);
+    
+            return redirect()->route('auth.form')->with('sweet_alert', [
+                'type' => 'success',
+                'title' => 'Inscription réussie',
+                'text' => 'Vous pouvez maintenant vous connecter.'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Erreur lors de la création de l\'utilisateur: ' . $e->getMessage());
+            return back()->with('sweet_alert', [
+                'type' => 'error',
+                'title' => 'Erreur',
+                'text' => 'Une erreur est survenue lors de l\'inscription.'
+            ])->withInput();
+        }
     }
     
     public function login(Request $request)
