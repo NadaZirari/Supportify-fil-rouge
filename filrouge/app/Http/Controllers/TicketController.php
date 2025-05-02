@@ -147,7 +147,7 @@ public function adminIndex()
     // Récupérer les catégories pour les filtres
     $categories = Categorie::all();
     
-    // Récupérer les agents (utilisateurs avec rôle agent)
+    // Récupérer les agents 
     $agents = User::where('role_id', 2)->get(); 
 
     return view('admin.ticket_management', compact('tickets', 'categories', 'agents'));
@@ -215,7 +215,7 @@ public function agentTickets(Request $request, $status = null)
     // Récupérer l'ID de l'agent connecté
     $query = Ticket::where('assigned_to', auth()->id());
     
-  // Filtrer par statut si spécifié
+  // Filtrer par statut 
   if ($status) {
     $query->where('status', $status);
 }
@@ -248,10 +248,10 @@ public function updateStatus(Request $request)
 
     
     // Message de succès avec détails du changement
-    $message = "Le ticket a été déplacé de \"" . ucfirst(str_replace('_', ' ', $oldStatus)) . 
+    $message = "Le ticket a été changé de \"" . ucfirst(str_replace('_', ' ', $oldStatus)) . 
                "\" vers \"" . ucfirst(str_replace('_', ' ', $validated['status'])) . "\"";
     
-    // Rediriger vers la section correspondant au nouveau statut
-    return redirect()->route('TicketAgent', ['status' => $validated['status']])->with('success', $message);
+    // Rediriger vers la page précédente 
+    return back()->with('success', $message);
 }
 }
