@@ -26,8 +26,7 @@ class PaymentController extends Controller
         $user->is_premium = true;
         $user->save();
         
-        return view('payment.success');
-    }
+        return redirect()->route('user.Soumettre_ticket')->with('premium_success', 'Félicitations ! Vous êtes maintenant un utilisateur Premium et pouvez créer un nombre illimité de tickets.');    }
 
     public function processPayment()
     {
