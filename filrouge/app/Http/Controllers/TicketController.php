@@ -36,12 +36,15 @@ class TicketController extends Controller
     {
 
 
-        $ticketCount = auth()->user()->tickets()->count();
-        if ($ticketCount >= 3) {
+        $user = auth()->user();
+        $ticketCount = $user->tickets()->count();
+        $ticketLimit = $user->is_premium ? 50 : 3;
+        if ($ticketCount >= $ticketLimit) {
             // Retourn msg derreur
             return redirect()->back()->with([
-                'error' => 'Vous avez atteint la limite de 3 tickets (utilisateurs gratuits).',
-                'show_premium' => true
+                'error' => 'Vous avez atteint la limite  ' . $ticketLimit . ' tickets ' .
+                ($user->is_premium ? '(utilisateurs premium).' : '(utilisateurs gratuits).'),
+                'show_premium' => !$user->is_premium 
             ]);
         }
 

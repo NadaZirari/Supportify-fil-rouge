@@ -68,7 +68,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            $roleName = $user->role->nom; // Assurez-vous que la relation 'role' est définie dans le modèle User
+            $roleName = $user->role->nom; 
     
             if ($roleName === 'Admin') {
                 return redirect()->route('dashboard.admin-dashboard');

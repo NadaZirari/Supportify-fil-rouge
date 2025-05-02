@@ -158,6 +158,10 @@ Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categ
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
 
+Route::post('/premium/process', [App\Http\Controllers\PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/premium/success', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/premium/cancel', [App\Http\Controllers\PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+
 
 Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manageUsers');
 Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
@@ -208,8 +212,8 @@ Route::post('/profile/update-photo', [ProfileController::class, 'updatePhoto'])-
 
 Route::get('/upgrade', [UserController::class, 'upgrade'])->name('user.upgrade');
 Route::get('/premium', function () {
-    return view('user.premium');
-})->name('user.premium');
+    return view('payment.premium');
+})->name('payment.premium');
 
 // Route::get('/upgrade', function () {
 //     return redirect()->route('user.premium')->with('success', 'Votre compte a été mis à niveau avec succès!');

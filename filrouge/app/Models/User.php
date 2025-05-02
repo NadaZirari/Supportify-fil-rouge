@@ -16,7 +16,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'photo', 'password', 'role_id ', 'is_premium'];
+    protected $fillable = ['name', 'email', 'photo', 'password', 'role_id', 'is_premium'];
 
     /**
      * Les attributs qui doivent être cachés lors de la sérialisation.
@@ -49,6 +49,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+   
     /**
      * Relation avec les tickets de l'utilisateur
      */

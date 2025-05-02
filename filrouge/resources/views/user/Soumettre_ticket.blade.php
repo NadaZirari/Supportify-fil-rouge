@@ -23,10 +23,7 @@
       <h1 class="text-xl sm:text-2xl font-bold mb-2">Nouveau ticket de support</h1>
       <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8">Décrivez votre problème en détail pour obtenir l'aide la plus adaptée</p>
 
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-        <strong class="font-bold">Erreur!</strong>
-        <span class="block sm:inline">{{ session('error') }}</span>
-    </div>
+     
 
 @if(session('success'))
 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -128,22 +125,30 @@
 
    
   document.addEventListener('DOMContentLoaded', function() {
+    @if(session('error') && session('show_premium'))
             Swal.fire({
                 icon: 'error',
                 title: 'Limite de tickets atteinte',
                 text: '{{ session('error') }}',
                 showCancelButton: true,
-                confirmButtonColor: '#4f46e5', // Indigo-600
-                cancelButtonColor: '#6b7280', // Gray-500
+                confirmButtonColor: '#4f46e5', 
+                cancelButtonColor: '#6b7280', 
                 confirmButtonText: 'Passer en Premium',
                 cancelButtonText: 'Rester en mode gratuit',
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "{{ route('user.premium') }}";
+                    window.location.href = "{{ route('payment.premium') }}";
                 }
             });
-        });
-    </script>
+            @elseif(session('error'))
+      Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: '{{ session('error') }}'
+      });
+    @endif
+  });
+</script>
 </body>
 </html>
