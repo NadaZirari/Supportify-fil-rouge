@@ -38,12 +38,12 @@
 </style>
 
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans flex h-screen overflow-hidden">
-    <div class="flex h-screen overflow-hidden">
+<body class="bg-gray-100 text-gray-800 font-sans flex h-screen ">
+    <div class="flex h-screen ">
        @include('partials.sidebaragent')
         
         <!-- Main Content -->
-        <div class="flex-1 overflow-auto p-6">
+        <div class="flex-1 p-6 absolute left-60">
             <!-- Search  -->
             <div class="relative mb-6 w-[300px]">
                 <input type="text" placeholder="Search tickets..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel">

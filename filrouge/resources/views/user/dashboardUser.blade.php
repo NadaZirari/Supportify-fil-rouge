@@ -52,9 +52,15 @@
                     <button class="text-gray-300 hover:text-white">
                         <i class="fas fa-bell"></i>
                     </button>
-                    <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
+    @if(Auth::user()->photo)
+        <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover" 
+             onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random';">
+    @else
+        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+    @endif
+</div>
+
                 </div>
             </header>
             
