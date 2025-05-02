@@ -20,6 +20,13 @@ class PaymentController extends Controller
     {
         return view('payment.cancel');
     }
-
+    public function paymentSuccess(Request $request)
+    {
+        $user = Auth::user();
+        $user->is_premium = true;
+        $user->save();
+        
+        return view('payment.success');
+    }
 
 }
