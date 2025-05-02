@@ -15,11 +15,29 @@
   <!-- Contenu principal -->
   <div class="flex flex-col md:flex-row flex-1">
 
-    <!-- Menu latéral - caché sur mobile, visible sur tablette/desktop -->
      @include('partials.sidebaruser')
 
     <!-- Formulaire -->
     <main class="flex-1 p-4 sm:p-6 md:p-10">
+    @if(session('premium_success'))
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+    <strong class="font-bold">Succès!</strong>
+    <span class="block sm:inline">{{ session('premium_success') }}</span>
+</div>
+@endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if(session('premium_success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Vous êtes maintenant Premium!',
+            text: '{{ session('premium_success') }}',
+            confirmButtonColor: '#4f46e5'
+        });
+    @endif
+});
+</script>
       <h1 class="text-xl sm:text-2xl font-bold mb-2">Nouveau ticket de support</h1>
       <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8">Décrivez votre problème en détail pour obtenir l'aide la plus adaptée</p>
 

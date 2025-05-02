@@ -40,7 +40,7 @@ class PaymentController extends Controller
                     'product_data' => [
                         'name' => 'Supportify Premium',
                     ],
-                    'unit_amount' => 1999, // 19.99€ (Stripe utilise les centimes)
+                    'unit_amount' => 2999,
                 ],
                 'quantity' => 1,
             ]],
