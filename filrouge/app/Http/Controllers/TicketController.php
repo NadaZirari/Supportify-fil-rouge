@@ -24,6 +24,7 @@ class TicketController extends Controller
 
     public function create()
     {
+        
         $categories = Categorie::all();
         return view('user.Soumettre_ticket', compact('categories'));
 

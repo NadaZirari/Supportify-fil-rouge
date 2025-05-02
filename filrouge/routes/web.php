@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\TicketController;
-
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -146,6 +146,12 @@ Route::get('/user/submit-ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:3'])->name('user.submit-ticket');
 
+
+Route::post('/premium/process', [PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/premium/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/premium/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+
+
 Route::middleware(['auth', 'role:1'])->group(function () {
 
 // Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
@@ -157,10 +163,6 @@ Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy']
 Route::get('categories/{id}', [CategorieController::class, 'show'])->name('categories.show');
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('admin.categories.update');
-
-Route::post('/premium/process', [App\Http\Controllers\PaymentController::class, 'processPayment'])->name('payment.process');
-Route::get('/premium/success', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('payment.success');
-Route::get('/premium/cancel', [App\Http\Controllers\PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 
 
 Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manageUsers');
