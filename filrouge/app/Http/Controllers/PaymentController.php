@@ -29,4 +29,28 @@ class PaymentController extends Controller
         return view('payment.success');
     }
 
+    public function processPayment()
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+        
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => 'Supportify Premium',
+                    ],
+                    'unit_amount' => 1999, // 19.99€ (Stripe utilise les centimes)
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('payment.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('payment.cancel'),
+        ]);
+        
+        return redirect($session->url);
+    }
+
 }
