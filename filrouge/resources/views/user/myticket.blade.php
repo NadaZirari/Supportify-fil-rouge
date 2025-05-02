@@ -35,7 +35,7 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <!-- Top Navigation -->
-        <header class="p-4 ml-0 flex items-center justify-between border-b border-gray-200 bg-white">
+        <header class="p-4 ml-0 flex items-center justify-between border-b border-gray-200">
             <div class="relative w-80">
                 <input type="text" placeholder="Rechercher..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 absolute left-3 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,7 +66,7 @@
                         </svg>
                     </div>
                     <div class="flex space-x-4 w-full sm:w-auto">
-                        <div class="relative w-full sm:w-40">
+                        <div class="relative w-full sm:w-44">
                             <select class="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
                                 <option>Tous les statuts</option>
                                 <option>Actif</option>
@@ -76,7 +76,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
-                        <div class="relative w-full sm:w-40">
+                        <div class="relative w-full sm:w-44">
                             <select class="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
                                 <option>Toutes les priorités</option>
                                 <option>Haute</option>
