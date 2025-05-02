@@ -39,5 +39,9 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'), // Your Google Client Secret
         'redirect' => env('GOOGLE_REDIRECT_URL'),      // Your Google Redirect URL
     ],
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'key' => env('STRIPE_KEY'),
+    ]
 
 ];
