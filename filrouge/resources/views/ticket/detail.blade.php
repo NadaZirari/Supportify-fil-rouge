@@ -31,8 +31,13 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans flex h-screen">
     <!-- Sidebar -->
+    @if(Auth::user()->role_id == 1)
     @include('partials.sidebaradmin')
-    <!-- Main Content -->
+@elseif(Auth::user()->role_id == 2)
+    @include('partials.sidebaragent')
+@elseif(Auth::user()->role_id == 3)
+    @include('partials.sidebaruser')
+@endif    <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <div class="p-6 flex-1 overflow-auto max-w-4xl mx-auto w-full">
             <!-- Header -->
@@ -111,11 +116,16 @@
                     @foreach($ticket->messages as $message)
                         <div class="flex mb-6 {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
                             <div class="flex {{ $message->user_id === Auth::id() ? 'flex-row-reverse' : 'flex-row' }} items-start max-w-md">
-                                <div class="flex-shrink-0 {{ $message->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
-                                    <div class="w-12 h-12 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-bleuciel' : 'bg-gray-600' }} flex items-center justify-center text-white font-semibold">
-                                        {{ substr($message->user->name ?? 'U', 0, 1) }}
-                                    </div>
-                                </div>
+                            <div class="flex-shrink-0 {{ $message->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
+    @if($message->user && $message->user->photo)
+        <img src="{{ asset('storage/' . $message->user->photo) }}" alt="{{ $message->user->name }}" class="w-12 h-12 rounded-full object-cover">
+    @else
+        <div class="w-12 h-12 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-bleuciel' : 'bg-gray-600' }} flex items-center justify-center text-white font-semibold">
+            {{ substr($message->user->name ?? 'U', 0, 1) }}
+        </div>
+    @endif
+</div>
+
                                 <div>
                                     <div class="{{ $message->user_id === Auth::id() ? 'bg-bleuciel bg-opacity-10 border-bleuciel' : 'bg-gray-100 border-gray-200' }} rounded-xl p-4 border">
                                         <p class="text-gray-800">{{ $message->content }}</p>
