@@ -110,7 +110,7 @@
             </div>
 
             <!-- Chat Section -->
-            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 mb-8">
+            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::id() === $ticket->user_id)            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 mb-8">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Messages</h2>
                     @foreach($ticket->messages as $message)
@@ -135,8 +135,7 @@
                             </div>
                         </div>
                     @endforeach
-                    @if($ticket->status != 'fermé')
-                        <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="mt-6 flex items-center">
+                    @if($ticket->status != 'fermé' && (Auth::user()->role_id == 2 || Auth::id() === $ticket->user_id))                        <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="mt-6 flex items-center">
                             @csrf
                             <div class="flex-grow">
                                 <input type="text" name="content" class="w-full bg-gray-100 border border-gray-200 rounded-xl py-3 px-4 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel" placeholder="Écrivez votre message..." required>
@@ -155,7 +154,7 @@
                     @endif
                 </div>
             </div>
-
+            @endif
             <!-- Modal pour confirmer la fermeture -->
             <div id="closeTicketModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
                 <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
