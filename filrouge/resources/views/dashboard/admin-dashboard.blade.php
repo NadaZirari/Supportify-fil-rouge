@@ -36,7 +36,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h1 class="text-2xl font-semibold text-bleuciel">Dashboard Overview</h1>
+                    <h1 class="text-2xl font-bold text-bleuciel">Dashboard Overview</h1>
                     <p class="text-gray-600">Welcome back, {{ Auth::user()->name }}</p>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -61,11 +61,11 @@
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Tickets -->
-                <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200 relative overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 relative overflow-hidden">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <p class="text-gray-600 text-sm">Total Tickets</p>
-                            <h2 class="text-3xl font-bold mt-1 text-bleuciel">{{ $totalTickets ?? 0}}</h2>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Total Tickets</p>
+                            <h2 class="text-3xl font-bold text-gray-800">{{ $totalTickets ?? 0}}</h2>
                         </div>
                         <div class="bg-bleuciel bg-opacity-20 p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,8 +80,8 @@
                 <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200 relative overflow-hidden">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <p class="text-gray-600 text-sm">Top category</p>
-                            <h2 class="text-xl font-bold mt-1 text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</h2>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Top category</p>
+                            <h2 class="text-xl font-bold mt-2 text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</h2>
                         </div>
                         <div class="bg-technical bg-opacity-10 p-2 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     
-                    <div class="flex items-center text-gray-600 text-sm">
+                    <div class="text-sm font-medium text-gray-500 mb-1">
                         <span>{{ $topCategory ? $topCategory->total : 0 }} tickets</span>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                 <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200 relative overflow-hidden">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <p class="text-gray-600 text-sm">Open Tickets</p>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Open Tickets</p>
                             <h2 class="text-3xl font-bold mt-1 text-bleuciel">{{ $openTickets }}</h2>
                         </div>
                         <div class="bg-inprogress bg-opacity-20 p-2 rounded-lg">

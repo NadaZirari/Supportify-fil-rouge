@@ -37,6 +37,7 @@ Route::get('/temoignage', function () {
 })->name('temoignage');
 
 Route::middleware(['auth', 'role:1'])->group(function () {
+    Route::get('/admin/rapport', [AdminController::class, 'rapport'])->name('admin.rapport');
     Route::get('/admin', function () {
         return view('admin.users_premium');
     })->name('preniumusers');

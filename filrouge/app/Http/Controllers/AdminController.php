@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,7 +85,7 @@ class AdminController extends Controller
         // Statistiques des tickets
         $totalTickets = Ticket::count();
         $openTickets = Ticket::where('status', 'ouvert')->count();
-        
+        $premiumUsers = User::where('is_premium', true)->count();
       
         // Récupérer la catégorie avec le plus de tickets
         $topCategory = DB::table('tickets')
@@ -110,9 +111,109 @@ class AdminController extends Controller
             'openTickets', 
             'topCategory',
             'topAgents',
+            'premiumUsers',
             'recentTickets'
         ));
     }
+
+
+
+    public function rapport(Request $request)
+    {
+        // Récupérer la période sélectionnée (par défaut: mois)
+        $period = $request->query('period', 'month');
+        
+        // Récupérer les statistiques pour les tickets
+        $totalTickets = Ticket::count();
+        $openTickets = Ticket::where('status', 'ouvert')->count();
+        $premiumUsers = User::where('is_premium', true)->count();
+        
+       
+        
+        // Compter les tickets par statut
+        $statusCounts = [
+            'ouvert' => Ticket::where('status', 'ouvert')->count(),
+            'en cours' => Ticket::where('status', 'en cours')->count(),
+            'fermé' => Ticket::where('status', 'fermé')->count(),
+        ];
+        
+        // Compter les tickets par priorité
+        $priorityCounts = [
+            'basse' => Ticket::where('priority', 'basse')->count(),
+            'moyenne' => Ticket::where('priority', 'moyenne')->count(),
+            'haute' => Ticket::where('priority', 'haute')->count(),
+        ];
+        
+        // Données pour le graphique de tendance
+        $trendLabels = [];
+        $trendData = [];
+        
+        // Ajuster la période pour le graphique de tendance
+        switch ($period) {
+            case 'week':
+                // Derniers 7 jours
+                for ($i = 6; $i >= 0; $i--) {
+                    $date = Carbon::now()->subDays($i);
+                    $trendLabels[] = $date->format('D');
+                    
+                    $count = Ticket::whereDate('created_at', $date->toDateString())->count();
+                    $trendData[] = $count;
+                }
+                break;
+                
+            case 'month':
+                // Derniers 30 jours par semaine
+                for ($i = 3; $i >= 0; $i--) {
+                    $startDate = Carbon::now()->subWeeks($i);
+                    $endDate = $i > 0 ? Carbon::now()->subWeeks($i-1)->subDay() : Carbon::now();
+                    
+                    $trendLabels[] = 'Sem ' . $startDate->weekOfYear;
+                    
+                    $count = Ticket::whereBetween('created_at', [$startDate, $endDate])->count();
+                    $trendData[] = $count;
+                }
+                break;
+                
+            case 'year':
+                // Derniers 12 mois
+                for ($i = 11; $i >= 0; $i--) {
+                    $date = Carbon::now()->subMonths($i);
+                    $trendLabels[] = $date->format('M');
+                    
+                    $count = Ticket::whereYear('created_at', $date->year)
+                        ->whereMonth('created_at', $date->month)
+                        ->count();
+                        
+                    $trendData[] = $count;
+                }
+                break;
+        }
+        
+        // Données pour le graphique des catégories
+        $categories = DB::table('tickets')
+            ->join('categories', 'tickets.categorie_id', '=', 'categories.id')
+            ->select('categories.nom as name', DB::raw('count(*) as count'))
+            ->groupBy('categories.id', 'categories.nom')
+            ->orderBy('count', 'desc')
+            ->get();
+            
+        $categoryLabels = $categories->pluck('name')->toArray();
+        $categoryData = $categories->pluck('count')->toArray();
+        
+        return view('admin.rapport', compact(
+            'totalTickets', 
+            'openTickets', 
+            'premiumUsers',
+            'statusCounts',
+            'priorityCounts',
+            'trendLabels',
+            'trendData',
+            'categoryLabels',
+            'categoryData',
+            'period'
+        ));
+    }
+
 
 }
 
