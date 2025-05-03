@@ -153,7 +153,7 @@ Route::get('/premium/cancel', [PaymentController::class, 'paymentCancel'])->name
 
 
 Route::middleware(['auth', 'role:1'])->group(function () {
-
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 // Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
 Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
 Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');

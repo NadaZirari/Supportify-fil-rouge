@@ -48,6 +48,7 @@ class AdminController extends Controller
         return view('admin.user_management', compact('activeUsers', 'archivedUsers'));
     }
 
+    
 
     public function updateUserRole(Request $request, $id)
     {

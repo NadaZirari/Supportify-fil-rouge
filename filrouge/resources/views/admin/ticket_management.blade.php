@@ -134,27 +134,29 @@
                             <td class="py-4 px-6">
     @if($ticket->assigned_to && $ticket->agent)
     <div class="flex items-center">
-        <div class="h-8 w-8 rounded-full bg-bleuciel flex items-center justify-center mr-2 text-white text-xs font-semibold">
-            {{ substr($ticket->agent->name ?? 'NA', 0, 2) }}
-        </div>
-        <span class="text-gray-600">>{{ $ticket->agent->name ?? 'Non assigné' }}</span>
-        
-        <!-- Bouton pour changer l'assignation -->
-        <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-        </button>
+    @if($ticket->agent->photo)
+            <img src="{{ asset('storage/' . $ticket->agent->photo) }}" alt="{{ $ticket->agent->name }}" class="h-8 w-8 rounded-full object-cover mr-2">
+        @else
+            <div class="h-8 w-8 rounded-full bg-bleuciel flex items-center justify-center mr-2 text-white text-xs font-semibold">
+                {{ substr($ticket->agent->name ?? 'NA', 0, 2) }}
+            </div>
+        @endif
+        <span class="text-gray-600">{{ $ticket->agent->name ?? 'Non assigné' }}</span>
     </div>
     @else
-    <div class="flex items-center">
-        <span class="text-gray-400">Non assigné</span>
-        <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-        </button>
+    <div class="flex items-center text-gray-600">
+    <span>Non assigné</span>
+
+    <!-- Bouton pour changer l'assignation -->
+    <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+    </button>
+</div>
+
     </div>
+   
     @endif
 </td>
 

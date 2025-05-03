@@ -44,22 +44,25 @@
                 <h1 class="text-3xl font-bold text-bleuciel">Gestion des Utilisateurs</h1>
                 
             </div>
-            <div class="flex flex-wrap gap-4 mb-8">
-                <div class="relative">
-                    <select class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
-                        <option>All Roles</option>
-                        <option>Agents</option>
-                        <option>Users</option>
+            <div class="flex flex-wrap ml-5 gap-4 mb-8">
+                <div class=" ml-10 relative">
+                <select id="roleFilter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
+        <option value="All Roles">All Roles</option>
+        <option value="Admin">Admin</option>
+        <option value="Agents">Agents</option>
+        <option value="Users">Users</option>
+    </select>
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
+    </div>
 
-                    </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
                        
                     </div>
                 </div>
             <!-- Utilisateurs Actifs -->
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Utilisateurs Actifs</h2>
-                <table class="w-full bg-white rounded-2xl ">
+                <h2 class="text-xl font-semibold text-bleuciel ml-10 mb-4">Utilisateurs Actifs</h2>
+                <table class="w-full bg-white ml-10 rounded-2xl ">
                     <thead>
                         <tr class="text-left text-gray-600 border-b border-gray-200">
                             <th class="p-4 font-semibold">Nom</th>
@@ -71,8 +74,7 @@
                     </thead>
                     <tbody>
                         @foreach($activeUsers as $index => $user)
-                        <tr class="border-b border-gray-200 ">
-                            <td class="p-4">
+                        <tr class="border-b border-gray-200 " data-role="{{ $user->role_id == 1 ? 'Admin' : ($user->role_id == 2 ? 'Agents' : 'Users') }}">                            <td class="p-4">
                                 <div class="flex items-center">
                                     <div class="h-12 w-12 rounded-full flex items-center justify-center mr-3 text-white font-semibold overflow-hidden {{ $user->role_id == 1 ? 'bg-admin' : ($user->role_id == 2 ? 'bg-support' : 'bg-user') }}">
                                         @if($user->photo)
@@ -131,12 +133,11 @@
             <!-- Utilisateurs Archivés -->
             @if(count($archivedUsers) > 0)
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Utilisateurs Archivés</h2>
-                <table class="w-full bg-white rounded-2xl">
+                <h2 class="text-xl font-semibold ml-10 text-bleuciel mb-4">Utilisateurs Archivés</h2>
+                <table class="w-full ml-10 bg-white rounded-2xl">
                     <thead>
-                        <tr class="text-left text-gray-600 border-b border-gray-200">
-                            <th class="p-4 font-semibold">Nom</th>
-                            <th class="p-4 font-semibold">Email</th>
+                    <tr class="border-b border-gray-200 " {{ $index % 3 === 0 ? 'bg-gradient-to-br from-bleuciel/10 to-white' : ($index % 3 === 1 ? 'bg-gradient-to-br from-inprogress/10 to-white' : 'bg-gradient-to-br from-resolved/10 to-white') }}">        
+                                           <th class="p-4 font-semibold">Email</th>
                             <th class="p-4 font-semibold">Rôle</th>
                             <th class="p-4 font-semibold">Statut</th>
                             <th class="p-4 font-semibold">Actions</th>
@@ -300,6 +301,23 @@
                 }
             });
         });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const roleFilter = document.getElementById('roleFilter');
+    if (roleFilter) {
+        roleFilter.addEventListener('change', function() {
+            const selectedRole = this.value;
+            document.querySelectorAll('tbody tr[data-role]').forEach(row => {
+                row.style.display = selectedRole === 'All Roles' || row.getAttribute('data-role') === selectedRole ? '' : 'none';
+            });
+        });
+    }
+});
+
     </script>
 </body>
 </html>

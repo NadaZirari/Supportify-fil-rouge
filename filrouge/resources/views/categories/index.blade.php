@@ -37,7 +37,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-bold text-bleuciel">Gestion des Catégories</h1>
-                <button onclick="openModal('createCategoryModal')" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light flex items-center space-x-2 font-semibold">
+                <button onclick="openModal('createCategoryModal')" class="bg-bleuciel text-white py-3 px-6 rounded-full shadow-lg border-2 border-bleuciel-light flex items-center space-x-2 font-semibold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -48,7 +48,7 @@
             <!-- Grille de cartes -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 @forelse($categories as $index => $category)
-                    <div class="bg-white rounded-2xl p-6 ">
+                    <div class="bg-white rounded-2xl   p-6 ">
                         <div class="flex items-center mb-4">
                             <div class="p-3 rounded-lg mr-4 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 viewBox="0 0 24 24" stroke="currentColor">
@@ -66,13 +66,13 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
-                                    <span>Éditer</span>
+                                   
                                 </button>
                                 <button onclick="openDeleteModal(document.getElementById('delete-form-{{ $category->id }}'))" class="text-high font-semibold flex items-center space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4M7 7h10" />
                                     </svg>
-                                    <span>Supprimer</span>
+                                   
                                 </button>
                                 <form id="delete-form-{{ $category->id }}" action="{{ route('categories.destroy', $category->id) }}" method="POST" class="hidden">
                                     @csrf
