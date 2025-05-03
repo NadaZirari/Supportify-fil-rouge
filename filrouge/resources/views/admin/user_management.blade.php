@@ -49,7 +49,18 @@
                     <span>Ajouter un Utilisateur</span>
                 </button>
             </div>
+            <div class="flex flex-wrap gap-4 mb-8">
+                <div class="relative">
+                    <select class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
+                        <option>All Roles</option>
+                        <option>Agents</option>
+                        <option>Users</option>
 
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
+                       
+                    </div>
+                </div>
             <!-- Utilisateurs Actifs -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Utilisateurs Actifs</h2>
