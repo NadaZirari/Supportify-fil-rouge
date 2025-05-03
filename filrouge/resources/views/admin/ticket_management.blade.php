@@ -42,36 +42,36 @@
 
             <div class="flex flex-wrap gap-4 mb-8">
                 <div class="relative">
-                    <select class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
-                        <option>All Status</option>
-                        <option>In Progress</option>
-                        <option>Open</option>
-                        <option>Closed</option>
-                    </select>
+                <select id="statusFilter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
+            <option value="All Status">All Status</option>
+            <option value="en_cours">In Progress</option>
+            <option value="ouvert">Open</option>
+            <option value="fermé">Closed</option>
+            <option value="résolu">Resolved</option>
+        </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
                        
                     </div>
                 </div>
 
                 <div class="relative">
-                    <select id="category-filter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
-                        <option value="">Toutes les catégories</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->nom }}</option>
-                        @endforeach
-                        </select>
+                <select id="categoryFilter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
+            <option value="">Toutes les catégories</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->nom }}</option>
+            @endforeach
+        </select>
 
 
                 </div>
 
                 <div class="relative">
-                <select id="agent-filter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
-      <option value="">Tous les agents</option>
-      @foreach($agents as $agent)
-        <option value="{{ $agent->id }}">{{ $agent->name }}</option>
-      @endforeach
-    </select>
-
+                <select id="agentFilter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
+            <option value="">Tous les agents</option>
+            @foreach($agents as $agent)
+                <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+            @endforeach
+        </select>
                     
                 </div>
 

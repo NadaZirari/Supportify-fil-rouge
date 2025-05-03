@@ -234,7 +234,7 @@
             <!-- Modal pour confirmer l'archivage -->
             <div id="archiveModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
                 <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
-                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer l'Archivage</h2>
+                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer l'Archivage/desarchivaage</h2>
                     <p class="text-gray-600 text-lg mb-6">Voulez-vous vraiment archiver/réactiver cet utilisateur ?</p>
                     <div class="flex justify-end space-x-4">
                         <button onclick="closeModal('archiveModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
