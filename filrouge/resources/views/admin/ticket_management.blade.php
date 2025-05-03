@@ -76,12 +76,17 @@
                 </div>
 
                 <div class="relative ml-auto">
-                    <input type="text" id="search" placeholder="Rechercher des tickets..." class="bg-white text-gray-800 py-3 pl-10 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-64">
+                    <input type="text" id="searchInput"  placeholder="Rechercher des tickets..." class="bg-white text-gray-800 py-3 pl-10 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-64">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
+                    <button type="button" id="searchButton" class="absolute inset-y-0 right-0 flex items-center pr-3">
+            <svg class="h-5 w-5 text-gray-400 hover:text-bleuciel" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
                 </div>
             </div>
            
@@ -101,8 +106,12 @@
                     <tbody>
                     @forelse($tickets as $ticket)
 
-                        <tr class="border-b border-gray-200">
-                        <td class="py-4 px-6">{{ $ticket->title }}</td>
+                    <tr class="border-b border-gray-200" 
+    data-status="{{ $ticket->status }}" 
+    data-category="{{ $ticket->categorie_id }}" 
+    data-agent="{{ $ticket->assigned_to }}" 
+    data-title="{{ strtolower($ticket->title) }}" 
+    data-description="{{ strtolower($ticket->description) }}">                        <td class="py-4 px-6">{{ $ticket->title }}</td>
                             <td class="py-4 px-6">
                                 @if($ticket->status == 'ouvert')
                                     <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Ouvert</span>
