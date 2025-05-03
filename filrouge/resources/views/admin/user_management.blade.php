@@ -42,12 +42,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-bold text-bleuciel">Gestion des Utilisateurs</h1>
-                <button onclick="openModal('createUserModal')" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light flex items-center space-x-2 font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>Ajouter un Utilisateur</span>
-                </button>
+                
             </div>
             <div class="flex flex-wrap gap-4 mb-8">
                 <div class="relative">
