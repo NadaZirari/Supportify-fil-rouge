@@ -108,7 +108,22 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <form id="delete-form-{{ $user->id }}" action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="hidden">
+                                        <button onclick="openArchiveModal(document.getElementById('archive-form-{{ $user->id }}'))" class="text-high font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                        </svg>
+                                        <span>Archiver</span>
+                                    </button>
+                                    <form id="archive-form-{{ $user->id }}" method="POST" action="{{ route('admin.archiveToggleUser', $user->id) }}" class="hidden">
+                                        @csrf
+                                    </form>
+                                    <button onclick="openDeleteModal(document.getElementById('delete-form-{{ $user->id }}'))" class="text-high font-semibold flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                        <span>Supprimer</span>
+                                    </button>
+                                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="hidden">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -126,7 +141,37 @@
             </div>
         </div>
     </div>
-    
+     <!-- Modal pour confirmer la suppression -->
+     <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-2xl p-8 w-full max-w-md border-2 border-gray-200 shadow-lg">
+                    <h2 class="text-2xl font-bold text-bleuciel mb-4">Confirmer la Suppression</h2>
+                    <p class="text-gray-600 text-lg mb-6">Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible.</p>
+                    <div class="flex justify-end space-x-4">
+                        <button onclick="closeModal('deleteModal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
+                        <button onclick="confirmDelete()" class="bg-high text-white py-3 px-6 rounded-xl shadow-lg border-2 border-red-600 font-semibold">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+     function openDeleteModal(form) {
+            deleteForm = form;
+            openModal('deleteModal');
+        }
 
+        function confirmDelete() {
+            deleteForm.submit();
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        document.querySelectorAll('.fixed').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            }); 
+        });
+            <\script>
 </body>
 </html>
