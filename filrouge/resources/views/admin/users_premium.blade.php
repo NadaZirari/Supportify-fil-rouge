@@ -33,9 +33,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-bold text-bleuciel">Utilisateurs Premium</h1>
-                <a href="{{ route('premium.create') }}" class="bg-bleuciel text-white py-2 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold">
-                    Ajouter un utilisateur premium
-                </a>
+                
             </div>
 
             <!-- Flash Messages -->
@@ -48,6 +46,13 @@
             <!-- Premium Users Table -->
             <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 overflow-hidden">
                 <div class="p-6">
+                    @php
+                        // Si $premiumUsers n'est pas défini, récupérer les utilisateurs premium
+                        if (!isset($premiumUsers)) {
+                            $premiumUsers = \App\Models\User::where('is_premium', true)->get();
+                        }
+                    @endphp
+                    
                     @if($premiumUsers->count() > 0)
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -94,14 +99,19 @@
                                             <div class="text-sm text-gray-900">{{ $user->email }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($user->premium_until)->format('d/m/Y') }}</div>
+                                            <div class="text-sm text-gray-900">
+                                                @if($user->premium_until)
+                                                    {{ \Carbon\Carbon::parse($user->premium_until)->format('d/m/Y') }}
+                                                @else
+                                                    Illimité
+                                                @endif
+                                            </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <form action="{{ route('premium.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir retirer le statut premium à cet utilisateur?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">Retirer Premium</button>
-                                            </form>
+                                        <form id="delete-form-{{ $user->id }}" action="{{ route('admin.deleteUser', $user->id) }}" method="POST" class="hidden">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,5 +126,7 @@
             </div>
         </div>
     </div>
+    
+
 </body>
 </html>

@@ -36,6 +36,11 @@ Route::get('/temoignage', function () {
     return view('temoignage');
 })->name('temoignage');
 
+Route::middleware(['auth', 'role:1'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.users_premium');
+    })->name('preniumusers');
+});
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
 Route::middleware(['auth'])->group(function () {
