@@ -145,7 +145,6 @@
                                 <tr>
                                     <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-600">
                                         Aucun ticket trouvé. 
-                                        <a href="{{ route('user.Soumettre_ticket') }}" class="text-bleuciel hover:underline">Créer un ticket</a>
                                     </td>
                                 </tr>
                             @endforelse
