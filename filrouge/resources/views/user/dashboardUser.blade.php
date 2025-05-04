@@ -73,5 +73,88 @@
                         </div>
                     </div>
                 </div>
+  <!-- Tickets résolus   -->
+  <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Tickets résolus</p>
+                            <p class="text-2xl font-bold text-gray-800" id="resolved-tickets">104</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+             <!-- Historique d'activité -->
+             <div class="mt-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Historique d'activité</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <canvas id="activityChart" class="w-full" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+        const ticketData = {
+            total: 142,
+            open: 23,
+            pending: 15,
+            resolved: 104
+        };
+
+        // Mise à jour des valeurs dans les cartes
+        document.getElementById('total-tickets').textContent = ticketData.total;
+        document.getElementById('open-tickets').textContent = ticketData.open;
+        document.getElementById('pending-tickets').textContent = ticketData.pending;
+        document.getElementById('resolved-tickets').textContent = ticketData.resolved;
+
+        // Données pour le graphique d'activité (exemple : tickets soumis par semaine)
+        const activityData = {
+            labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5'],
+            datasets: [{
+                label: 'Tickets soumis',
+                data: [30, 45, 20, 60, 35],
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        // Configuration du graphique
+        const ctx = document.getElementById('activityChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: activityData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Nombre de tickets'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Semaines'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    </script>
 
