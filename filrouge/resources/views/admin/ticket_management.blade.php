@@ -110,7 +110,7 @@
                     @forelse($tickets as $ticket)
 
                     <tr class="border-b border-gray-200" 
-    data-status="{{ $ticket->status }}" 
+     data-status="{{ $ticket->status }}" 
     data-category="{{ $ticket->categorie_id }}" 
     data-agent="{{ $ticket->assigned_to }}" 
     data-title="{{ strtolower($ticket->title) }}" 

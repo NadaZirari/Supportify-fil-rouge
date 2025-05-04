@@ -11,14 +11,14 @@
             theme: {
                 extend: {
                     colors: {
-                        'bleuciel': '#052485', // Dark blue for buttons
-                        'bleuciel-light': '#3b4db5', // Light blue for borders/hover
-                        'inprogress': '#f59e0b', // Amber for in-progress status
-                        'high': '#ef4444', // Red for high priority
-                        'medium': '#3b82f6', // Blue for medium priority
-                        'low': '#10b981', // Green for low priority
-                        'active': '#10b981', // Green for active status
-                        'closed': '#f59e0b' // Amber for closed status
+                        'bleuciel': '#052485', 
+                        'bleuciel-light': '#3b4db5', 
+                        'inprogress': '#f59e0b',
+                        'high': '#ef4444', 
+                        'medium': '#3b82f6', 
+                        'low': '#10b981', 
+                        'active': '#10b981', 
+                        'closed': '#f59e0b' 
                     },
                     fontFamily: {
                         sans: ['Inter', 'ui-sans-serif', 'system-ui']
@@ -97,7 +97,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
-                        <input type="date" class="w-full sm:w-40 bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-bleuciel">
+                        <input type="date"   id="dateFilter" class="w-full sm:w-40 bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-bleuciel">
                     </div>
                     <a href="{{ route('user.Soumettre_ticket') }}" class="bg-bleuciel hover:bg-bleuciel-light text-white px-3 py-2 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold flex items-center">
                         <i class="fas fa-plus mr-2"></i>
@@ -171,5 +171,7 @@
             </div>
         </main>
     </div>
+    <script src="{{ asset('js/userfilters.js') }}"></script>
+
 </body>
 </html>
