@@ -67,9 +67,24 @@
 </div>
 
                     <div class="flex-1 text-center md:text-left">
-                        <h2 class="text-2xl font-bold text-gray-800">{{ $user->name ?? 'Nada ZIRARI' }}</h2>
-                        <p class="text-gray-600">{{ $user->email ?? 'NADA@GMAIL.com' }}</p>
-                    </div>
+                    <div class="flex items-center justify-center md:justify-start gap-3">
+        <h2 class="text-2xl font-bold text-gray-800">
+            {{ $user->name ?? 'Nada ZIRARI' }}
+        </h2>
+        <!-- Badge Premium -->
+        @if($user->is_premium ?? false)
+        <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm animate-pulse">
+            Premium
+        </span>
+        @endif
+
+
+    </div>
+
+    <p class="text-gray-600">
+        {{ $user->email ?? 'NADA@GMAIL.com' }}
+    </p>
+</div>
                     <button onclick="openModal('edit-profile-modal')" class="mt-4 md:mt-0 bg-bleuciel text-white py-2 px-4 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold text-sm">
                         Modifier le profil
                     </button>
@@ -82,6 +97,7 @@
                 <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations personnelles</h3>
                     <div class="grid grid-cols-1 gap-4">
+                        
                         <div>
                             <label class="block text-gray-600 text-sm font-semibold mb-1">Nom</label>
                             <input type="text" value="{{ $user->name ?? 'Nada ZIRARI' }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800" readonly>

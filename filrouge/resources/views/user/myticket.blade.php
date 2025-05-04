@@ -35,22 +35,30 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <!-- Top Navigation -->
-        <header class="p-4 ml-0 flex items-center justify-between border-b border-gray-200">
-            <div class="relative w-80">
-                <input type="text" placeholder="Rechercher..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 absolute left-3 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </div>
+        <header class="p-4 flex items-center justify-between border-b border-gray-200">
+    <h2 class="text-2xl font-bold text-bleuciel">
+        WELCOME : {{ (Auth::user()->name) }} !
+    </h2>
+    
+    <div class="flex items-center space-x-3">
+        <!-- Badge Premium -->
+        @if(Auth::user()->is_premium ?? false)
+        <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold px-5 py-2 rounded-full shadow-sm animate-pulse">
+            Premium
+        </span>
+        @endif
 
-            <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
-    @if(Auth::user()->photo)
-        <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
-    @else
-        <i class="fas fa-user"></i>
-    @endif
-</div>
-        </header>
+        <!-- Profile Image -->
+        <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
+            @if(Auth::user()->photo)
+                <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+            @else
+                <i class="fas fa-user"></i>
+            @endif
+        </div>
+    </div>
+</header>
+
 
         <!-- Content Area -->
         <main class="flex-1 overflow-auto p-6">
