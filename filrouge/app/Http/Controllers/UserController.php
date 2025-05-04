@@ -19,7 +19,7 @@ class UserController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        
+        $userId = $user->id;
         // Récupérer les statistiques des tickets
         $totalTickets = Ticket::where('user_id', $user->id)->count();
         $openTickets = Ticket::where('user_id', $user->id)
@@ -31,37 +31,38 @@ class UserController extends Controller
         $resolvedTickets = Ticket::where('user_id', $user->id)
                                 ->where('status', 'résolu')
                                 ->count();
-        $ticketsByWeek = Ticket::selectRaw('EXTRACT(WEEK FROM created_at) AS week, COUNT(*) as count')
-                                ->where('user_id', $user->id)
-                                ->where('created_at', '>=', now()->subWeeks(5))
-                                ->groupBy('week')
-                                ->orderBy('week')
-                                ->get();
-        
-        // Formater les données pour le graphique
-        $weeks = [];
-        $ticketCounts = [];
-        
-        foreach ($ticketsByWeek as $data) {
-            $weeks[] = 'Sem ' . $data->week;
-            $ticketCounts[] = $data->count;
-        }
-        
-        // Si aucun, add  this  par défaut
-        if (empty($weeks)) {
-            $weeks = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5'];
-            $ticketCounts = [0, 0, 0, 0, 0];
-        }
-        
-        return view('user.dashboardUser', compact(
-            'user', 
-            'totalTickets', 
-            'openTickets', 
-            'pendingTickets', 
-            'resolvedTickets',
-            'weeks',
-            'ticketCounts'
-        ));
+                                $startDate = now()->subDays(13)->startOfDay();
+                                $endDate = now()->endOfDay();
+                                
+                                $dailyTickets = Ticket::where('user_id', $userId)
+                                    ->whereBetween('created_at', [$startDate, $endDate])
+                                    ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+                                    ->groupBy('date')
+                                    ->orderBy('date')
+                                    ->get();
+                                
+                                // Create arrays for chart data
+                                $days = [];
+                                $ticketCounts = [];
+                                
+                                // Fill in all days in the range
+                                for ($date = clone $startDate; $date <= $endDate; $date->addDay()) {
+                                    $formattedDate = $date->format('Y-m-d');
+                                    $days[] = $date->format('d M'); // Format as "01 Jan"
+                                    
+                                    // Find if we have tickets for this day
+                                    $dayData = $dailyTickets->firstWhere('date', $formattedDate);
+                                    $ticketCounts[] = $dayData ? $dayData->count : 0;
+                                }
+                                
+                                return view('user.dashboardUser', compact(
+                                    'totalTickets', 
+                                    'openTickets', 
+                                    'pendingTickets', 
+                                    'resolvedTickets',
+                                    'days',
+                                    'ticketCounts'
+                                ));
     } 
     
 }

@@ -111,10 +111,10 @@
 
         // Données pour le graphique d'activité (exemple : tickets soumis par semaine)
         const activityData = {
-            labels: {!! json_encode($weeks) !!},
-            datasets: [{
-                label: 'Tickets soumis',
-                data:  {!! json_encode($ticketCounts) !!},
+            labels: {!! json_encode($days) !!},
+        datasets: [{
+            label: 'Tickets soumis par jour',
+            data:  {!! json_encode($ticketCounts) !!},
                 backgroundColor: 'rgba(59, 130, 246, 0.2)',
                 borderColor: 'rgba(59, 130, 246, 1)',
                 borderWidth: 2,
@@ -142,7 +142,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Semaines'
+                            text: 'Jours'
                         }
                     }
                 },
