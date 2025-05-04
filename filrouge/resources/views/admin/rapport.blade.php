@@ -7,6 +7,7 @@
     <title>Rapport d'activité - Supportify</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -53,6 +54,7 @@
                     </button>
                 </div>
             </div>
+            <div id="rapport-content">
 
             <!-- Statistiques -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -107,7 +109,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script>
         // Configuration des graphiques
         window.onload = function() {
@@ -240,6 +242,26 @@
         };
 
        
+        document.getElementById('exportPDF').addEventListener('click', function() {
+            // Attendre que les graphiques soient rendus
+            setTimeout(function() {
+                // Options pour html2pdf
+                const options = {
+                    margin: 10,
+                    filename: 'rapport-supportify-{{ now()->format("Y-m-d") }}.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                // Sélectionner le contenu à exporter
+                const element = document.getElementById('rapport-content');
+                
+                // Générer le PDF
+                html2pdf().set(options).from(element).save();
+            }, 1000); 
+        });
+
     </script>
 </body>
 </html>

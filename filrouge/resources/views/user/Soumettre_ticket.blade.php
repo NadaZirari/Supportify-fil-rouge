@@ -127,9 +127,7 @@
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50 hover:bg-gray-100 transition scale-hover" id="drop-area">
               <input type="file" name="fichier" class="hidden" id="file-upload" onchange="updateFileLabel(this)" />
               <label for="file-upload" class="cursor-pointer text-blue-600 hover:text-blue-700 font-medium text-base">
-                <svg class="w-8 h-8 mx-auto mb-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V8m0 0l-4 4m4-4l4 4m6-4v12m-4-2l4-4m-4 4l-4-4"></path>
-                </svg>
+               
                 Glissez vos fichiers ici ou <span class="underline">parcourir</span>
               </label>
               <p class="text-xs text-gray-500 mt-2">PNG, JPG, PDF jusqu'à 10MB</p>

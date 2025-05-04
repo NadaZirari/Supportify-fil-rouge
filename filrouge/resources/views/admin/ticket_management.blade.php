@@ -6,6 +6,7 @@
     <title>Supportify - Gestion des tickets</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{{ asset('js/adminfilters.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
        
   tailwind.config = {
@@ -33,7 +34,7 @@
   <div class="p-6 max-w-7xl mx-auto w-full">
             <div class="flex justify-between items-center mb-8">
   <h1 class="text-3xl font-bold text-bleuciel">Gestion des Tickets</h1>
-  <button class="bg-bleuciel text-white px-6 py-2 rounded-full flex items-center font-semibold">
+  <button id="exportPDF" class="bg-bleuciel text-white px-6 py-2 rounded-full flex items-center font-semibold">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
     </svg>
@@ -91,6 +92,7 @@
                 </div>
             </div>
            
+<div id="rapport-content">
             <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
                 <table class="w-full">
                     <thead>
@@ -140,7 +142,7 @@
                                 </span>
                             </td>
                            
-
+  </div>
                             <td class="py-4 px-6">
     @if($ticket->assigned_to && $ticket->agent)
     <div class="flex items-center">
@@ -156,6 +158,7 @@
     @else
     <div class="flex items-center text-gray-600">
     <span>Non assigné</span>
+    </div>
 
     <!-- Bouton pour changer l'assignation -->
     <button onclick="openAssignModal('{{ $ticket->id }}')" class="ml-2 text-blue-400 hover:text-blue-300">
@@ -234,7 +237,8 @@
       </div>
     </form>
   </div>
-</div>
+
+
 <script>
     function openAssignModal(ticketId) {
         document.getElementById('assignForm').action = `/tickets/${ticketId}/assign`;
@@ -244,6 +248,29 @@
     function closeAssignModal() {
         document.getElementById('assignModal').classList.add('hidden');
     }
+
+
+
+    document.getElementById('exportPDF').addEventListener('click', function() {
+            // Attendre que les graphiques soient rendus
+            setTimeout(function() {
+                // Options pour html2pdf
+                const options = {
+                    margin: 10,
+                    filename: 'rapport-supportify-{{ now()->format("Y-m-d") }}.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                // Sélectionner le contenu à exporter
+                const element = document.getElementById('rapport-content');
+                
+                // Générer le PDF
+                html2pdf().set(options).from(element).save();
+            }, 1000); 
+        });
+
 </script>
 </body>
 </html>

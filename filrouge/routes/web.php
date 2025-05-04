@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\AgentDashboardController;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -152,6 +152,7 @@ Route::get('/user/submit-ticket', function () {
     return view('user.Soumettre_ticket');
 })->middleware(['auth', 'role:3'])->name('user.submit-ticket');
 
+Route::put('/profile/update-name/{id?}', [ProfileController::class, 'update'])->name('profile.update.name');
 
 Route::post('/premium/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 Route::get('/premium/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');

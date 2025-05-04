@@ -3,68 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supportify - Tableau de bord</title>
+    <title>Dashboard Utilisateur</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'sidebar': '#1e293b',
-                        'main-bg': '#0f172a',
-                        'btn-blue': '#3b82f6',
-                        'high': '#ef4444',
-                        'medium': '#f59e0b',
-                        'low': '#10b981',
-                        'active': '#10b981',
-                        'closed': '#f59e0b'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-main-bg text-white flex h-screen">
-    <!-- <div class="flex h-screen overflow-hidden"> -->
-        <!-- Sidebar -->
-        <!-- <div class="w-64 bg-dark-sidebar flex-shrink-0"> -->
-            
-            
-            @include('partials.sidebaruser')
-        <!-- </div> -->
-        
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Search Bar -->
-            <header class="p-4 flex items-center justify-between border-b border-gray-700">
-                <div class="relative w-64">
-                    <input type="text" placeholder="Rechercher..." class="bg-gray-700 text-white rounded-md px-3 py-1 w-full pl-8">
-                    <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+<body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col">
+        @include('partials.sidebaruser')
+        <nav class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">Dashboard Utilisateur</h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-gray-600">Bonjour, Utilisateur</span>
+                            <!-- Badge Premium -->
+                            <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm animate-pulse">
+                                Premium
+                            </span>
+                        </div>
+                        <button class="text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button class="text-gray-300 hover:text-white">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
-    @if(Auth::user()->photo)
-        <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover" 
-             onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random';">
-    @else
-        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
-    @endif
-</div>
-
-                </div>
-            </header>
-            
-        </div>
-           
-</body>
-</html>
+            </div>
+        </nav>

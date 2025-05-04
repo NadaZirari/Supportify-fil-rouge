@@ -90,14 +90,7 @@
                             <label class="block text-gray-600 text-sm font-semibold mb-1">Email</label>
                             <input type="email" value="{{ $user->email ?? 'NADA@GMAIL.com' }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800" readonly>
                         </div>
-                        <div>
-                            <label class="block text-gray-600 text-sm font-semibold mb-1">Téléphone</label>
-                            <input type="tel" value="{{ $user->phone ?? '+33 6 12 34 56 78' }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800" readonly>
-                        </div>
-                        <div>
-                            <label class="block text-gray-600 text-sm font-semibold mb-1">Entreprise</label>
-                            <input type="text" value="{{ $user->company ?? 'TechCorp' }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800" readonly>
-                        </div>
+                        
                     </div>
                 </div>
                 <!-- Notification Preferences -->
@@ -236,14 +229,15 @@
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-2xl font-bold text-bleuciel">Modifier le profil</h3>
                         <!-- <button onclick="closeModal('edit-profile-modal')" class="text-gray-600"> -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" onclick="closeModal('edit-profile-modal')"  class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
-                    <form action="#" method="POST">
+                    <form method="POST" action="{{ route('profile.update.name', $user->id) }}">
                         @csrf
-                        @method('PATCH')
+                        @method('PUT')
+
                         <div class="mb-6">
                             <label for="name" class="block text-gray-600 font-semibold text-lg mb-2">Nom</label>
                             <input type="text" id="name" name="name" value="{{ old('name', $user->name ?? 'Nada ZIRARI') }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800 focus:ring-2 focus:ring-bleuciel" required>
@@ -252,20 +246,7 @@
                             @enderror
                         </div>
                         
-                        <div class="mb-6">
-                            <label for="phone" class="block text-gray-600 font-semibold text-lg mb-2">Téléphone</label>
-                            <input type="tel" id="phone" name="phone" value="{{ old('phone', $user->phone ?? '+33 6 12 34 56 78') }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800 focus:ring-2 focus:ring-bleuciel">
-                            @error('phone')
-                                <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-6">
-                            <label for="company" class="block text-gray-600 font-semibold text-lg mb-2">Entreprise</label>
-                            <input type="text" id="company" name="company" value="{{ old('company', $user->company ?? 'TechCorp') }}" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-gray-800 focus:ring-2 focus:ring-bleuciel">
-                            @error('company')
-                                <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
-                            @enderror
-                        </div>
+                       
                         <div class="flex justify-end space-x-4">
                             <button type="button" onclick="closeModal('edit-profile-modal')" class="text-gray-600 font-semibold text-lg">Annuler</button>
                             <button type="submit" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold">Enregistrer</button>
