@@ -119,9 +119,7 @@ Route::get('/dashboard/agent', [AgentDashboardController::class, 'statistics'])
     ->middleware('role:2')
     ->name('agent.dashboard');
 
-Route::get('/user/dashboard', function () {
-    return view('user.dashboardUser');
-})->middleware(['auth', 'role:3'])->name('user.dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 
 
 Route::get('/user/myticket', function () {

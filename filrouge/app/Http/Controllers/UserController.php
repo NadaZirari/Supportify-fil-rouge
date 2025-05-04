@@ -23,15 +23,15 @@ class UserController extends Controller
         // Récupérer les statistiques des tickets
         $totalTickets = Ticket::where('user_id', $user->id)->count();
         $openTickets = Ticket::where('user_id', $user->id)
-                            ->where('status', 'Ouvert')
+                            ->where('status', 'ouvert')
                             ->count();
         $pendingTickets = Ticket::where('user_id', $user->id)
-                               ->where('status', 'En attente')
+                               ->where('status', 'en_cours')
                                ->count();
         $resolvedTickets = Ticket::where('user_id', $user->id)
-                                ->where('status', 'Résolu')
+                                ->where('status', 'résolu')
                                 ->count();
-        $ticketsByWeek = Ticket::selectRaw('WEEK(created_at) as week, COUNT(*) as count')
+        $ticketsByWeek = Ticket::selectRaw('EXTRACT(WEEK FROM created_at) AS week, COUNT(*) as count')
                                 ->where('user_id', $user->id)
                                 ->where('created_at', '>=', now()->subWeeks(5))
                                 ->groupBy('week')

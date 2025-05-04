@@ -39,7 +39,7 @@
 </header>
 
         <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6">Résumé rapide</h2>
+            <h2 class="text-xl font-semibold text-gray-800 mb-6">Résumé de vos tickets </h2>
             
             <!--  Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Total des tickets soumis</p>
-                            <p class="text-2xl font-bold text-gray-800" id="total-tickets">142</p>
+                            <p class="text-2xl font-bold text-gray-800" id="total-tickets">{{ $totalTickets }}</p>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Tickets ouverts</p>
-                            <p class="text-2xl font-bold text-gray-800" id="open-tickets">23</p>
+                            <p class="text-2xl font-bold text-gray-800" id="open-tickets">{{ $openTickets }}</p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Tickets en attente</p>
-                            <p class="text-2xl font-bold text-gray-800" id="pending-tickets">15</p>
+                            <p class="text-2xl font-bold text-gray-800" id="pending-tickets">{{ $pendingTickets }}</p>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-600">Tickets résolus</p>
-                            <p class="text-2xl font-bold text-gray-800" id="resolved-tickets">104</p>
+                            <p class="text-2xl font-bold text-gray-800" id="resolved-tickets">{{ $resolvedTickets }}</p>
                         </div>
                     </div>
                 </div>
@@ -107,25 +107,14 @@
         </div>
 
         <script>
-        const ticketData = {
-            total: 142,
-            open: 23,
-            pending: 15,
-            resolved: 104
-        };
-
-        // Mise à jour des valeurs dans les cartes
-        document.getElementById('total-tickets').textContent = ticketData.total;
-        document.getElementById('open-tickets').textContent = ticketData.open;
-        document.getElementById('pending-tickets').textContent = ticketData.pending;
-        document.getElementById('resolved-tickets').textContent = ticketData.resolved;
+       
 
         // Données pour le graphique d'activité (exemple : tickets soumis par semaine)
         const activityData = {
-            labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5'],
+            labels: {!! json_encode($weeks) !!},
             datasets: [{
                 label: 'Tickets soumis',
-                data: [30, 45, 20, 60, 35],
+                data:  {!! json_encode($ticketCounts) !!},
                 backgroundColor: 'rgba(59, 130, 246, 0.2)',
                 borderColor: 'rgba(59, 130, 246, 1)',
                 borderWidth: 2,
