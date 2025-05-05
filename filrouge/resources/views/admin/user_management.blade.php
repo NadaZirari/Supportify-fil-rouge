@@ -48,7 +48,6 @@
                 <div class=" ml-10 relative">
                 <select id="roleFilter" class="bg-white text-gray-800 py-3 pl-4 pr-10 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-bleuciel w-48">
         <option value="All Roles">All Roles</option>
-        <option value="Admin">Admin</option>
         <option value="Agents">Agents</option>
         <option value="Users">Users</option>
     </select>
@@ -74,6 +73,8 @@
                     </thead>
                     <tbody>
                         @foreach($activeUsers as $index => $user)
+
+                        @if($user->role_id != 1) 
                         <tr class="border-b border-gray-200 " data-role="{{ $user->role_id == 1 ? 'Admin' : ($user->role_id == 2 ? 'Agents' : 'Users') }}">                            <td class="p-4">
                                 <div class="flex items-center">
                                     <div class="h-12 w-12 rounded-full flex items-center justify-center mr-3 text-white font-semibold overflow-hidden {{ $user->role_id == 1 ? 'bg-admin' : ($user->role_id == 2 ? 'bg-support' : 'bg-user') }}">
@@ -125,6 +126,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

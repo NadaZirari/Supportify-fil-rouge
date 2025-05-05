@@ -236,7 +236,6 @@
                                     <label class="block mb-3 text-sm font-medium text-gray-600 sr-only">Rôle</label>
                                     <select name="role" class="block w-full px-4 py-1.5 text-midnightGreen bg-white border-b border-gray-200 appearance-none focus:border-midnightGreen focus:outline-none focus:ring-midnightGreen text-xs" required>
                                         <option value="User">User</option>
-                                        <option value="Admin">Admin</option>
                                         <option value="Agent">Agent</option>
                                     </select>
                                 </div>
