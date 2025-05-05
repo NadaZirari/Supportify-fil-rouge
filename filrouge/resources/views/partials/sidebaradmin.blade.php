@@ -1,4 +1,4 @@
-<div class="w-[200px] bg-sidebar flex-shrink-0 flex flex-col">
+<div class="w-[200px] bg-blue-100 flex-shrink-0 flex flex-col">
         
         <nav class="flex-1 py-4 bg-blue-100">
         <div class="p-3 ml-8 font-bold text-xl border-b text-blue-500">

@@ -43,37 +43,32 @@
 <body class="bg-gray-100 text-gray-800 font-sans  ">
 
 
-    <div class="flex h-screen ">
-       @include('partials.sidebaragent')
-        
-        <!-- Main Content -->
-        <div class="flex-1  absolute left-60 flex-col overflow-hidden">
-        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div class="px-6 py-4 flex items-center justify-between">
-    <h2 class="text-2xl font-bold text-bleuciel">
-        WELCOME : {{ (Auth::user()->name) }} !
-    </h2>
-    
-    <div class="flex items-center space-x-3">
-        <!-- Badge Premium -->
-        @if(Auth::user()->is_premium ?? false)
-        <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold px-5 py-2 rounded-full shadow-sm animate-pulse">
-            Premium
-        </span>
-        @endif
-
-        <!-- Profile Image -->
-        <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
-            @if(Auth::user()->photo)
-                <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
-            @else
-                <i class="fas fa-user"></i>
+@include('partials.sidebaragent')
+<header class="bg-white shadow-sm border-b border-gray-200  top-0 z-8 ml-48 w-[calc(100%-12rem)]">
+    <div class="px-6 py-4 flex items-center justify-between">
+        <h2 class="text-2xl font-bold text-bleuciel">
+            WELCOME : {{ (Auth::user()->name) }} !
+        </h2>
+        <div class="flex items-center space-x-3">
+            <!-- Badge Premium -->
+            @if(Auth::user()->is_premium ?? false)
+            <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold px-5 py-2 rounded-full shadow-sm animate-pulse">
+                Premium
+            </span>
             @endif
+            <!-- Profile Image -->
+            <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
+                @if(Auth::user()->photo)
+                    <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                @else
+                    <i class="fas fa-user"></i>
+                @endif
+            </div>
         </div>
     </div>
-    </div>
 </header>
-<main class="flex-1 overflow-y-auto p-6">
+    
+        <main class="flex-1 overflow-y-auto p-6 ml-48 mt-16">
             <!-- Stats  -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <!-- Open  -->
@@ -92,7 +87,7 @@
                     </div>
                 </div>
                  <!-- en cours -->
-                 <div class="bg-white rounded-2xl  border-1 bg-gray-300 p-4 shadow-md">
+                <div class="bg-white rounded-2xl  border-1 bg-gray-300 p-4 shadow-md">
                     <div class="flex justify-between items-center mb-2">
                         <h3 class="text-sm px-4 py-1 rounded-full font-semibold  bg-high bg-opacity-20 text-high border border-high bg-inprogress bg-opacity-20 text-inprogress border border-inprogress"> Tickets En cours</h3>
                         <div class="bg-secondary p-1 rounded-md">
@@ -181,68 +176,65 @@
 
                 <div class="bg-white rounded-2xl shadow-lg border-2  bg-white p-6">
                 <h2 class="text-lg font-semibold mb-4">Répartition des Tickets</h2>
-    <canvas 
-        id="ticketsChart"
-        data-open="{{ $openTickets }}"
-        data-inprogress="{{ $inProgressTickets }}"
-        data-resolved="{{ $resolvedTickets }}"
-        width="400" height="400"
-    ></canvas>
-    
-</div>
-<div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-    <h2 class="text-xl text-gray-800 font-semibold mb-4">Détails des Performances</h2>
-
-    <table class="w-full text-left">
-        <thead>
-            <tr class="ext-gray-600 border-b border-gray-200">
-                <th class="px-4 py-3 font-semibold">Statistique</th>
-                <th class="px-4 py-3 font-semibold">Nombre</th>
-                <th class="px-4 py-3 font-semibold">Pourcentage</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b border-gray-200 bg-gradient-to-br from-high/10 to-white">
-                <td class="px-4 py-3 text-gray-800">Tickets Ouverts</td>
-                <td class="px-4 py-3 text-gray-800">{{ $openTickets }}</td>
-                <td class="px-4 py-3 text-gray-800">
-                    @if($totalTickets > 0)
-                        {{ round(($openTickets / $totalTickets) * 100, 2) }}%
-                    @else
-                        0%
-                    @endif
-                </td>
-            </tr>
-            <tr class="border-b border-gray-200 bg-gradient-to-br from-inprogress/10 to-white">
-                <td class="px-4 py-3 text-gray-800">Tickets En Cours</td>
-                <td class="px-4 py-3 text-gray-800">{{ $inProgressTickets }}</td>
-                <td class="px-4 py-3 text-gray-800">
-                    @if($totalTickets > 0)
-                        {{ round(($inProgressTickets / $totalTickets) * 100, 2) }}%
-                    @else
-                        0%
-                    @endif
-                </td>
-            </tr>
-            <tr class="bg-gradient-to-br from-resolved/10 to-white">
-                <td class="px-4 py-3 text-gray-800">Tickets Résolus</td>
-                <td class="px-4 py-3 text-gray-800">{{ $resolvedTickets }}</td>
-                <td class="px-4 py-3 text-gray-800">
-                    @if($totalTickets > 0)
-                        {{ round(($resolvedTickets / $totalTickets) * 100, 2) }}%
-                    @else
-                        0%
-                    @endif
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
+                <canvas 
+                    id="ticketsChart"
+                    data-open="{{ $openTickets }}"
+                    data-inprogress="{{ $inProgressTickets }}"
+                    data-resolved="{{ $resolvedTickets }}"
+                    width="400" height="400"
+                ></canvas>
+                
             </div>
-            </main>
-        </div>
-    </div>
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
+                <h2 class="text-xl text-gray-800 font-semibold mb-4">Détails des Performances</h2>
+
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="ext-gray-600 border-b border-gray-200">
+                            <th class="px-4 py-3 font-semibold">Statistique</th>
+                            <th class="px-4 py-3 font-semibold">Nombre</th>
+                            <th class="px-4 py-3 font-semibold">Pourcentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-200 bg-gradient-to-br from-high/10 to-white">
+                            <td class="px-4 py-3 text-gray-800">Tickets Ouverts</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $openTickets }}</td>
+                            <td class="px-4 py-3 text-gray-800">
+                                @if($totalTickets > 0)
+                                    {{ round(($openTickets / $totalTickets) * 100, 2) }}%
+                                @else
+                                    0%
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 bg-gradient-to-br from-inprogress/10 to-white">
+                            <td class="px-4 py-3 text-gray-800">Tickets En Cours</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $inProgressTickets }}</td>
+                            <td class="px-4 py-3 text-gray-800">
+                                @if($totalTickets > 0)
+                                    {{ round(($inProgressTickets / $totalTickets) * 100, 2) }}%
+                                @else
+                                    0%
+                                @endif
+                            </td>
+                        </tr>
+                        <tr class="bg-gradient-to-br from-resolved/10 to-white">
+                            <td class="px-4 py-3 text-gray-800">Tickets Résolus</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $resolvedTickets }}</td>
+                            <td class="px-4 py-3 text-gray-800">
+                                @if($totalTickets > 0)
+                                    {{ round(($resolvedTickets / $totalTickets) * 100, 2) }}%
+                                @else
+                                    0%
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
     
 </body>
 </html>

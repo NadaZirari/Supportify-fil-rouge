@@ -213,7 +213,7 @@
         
         .feature-card {
             flex: 1;
-            background-color: #052485;
+            background-color:#001968;
             border-radius: 10px;
             padding: 30px;
         }
@@ -254,7 +254,7 @@
         
         .testimonial-card {
             flex: 1;
-            background-color: #052485;
+            background-color: #001968;
             border-radius: 10px;
             padding: 30px;
         }
@@ -393,6 +393,68 @@
             h1 {
                 font-size: 2.5rem;
             }
+            .why-supportify {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.why-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.why-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #052485;
+    border-radius: 10px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-5px);
+}
+
+.why-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(224, 240, 254, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.why-icon i {
+    color: #E0F0FE;
+    font-size: 1.5rem;
+}
+
+.why-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.why-description {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .why-container {
+        flex-direction: column;
+    }
+    
+    .why-card {
+        margin-bottom: 20px;
+    }
+}
         }
     </style>
 </head>
@@ -427,29 +489,42 @@
         </div>
     </section>
     
-    <section class="roles ">
-        <h2 class="section-title">Choisissez votre rôle</h2>
-        
-        <div class="roles-container">
-            <div class="role-card">
-                <div class="role-icon">
-                    <i class="fas fa-user"></i>
+    <section class="why-supportify">
+        <div class="container">
+            <h2 class="section-title">Pourquoi choisir Supportify ?</h2>
+            <div class="why-container">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="why-title">Rapidité inégalée</h3>
+                    <p class="why-description">Réduisez le temps de réponse grâce à une automatisation intelligente et des outils optimisés pour la productivité.</p>
                 </div>
-                <h3 class="role-title">Je suis un Client</h3>
-                <p class="role-description">Accédez à un support de qualité, suivez vos tickets et communiquez facilement avec l'équipe d'assistance.</p>
-                <a href="#" class="btn btn-outline">Découvrir l'espace client</a>
-            </div>
-            
-            <div class="role-card">
-                <div class="role-icon">
-                    <i class="fas fa-headset"></i>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="why-title">Satisfaction client</h3>
+                    <p class="why-description">Offrez une expérience client exceptionnelle avec des interactions fluides et personnalisées.</p>
                 </div>
-                <h3 class="role-title">Je suis un Agent Support</h3>
-                <p class="role-description">Gérez efficacement les demandes, collaborez avec votre équipe et offrez un service client exceptionnel.</p>
-                <a href="#" class="btn btn-outline">Découvrir l'espace agent</a>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="why-title">Sécurité renforcée</h3>
+                    <p class="why-description">Protégez les données de vos clients avec des protocoles de sécurité avancés et une conformité totale.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="why-title">Accessibilité globale</h3>
+                    <p class="why-description">Supportez vos clients partout dans le monde avec une plateforme multilingue et disponible 24/7.</p>
+                </div>
             </div>
         </div>
     </section>
+    
     
     <section class="features ">
         <h2 class="section-title">Fonctionnalités Principales</h2>
