@@ -32,12 +32,13 @@
         
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1442px;
             /* margin: 0 auto; */
             padding: 0 20px;
             background-color: white;
 
         }
+        
         
         header {
             padding: 20px 0;
@@ -208,6 +209,7 @@
         
         .features-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 30px;
         }
         
@@ -373,6 +375,36 @@
         }
         
         @media (max-width: 768px) {
+            header {
+            flex-direction: column;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            margin-bottom: 15px;
+        }
+        
+        nav {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        nav ul {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 5px 10px;
+        }
+        
+        .btn {
+            margin-right: 0;
+            text-align: center;
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+        }
             .hero, .roles-container, .features-container, .testimonials-container, .footer-content {
                 flex-direction: column;
             }
@@ -393,7 +425,15 @@
             h1 {
                 font-size: 2.5rem;
             }
-            .why-supportify {
+            .why-container {
+        flex-direction: column;
+    }
+    
+    .why-card {
+        margin-bottom: 20px;
+    }
+}
+ .why-supportify {
     padding: 80px 0;
     background-color: white;
 }
@@ -446,16 +486,8 @@
     color: var(--text-secondary);
 }
 
-@media (max-width: 768px) {
-    .why-container {
-        flex-direction: column;
-    }
-    
-    .why-card {
-        margin-bottom: 20px;
-    }
-}
-        }
+
+        
     </style>
 </head>
 <body >
@@ -469,7 +501,6 @@
             <ul>
                 <li><a href="{{ route('fonctionnalite') }}">Fonctionnalités</a></li>
                 <li><a href="{{ route('solutions') }}">Solutions</a></li>
-                <li><a href="#">Tarification</a></li>
                 <li><a href="#">Témoignages</a></li>
             </ul>
         </nav>
@@ -616,7 +647,6 @@
                     <h3>Produit</h3>
                     <ul>
                         <li><a href="#">Fonctionnalités</a></li>
-                        <li><a href="#">Tarification</a></li>
                         <li><a href="#">Intégrations</a></li>
                         <li><a href="#">Mises à jour</a></li>
                     </ul>

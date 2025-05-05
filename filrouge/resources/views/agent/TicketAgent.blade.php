@@ -27,6 +27,86 @@
             }
         }
     </script>
+    <style> @media (max-width: 768px) {
+            .flex-1.flex.flex-col.overflow-hidden {
+                margin-left: 60px;
+                width: calc(100% - 60px);
+            }
+            
+            .ml-\[11rem\] {
+                margin-left: 0 ;
+            }
+            main .ml-\[11rem\] {
+        margin-left: 0 !important;
+    }
+            .max-w-7xl {
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 100% ;
+            }
+            
+            .flex.flex-col.sm\:flex-row {
+                flex-direction: column;
+            }
+            
+            .flex.flex-col.sm\:flex-row > div {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .flex.space-x-4 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .flex.space-x-4 > div {
+                margin-left: 0 !important;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            table th, table td {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            .flex.space-x-2 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .flex.space-x-2 > * {
+                margin-left: 0 !important;
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .flex.space-x-2 > *:first-child {
+                margin-top: 0;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .p-6 {
+                padding: 1rem;
+            }
+            
+            .text-2xl {
+                font-size: 1.25rem;
+            }
+            
+            .flex.space-x-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+        </style>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans flex h-screen overflow-hidden">
     <!-- Sidebar -->
@@ -34,7 +114,7 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
         <main class="flex-1 overflow-auto p-6">
-            <div class="max-w-7xl mx-auto">
+            <div class="ml-[11rem] mx-auto">
                 <h1 class="text-2xl font-bold text-gray-800 mb-6">Mes tickets assignés</h1>
 
                 <!-- Message de succès -->

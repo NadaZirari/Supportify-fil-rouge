@@ -20,6 +20,14 @@
       }
     }
   </script>
+  <style>
+         @media (max-width: 768px) {
+            header {
+            flex-direction: column;
+            padding: 15px 0;
+        }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
  @include('partials.navbar')

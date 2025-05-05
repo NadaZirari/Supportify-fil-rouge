@@ -17,7 +17,6 @@
         <ul class="flex space-x-8">
             <li><a href="{{ route('fonctionnalite') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Fonctionnalités</a></li>
             <li><a href="{{ route('solutions') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Solutions</a></li>
-            <li><a href="#" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Tarification</a></li>
             <li><a href="{{ route('temoignage') }}" class="text-black hover:text-gray-500 text-sm font-semibold transition-colors">Témoignages</a></li>
         </ul>
     </nav>
