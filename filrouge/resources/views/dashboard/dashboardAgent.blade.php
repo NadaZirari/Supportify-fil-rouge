@@ -35,6 +35,45 @@
     body {
         font-family: 'Inter', sans-serif;
     }
+
+    @media (max-width: 768px) {
+        header.ml-48 {
+            margin-left: 60px !important;
+            width: calc(100% - 60px) !important;
+        }
+        
+        main.ml-48 {
+            margin-left: 60px !important;
+        }
+        
+        .grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+        
+        .md\:grid-cols-2 {
+            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        }
+        
+        .flex-row {
+            flex-direction: column !important;
+        }
+        
+        .items-center {
+            align-items: flex-start !important;
+        }
+        
+        .justify-between > :last-child {
+            margin-top: 10px;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .grid-cols-4, .md\:grid-cols-2, .grid-cols-2 {
+            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        }
+    }
+
+
 </style>
 
 </head>
@@ -44,7 +83,7 @@
 
 
 @include('partials.sidebaragent')
-<header class="bg-white shadow-sm border-b border-gray-200  top-0 z-8 ml-48 w-[calc(100%-12rem)]">
+<header class="bg-white shadow-sm border-b border-gray-200  top-0 z-10 ml-48 w-[calc(100%-12rem)]">
     <div class="px-6 py-4 flex items-center justify-between">
         <h2 class="text-2xl font-bold text-bleuciel">
             WELCOME : {{ (Auth::user()->name) }} !
@@ -68,7 +107,7 @@
     </div>
 </header>
     
-        <main class="flex-1 overflow-y-auto p-6 ml-48 mt-16">
+        <main class="flex-1 overflow-y-auto p-6 ml-48 mt-5">
             <!-- Stats  -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <!-- Open  -->
@@ -188,9 +227,10 @@
             <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
                 <h2 class="text-xl text-gray-800 font-semibold mb-4">Détails des Performances</h2>
 
+                <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
-                        <tr class="ext-gray-600 border-b border-gray-200">
+                        <tr class="text-gray-600 border-b border-gray-200">
                             <th class="px-4 py-3 font-semibold">Statistique</th>
                             <th class="px-4 py-3 font-semibold">Nombre</th>
                             <th class="px-4 py-3 font-semibold">Pourcentage</th>
@@ -233,7 +273,8 @@
                     </tbody>
                 </table>
             </div>
-
+            </div>
+            </div>
         </main>
     
 </body>
