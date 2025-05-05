@@ -16,7 +16,7 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to bottom, #F3F4F6, #E5E7EB);
             min-height: 100vh;
         }

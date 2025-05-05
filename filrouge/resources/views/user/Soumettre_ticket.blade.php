@@ -9,7 +9,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
     .fade-in {
       animation: fadeIn 0.5s ease-out;
@@ -74,7 +74,7 @@
         </div>
         @endif
 
-        <form class="space-y-6" action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="space-y-6" action="{{ route('tickets.store') }}" method="POST" >
           @csrf
           <!-- Titre -->
           <div>

@@ -11,6 +11,14 @@
         body { height: 100vh; width: 100vw; overflow: scroll; }
         input:not(:placeholder-shown) { border-color: #00384480; }
         input.error { border-color: #ff000050; }
+       
+        @media (max-width: 768px) {
+            header {
+            flex-direction: column;
+            padding: 15px 0;
+        }
+        }
+    
     </style>
     <script>
         tailwind.config = {

@@ -14,10 +14,10 @@
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col">
-        <header class="p-4 flex items-center justify-between border-b border-gray-200">
-    <h2 class="text-2xl font-bold text-bleuciel">
-        WELCOME : {{ (Auth::user()->name) }} !
-    </h2>
+        <header class="p-4 flex items-center justify-between bg-white border-b border-gray-200">
+        <h2 class="text-3xl font-semibold text-gray-800 dark:text-black">
+    <span class="text-bleuciel">Welcome,</span> {{ Auth::user()->name }} 👋
+</h2>
     
     <div class="flex items-center space-x-3">
         <!-- Badge Premium -->
