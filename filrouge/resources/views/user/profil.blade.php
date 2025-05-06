@@ -138,80 +138,76 @@
             </div>
 
             <!-- Ticket History -->
-            <div class="bg-white rounded-2xl shadow-lg border-4 border-inprogress bg-gradient-to-br from-inprogress/10 to-white p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Historique des tickets</h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr class="text-left text-gray-600 border-b border-gray-200">
-                                <th class="px-4 py-3 font-semibold">ID</th>
-                                <th class="px-4 py-3 font-semibold">Sujet</th>
-                                <th class="px-4 py-3 font-semibold">Statut</th>
-                                <th class="px-4 py-3 font-semibold">Date</th>
-                                <th class="px-4 py-3 font-semibold">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($tickets ?? [] as $index => $ticket)
-                                <tr class="border-b border-gray-200 {{ $index % 3 === 0 ? 'bg-gradient-to-br from-bleuciel/10 to-white' : ($index % 3 === 1 ? 'bg-gradient-to-br from-inprogress/10 to-white' : 'bg-gradient-to-br from-resolved/10 to-white') }}">
-                                    <td class="px-4 py-3 text-sm text-gray-800">#{{ $ticket->id }}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-800">{{ $ticket->subject }}</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <span class="text-sm px-4 py-1 rounded-full font-semibold {{ $ticket->status === 'Résolu' ? 'bg-resolved bg-opacity-20 text-resolved border border-resolved' : ($ticket->status === 'En cours' ? 'bg-inprogress bg-opacity-20 text-inprogress border border-inprogress' : 'bg-high bg-opacity-20 text-high border border-high') }}">
-                                            {{ $ticket->status }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $ticket->created_at->format('d/m/Y') }}</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <a href="{{ route('tickets.show', $ticket->id) }}" class="text-bleuciel-light font-semibold flex items-center space-x-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Voir</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr class="bg-gradient-to-br from-bleuciel/10 to-white">
-                                    <td class="px-4 py-3 text-sm text-gray-800">#1234</td>
-                                    <td class="px-4 py-3 text-sm text-gray-800">Problème de connexion</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <span class="text-sm px-4 py-1 rounded-full font-semibold bg-resolved bg-opacity-20 text-resolved border border-resolved">Résolu</span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">01/03/2025</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <a href="#" class="text-bleuciel-light font-semibold flex items-center space-x-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Voir</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="bg-gradient-to-br from-inprogress/10 to-white">
-                                    <td class="px-4 py-3 text-sm text-gray-800">#1235</td>
-                                    <td class="px-4 py-3 text-sm text-gray-800">Bug d'affichage</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <span class="text-sm px-4 py-1 rounded-full font-semibold bg-inprogress bg-opacity-20 text-inprogress border border-inprogress">En cours</span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">28/02/2025</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <a href="#" class="text-bleuciel-light font-semibold flex items-center space-x-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Voir</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+       
+<!-- Ticket History - Visible uniquement pour les utilisateurs normaux -->
+@if(auth()->user()->role_id != 2)
+<div class="bg-white rounded-2xl shadow-lg border-4 border-inprogress bg-gradient-to-br from-inprogress/10 to-white p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Historique des tickets</h3>
+    <div class="overflow-x-auto">
+        <table class="min-w-full">
+            <thead>
+                <tr class="text-left text-gray-600 border-b border-gray-200">
+                    <th class="px-4 py-3 font-semibold">ID</th>
+                    <th class="px-4 py-3 font-semibold">Sujet</th>
+                    <th class="px-4 py-3 font-semibold">Statut</th>
+                    <th class="px-4 py-3 font-semibold">Date</th>
+                    <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($tickets as $ticket)
+                    <tr class="border-b border-gray-200 
+                        @if($ticket->status == 'résolu')
+                            bg-gradient-to-br from-resolved/10 to-white
+                        @elseif($ticket->status == 'en_cours')
+                            bg-gradient-to-br from-inprogress/10 to-white
+                        @else
+                            bg-gradient-to-br from-bleuciel/10 to-white
+                        @endif">
+                        <td class="px-4 py-3 text-sm text-gray-800">#{{ $ticket->id }}</td>
+                        <td class="px-4 py-3 text-sm text-gray-800">{{ $ticket->title }}</td>
+                        <td class="px-4 py-3 text-sm">
+                            <span class="text-sm px-4 py-1 rounded-full font-semibold 
+                                @if($ticket->status == 'résolu')
+                                    bg-resolved bg-opacity-20 text-resolved border border-resolved
+                                @elseif($ticket->status == 'en_cours')
+                                    bg-inprogress bg-opacity-20 text-inprogress border border-inprogress
+                                @else
+                                    bg-high bg-opacity-20 text-high border border-high
+                                @endif">
+                                {{ ucfirst(str_replace('_', ' ', $ticket->status)) }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-600">{{ $ticket->created_at->format('d/m/Y') }}</td>
+                        <td class="px-4 py-3 text-sm">
+                            <a href="{{ route('tickets.show', $ticket->id) }}" class="text-bleuciel-light font-semibold flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                <span>Voir</span>
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr class="bg-gradient-to-br from-bleuciel/10 to-white">
+                        <td colspan="5" class="px-4 py-6 text-center text-gray-600">
+                            Vous n'avez pas encore créé de tickets.
+                            <div class="mt-3">
+                                <a href="{{ route('tickets.create') }}" class="inline-block bg-bleuciel text-white py-2 px-4 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold text-sm">
+                                    Créer votre premier ticket
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+@endif
+
+            
 
             <!-- Modal for Photo Upload -->
             <div id="photo-upload-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">

@@ -99,13 +99,7 @@
                     </div>
                 </div>
                 
-                <!-- Tickets par catégorie -->
-                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 col-span-1 md:col-span-2">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Tickets par catégorie</h2>
-                    <div class="h-80">
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -204,41 +198,7 @@
                 }
             });
             
-            // Graphique des catégories
-            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-            new Chart(categoryCtx, {
-                type: 'bar',
-                data: {
-                    labels: [
-                        @foreach($categoryLabels as $label)
-                            '{{ $label }}',
-                        @endforeach
-                    ],
-                    datasets: [{
-                        label: 'Nombre de tickets',
-                        data: [
-                            @foreach($categoryData as $data)
-                                {{ $data }},
-                            @endforeach
-                        ],
-                        backgroundColor: 'rgba(5, 36, 133, 0.7)',
-                        borderColor: '#052485',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            }
-                        }
-                    }
-                }
-            });
+           
         };
 
        
