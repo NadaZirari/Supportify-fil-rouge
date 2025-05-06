@@ -27,6 +27,7 @@
             }
         }
     </script>
+    
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans flex h-screen overflow-hidden">
     
@@ -156,18 +157,9 @@
 
                 <!-- Pagination -->
                 <div class="flex justify-center mt-6">
-                    <nav class="flex items-center space-x-2">
-                        <a href="#" class="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-600 hover:bg-bleuciel hover:text-white">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                        <a href="#" class="px-4 py-2 rounded-xl bg-bleuciel text-white">1</a>
-                        <a href="#" class="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-600 hover:bg-bleuciel hover:text-white">2</a>
-                        <a href="#" class="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-600 hover:bg-bleuciel hover:text-white">3</a>
-                        <a href="#" class="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-600 hover:bg-bleuciel hover:text-white">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </nav>
+                {{ $tickets->links() }}
                 </div>
+
             </div>
         </main>
     </div>

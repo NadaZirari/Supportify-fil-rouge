@@ -50,10 +50,10 @@
         <!-- Témoignage 1 -->
         <div class="carousel-item active">
           <div class="bg-white rounded-2xl shadow-lg p-8 mx-4 flex flex-col md:flex-row items-center gap-6">
-            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Client 1" class="w-24 h-24 rounded-full shadow-md">
+            <img src="img.jpg" alt="Client 1" class="w-20 h-20 rounded-full shadow-md">
             <div class="text-center md:text-left">
               <p class="text-gray-600 italic mb-4">"Supportify a révolutionné notre gestion des tickets. Le tableau de bord intuitif nous a permis de réduire les temps de réponse de 40% !"</p>
-              <p class="text-bleuciel font-semibold">Marie Dupont</p>
+              <p class="text-bleuciel font-semibold">Nada Zirari</p>
               <p class="text-gray-500 text-sm">Responsable Support, TechTrend</p>
               <div class="flex justify-center md:justify-start mt-2">
                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.97c.3 .921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.838-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.98 9.397c-.784-.57-.381-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.97z"/></svg>
@@ -69,10 +69,10 @@
         <!-- Témoignage 2 -->
         <div class="carousel-item">
           <div class="bg-white rounded-2xl shadow-lg p-8 mx-4 flex flex-col md:flex-row items-center gap-6">
-            <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Client 2" class="w-24 h-24 rounded-full shadow-md">
+            <img src="photo.jpeg" alt="Client 2" class="w-24 h-24 rounded-full shadow-md">
             <div class="text-center md:text-left">
               <p class="text-gray-600 italic mb-4">"Grâce à Supportify, notre équipe collabore plus efficacement. Les dashboards nous ont aidé à optimiser nos processus et à améliorer la satisfaction client."</p>
-              <p class="text-bleuciel font-semibold">Jean Martin</p>
+              <p class="text-bleuciel font-semibold">Ikram </p>
               <p class="text-gray-500 text-sm">Directeur des Opérations, InnoSoft</p>
               <div class="flex justify-center md:justify-start mt-2">
                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.97c.3 .921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.838-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.98 9.397c-.784-.57-.381-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.97z"/></svg>
@@ -91,7 +91,7 @@
             <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Client 3" class="w-24 h-24 rounded-full shadow-md">
             <div class="text-center md:text-left">
               <p class="text-gray-600 italic mb-4">"Les rapports personnalisés de Supportify nous ont donné une visibilité incroyable sur nos performances. Un outil indispensable pour notre croissance."</p>
-              <p class="text-bleuciel font-semibold">Sophie Lefèvre</p>
+              <p class="text-bleuciel font-semibold">Iness</p>
               <p class="text-gray-500 text-sm">Manager Support Client, GrowEasy</p>
               <div class="flex justify-center md:justify-start mt-2">
                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.97c.3 .921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.838-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.98 9.397c-.784-.57-.381-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.97z"/></svg>

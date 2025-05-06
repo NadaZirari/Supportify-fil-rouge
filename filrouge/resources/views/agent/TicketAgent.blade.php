@@ -137,30 +137,31 @@
                     <!-- Filters and Search -->
                     <div class="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
                         <div class="relative w-full sm:w-80">
-                            <input type="text" placeholder="Rechercher des tickets..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel">
+                            <input type="text" id="searchInput" placeholder="Rechercher des tickets..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 absolute left-3 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                         <div class="flex space-x-4 w-full sm:w-auto">
                             <div class="relative w-full sm:w-40">
-                                <select class="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
-                                    <option>Tous les statuts</option>
-                                    <option>Ouvert</option>
-                                    <option>En cours</option>
-                                    <option>Résolu</option>
-                                    <option>Fermé</option>
+                                <select  id="statusFilter" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
+                                <option value="tous">Tous les statuts</option>
+    <option value="ouvert">Ouvert</option>
+    <option value="en_cours">En cours</option>
+    <option value="résolu">Résolu</option>
+    <option value="fermé">Fermé</option>
                                 </select>
+
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 absolute right-3 top-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </div>
                             <div class="relative w-full sm:w-40 ">
-                                <select class="w-full bg-white border border-gray-200 rounded-xl px-2 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
-                                    <option>Toutes les priorités</option>
-                                    <option>Haute</option>
-                                    <option>Moyenne</option>
-                                    <option>Basse</option>
+                                <select id="prioriteFilter" class="w-full bg-white border border-gray-200 rounded-xl px-2 py-3 text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-bleuciel">
+                                <option value="toutes">Toutes les priorités</option>
+    <option value="haute">Haute</option>
+    <option value="moyenne">Moyenne</option>
+    <option value="basse">Basse</option>
                                 </select>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 absolute right-3 top-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -268,6 +269,8 @@
                 closeStatusModal();
             }
         });
+
     </script>
+    <script src="{{ asset('js/agentfilters.js') }}"></script>
 </body>
 </html>

@@ -74,7 +74,7 @@
         </div>
         @endif
 
-        <form class="space-y-6" action="{{ route('tickets.store') }}" method="POST" >
+        <form class="space-y-6" action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <!-- Titre -->
           <div>
