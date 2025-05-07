@@ -35,6 +35,10 @@ public function messages()
 {
     return $this->hasMany(Message::class);
 }
+public function responses()
+{
+    return $this->hasMany(Response::class);
+}
 
 public function agent()
     {

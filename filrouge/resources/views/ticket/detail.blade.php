@@ -109,48 +109,153 @@
                 </div>
             </div>
 
-            <!-- Chat Section -->
-            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::id() === $ticket->user_id)            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 mb-8">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Messages</h2>
-                    @foreach($ticket->messages as $message)
-                        <div class="flex mb-6 {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
-                            <div class="flex {{ $message->user_id === Auth::id() ? 'flex-row-reverse' : 'flex-row' }} items-start max-w-md">
-                            <div class="flex-shrink-0 {{ $message->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
-    @if($message->user && $message->user->photo)
-        <img src="{{ asset('storage/' . $message->user->photo) }}" alt="{{ $message->user->name }}" class="w-12 h-12 rounded-full object-cover">
-    @else
-        <div class="w-12 h-12 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-bleuciel' : 'bg-gray-600' }} flex items-center justify-center text-white font-semibold">
-            {{ substr($message->user->name ?? 'U', 0, 1) }}
-        </div>
-    @endif
-</div>
 
-                                <div>
-                                    <div class="{{ $message->user_id === Auth::id() ? 'bg-bleuciel bg-opacity-10 border-bleuciel' : 'bg-gray-100 border-gray-200' }} rounded-xl p-4 border">
-                                        <p class="text-gray-800">{{ $message->content }}</p>
+            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::id() === $ticket->user_id)
+            <!-- Conversation Section -->
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 mb-8">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Conversation</h2>
+                    
+                    <!-- Timeline de la conversation -->
+                    <div class="space-y-6">
+                        @php
+                            // Combiner messages et réponses pour les afficher chronologiquement
+                            $allItems = collect();
+                            
+                            // Ajouter les messages de l'utilisateur
+                            foreach($ticket->messages as $message) {
+                                $allItems->push([
+                                    'type' => 'message',
+                                    'data' => $message,
+                                    'time' => $message->created_at
+                                ]);
+                            }
+                            
+                            // Ajouter les réponses des agents (si elles existent)
+                            if(isset($ticket->responses)) {
+                                foreach($ticket->responses as $response) {
+                                    $allItems->push([
+                                        'type' => 'response',
+                                        'data' => $response,
+                                        'time' => $response->created_at
+                                    ]);
+                                }
+                            }
+                            
+                            // Trier par date
+                            $allItems = $allItems->sortBy('time');
+                        @endphp
+                        
+                        @foreach($allItems as $item)
+                            @if($item['type'] === 'message')
+                                @php $message = $item['data']; @endphp
+                                <!-- Message de l'utilisateur -->
+                                <div class="flex {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                    <div class="flex {{ $message->user_id === Auth::id() ? 'flex-row-reverse' : 'flex-row' }} items-start max-w-md">
+                                        <div class="flex-shrink-0 {{ $message->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
+                                            @if($message->user && $message->user->photo)
+                                                <img src="{{ asset('storage/' . $message->user->photo) }}" alt="{{ $message->user->name }}" class="w-12 h-12 rounded-full object-cover">
+                                            @else
+                                                <div class="w-12 h-12 rounded-full bg-bleuciel flex items-center justify-center text-white font-semibold">
+                                                    {{ substr($message->user->name ?? 'U', 0, 1) }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center mb-1 {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                                <span class="font-semibold text-sm text-gray-700">{{ $message->user->name ?? 'Utilisateur' }}</span>
+                                                <span class="ml-2 px-2 py-0.5 bg-bleuciel bg-opacity-10 text-bleuciel text-xs rounded-full">Client</span>
+                                            </div>
+                                            <div class="{{ $message->user_id === Auth::id() ? 'bg-bleuciel bg-opacity-10 border-bleuciel' : 'bg-gray-100 border-gray-200' }} rounded-xl p-4 border">
+                                                <p class="text-gray-800">{{ $message->content }}</p>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1 {{ $message->user_id === Auth::id() ? 'text-right' : 'text-left' }}">{{ $message->created_at->format('d/m/Y H:i') }}</p>
+                                        </div>
                                     </div>
-                                    <p class="text-xs text-gray-600 mt-1 {{ $message->user_id === Auth::id() ? 'text-right' : 'text-left' }}">{{ $message->created_at->format('d/m/Y H:i') }}</p>
                                 </div>
-                            </div>
+                            @else
+                                @php $response = $item['data']; @endphp
+                                <!-- Réponse de l'agent -->
+                                <div class="flex {{ $response->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                    <div class="flex {{ $response->user_id === Auth::id() ? 'flex-row-reverse' : 'flex-row' }} items-start max-w-md">
+                                        <div class="flex-shrink-0 {{ $response->user_id === Auth::id() ? 'ml-3' : 'mr-3' }}">
+                                            @if($response->user && $response->user->photo)
+                                                <img src="{{ asset('storage/' . $response->user->photo) }}" alt="{{ $response->user->name }}" class="w-12 h-12 rounded-full object-cover">
+                                            @else
+                                                <div class="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center text-white font-semibold">
+                                                    {{ substr($response->user->name ?? 'A', 0, 1) }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center mb-1 {{ $response->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                                <span class="font-semibold text-sm text-gray-700">{{ $response->user->name ?? 'Agent' }}</span>
+                                                <span class="ml-2 px-2 py-0.5 bg-gray-600 bg-opacity-10 text-gray-600 text-xs rounded-full">Agent</span>
+                                            </div>
+                                            <div class="{{ $response->user_id === Auth::id() ? 'bg-gray-600 bg-opacity-10 border-gray-600' : 'bg-gray-100 border-gray-200' }} rounded-xl p-4 border">
+                                                <p class="text-gray-800">{{ $response->content }}</p>
+                                                
+                                               
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1 {{ $response->user_id === Auth::id() ? 'text-right' : 'text-left' }}">{{ $response->created_at->format('d/m/Y H:i') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    
+                    <!-- Formulaires d'envoi -->
+                    @if($ticket->status != 'fermé')
+                        @if(Auth::user()->role_id == 3 && Auth::id() === $ticket->user_id)
+                            <!-- Formulaire pour l'utilisateur (message) -->
+                            <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="mt-8">
+                                @csrf
+                                <div class="flex-grow">
+                                    <label for="content" class="block text-gray-700 font-semibold mb-2">Ajouter un message</label>
+                                    <textarea name="content" id="content" rows="3" class="w-full bg-gray-100 border border-gray-200 rounded-xl py-3 px-4 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel" placeholder="Écrivez votre message..." required></textarea>
+                                    @error('content')
+                                        <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mt-3 flex justify-end">
+                                    <button type="submit" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold flex items-center space-x-2">
+                                        <span>Envoyer</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        @elseif(Auth::user()->role_id == 1 || (Auth::user()->role_id == 2 ))
+                            <!-- Formulaire pour l'agent (réponse) -->
+                            <form action="{{ route('responses.store', $ticket->id) }}" method="POST" class="mt-8">
+                                @csrf
+                                <div class="flex-grow">
+                                    <label for="content" class="block text-gray-700 font-semibold mb-2">Ajouter une réponse</label>
+                                    <textarea name="content" id="content" rows="3" class="w-full bg-gray-100 border border-gray-200 rounded-xl py-3 px-4 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel" placeholder="Écrivez votre réponse..." required></textarea>
+                                    @error('content')
+                                        <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                
+                                
+                                <div class="mt-3 flex justify-end">
+                                    <button type="submit" class="bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold flex items-center space-x-2">
+                                        <span>Envoyer la réponse</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        @endif
+                    @else
+                        <div class="mt-6 bg-gray-100 rounded-xl p-4 text-center border border-gray-300">
+                            <p class="text-gray-600">Ce ticket est fermé. Aucun nouveau message ne peut être ajouté.</p>
                         </div>
-                    @endforeach
-                    @if($ticket->status != 'fermé' && (Auth::user()->role_id == 2 || Auth::id() === $ticket->user_id))                        <form action="{{ route('messages.store', $ticket->id) }}" method="POST" class="mt-6 flex items-center">
-                            @csrf
-                            <div class="flex-grow">
-                                <input type="text" name="content" class="w-full bg-gray-100 border border-gray-200 rounded-xl py-3 px-4 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-bleuciel" placeholder="Écrivez votre message..." required>
-                                @error('content')
-                                    <div class="text-high mt-2 text-sm font-medium">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <button type="submit" class="ml-3 bg-bleuciel text-white py-3 px-6 rounded-xl shadow-lg border-2 border-bleuciel-light font-semibold flex items-center space-x-2">
-                                <span>Envoyer</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </button>
-                        </form>
                     @endif
                 </div>
             </div>

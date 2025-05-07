@@ -115,6 +115,12 @@ Route::get('/ticket/detail', function () {
     return view('ticket.detail');
 });
 
+Route::middleware(['auth'])->group(function () {
+    // Routes pour les réponses des agents
+    Route::get('/tickets/{ticket}/responses', [ResponseController::class, 'index'])->name('responses.index');
+    Route::post('/tickets/{ticket}/responses', [ResponseController::class, 'store'])->name('responses.store');
+});
+
 Route::get('/dashboard/agent', [AgentDashboardController::class, 'statistics'])
     ->middleware('role:2')
     ->name('agent.dashboard');
