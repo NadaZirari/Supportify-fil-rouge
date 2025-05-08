@@ -57,22 +57,20 @@
             <div id="rapport-content">
 
             <!-- Statistiques -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                    <h3 class="text-sm font-medium text-gray-500 mb-1">Total tickets</h3>
-                    <p class="text-3xl font-bold text-gray-800">{{ $totalTickets }}</p>
-                </div>
-                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                    <h3 class="text-sm font-medium text-gray-500 mb-1">Tickets ouverts</h3>
-                    <p class="text-3xl font-bold text-resolved">{{ $openTickets }}</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                    <h3 class="text-sm font-medium text-gray-500 mb-1">Utilisateurs premium</h3>
-                    <p class="text-3xl font-bold text-premium">{{ $premiumUsers }}</p>
-                </div>
-                
-            </div>
+            <div class="flex flex-col md:flex-row md:space-x-6 mb-8">
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1 mb-6 md:mb-0">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Total tickets</h3>
+        <p class="text-3xl font-bold text-gray-800">{{ $totalTickets }}</p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1 mb-6 md:mb-0">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Tickets ouverts</h3>
+        <p class="text-3xl font-bold text-resolved">{{ $openTickets }}</p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Utilisateurs premium</h3>
+        <p class="text-3xl font-bold text-premium">{{ $premiumUsers }}</p>
+    </div>
+</div>
 
             <!-- Charts Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

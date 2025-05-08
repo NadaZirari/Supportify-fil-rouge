@@ -60,21 +60,21 @@
             </div>
             <div id="dashboard-content">
                 <!-- Statistiques -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Total Tickets</h3>
-                        <p class="text-3xl font-bold text-gray-800">{{ $totalTickets ?? 0 }}</p>
-                    </div>
-                    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Open Tickets</h3>
-                        <p class="text-3xl font-bold text-resolved">{{ $openTickets }}</p>
-                    </div>
-                    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Top Category</h3>
-                        <p class="text-3xl font-bold text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</p>
-                    </div>
-                    
-                </div>
+                <div class="flex flex-col md:flex-row md:space-x-6 mb-8">
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1 mb-6 md:mb-0">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Total Tickets</h3>
+        <p class="text-3xl font-bold text-gray-800">{{ $totalTickets ?? 0 }}</p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1 mb-6 md:mb-0">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Open Tickets</h3>
+        <p class="text-3xl font-bold text-resolved">{{ $openTickets }}</p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 flex-1">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Top Category</h3>
+        <p class="text-3xl font-bold text-bleuciel">{{ $topCategory ? $topCategory->category_name : 'N/A' }}</p>
+    </div>
+    
+</div>
 
               
 
