@@ -505,7 +505,7 @@
             </ul>
         </nav>
         
-        <a href="{{ route('register') }}" class="btn">Démarrer</a>
+        <a href="{{ route('register') }}" class="btn">Démarrer Essai Gratuit</a>
     </header>
     
     <section class="hero ">

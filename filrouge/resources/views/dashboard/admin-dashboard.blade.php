@@ -42,7 +42,7 @@
             <div class="flex justify-between items-center mb-8">
                 <div>
                     <h1 class="text-3xl font-bold text-bleuciel">Dashboard Overview</h1>
-                    <p class="text-gray-600">Welcome back, {{ Auth::user()->name }}</p>
+                    <p class="text-gray-600 ">Welcome back, {{ Auth::user()->name }}</p>
                 </div>
                 <div class="flex space-x-4">
                     <div class="flex items-center">
@@ -78,37 +78,41 @@
 
               
 
-                <!-- Top Performing Agents -->
-                <div class="mb-8">
-                    <h2 class="text-xl font-semibold text-bleuciel mb-4">Top Performing Agents</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @forelse($topAgents as $agent)
-                            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                                <div class="flex items-center mb-4">
-                                    <div class="h-12 w-12 rounded-full bg-bleuciel flex items-center justify-center mr-4 overflow-hidden">
-                                        @if($agent->profile_photo_path)
-                                            <img src="{{ asset('storage/' . $agent->profile_photo_path) }}" alt="{{ $agent->name }}" class="h-full w-full object-cover">
-                                        @else
-                                            <div class="h-full w-full flex items-center justify-center bg-bleuciel text-white text-sm font-semibold">
-                                                {{ substr($agent->name, 0, 2) }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-gray-800">{{ $agent->name }}</h3>
-                                        <p class="text-resolved text-sm">
-                                            {{ $agent->assignedTickets->where('status', 'résolu')->count() }} tickets resolved
-                                        </p>
-                                    </div>
-                                </div>
+              <!-- Top Performing Agent -->
+<div class="mb-8">
+    <h2 class="text-xl font-semibold text-bleuciel mb-4">Top Performing Agent</h2>
+    <div class="grid grid-cols-1 gap-6">
+        @if(count($topAgents) > 0)
+            @php
+                $topAgent = $topAgents->first();
+            @endphp
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="h-12 w-12 rounded-full bg-bleuciel flex items-center justify-center mr-4 overflow-hidden">
+                        @if($topAgent->profile_photo_path)
+                            <img src="{{ asset('storage/' . $topAgent->profile_photo_path) }}" alt="{{ $topAgent->name }}" class="h-full w-full object-cover">
+                        @else
+                            <div class="h-full w-full flex items-center justify-center bg-bleuciel text-white text-sm font-semibold">
+                                {{ substr($topAgent->name, 0, 2) }}
                             </div>
-                        @empty
-                            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                                <p class="text-gray-600">No agents found</p>
-                            </div>
-                        @endforelse
+                        @endif
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800">{{ $topAgent->name }}</h3>
+                        <p class="text-resolved text-sm">
+                            {{ $topAgent->assignedTickets->where('status', 'résolu')->count() }} tickets resolved
+                        </p>
                     </div>
                 </div>
+            </div>
+        @else
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
+                <p class="text-gray-600">No agents found</p>
+            </div>
+        @endif
+    </div>
+</div>
+
 
                 <!-- Recent Tickets -->
                 <div>

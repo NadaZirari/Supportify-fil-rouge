@@ -97,7 +97,7 @@ class AdminController extends Controller
         
         // Top agents performants
         $topAgents = User::where('role_id', 2) // Agents
-            ->take(3)
+            ->take(4)
             ->get();
         
         // Tickets récents
