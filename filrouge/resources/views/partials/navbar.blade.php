@@ -21,7 +21,7 @@
         </ul>
     </nav>
     
-    <a href="{{ route('register') }}" class="inline-block px-6 py-2 bg-blue-900 text-white rounded-full text-sm font-semibold transition-all hover:bg-green-600">Démarrer</a>
+    <a href="{{ route('register') }}" class="inline-block px-6 py-2 bg-blue-900 text-white rounded-full text-sm font-semibold transition-all hover:bg-green-600">Démarrer Essai Gratuit</a>
 </header>
 
 </body>
