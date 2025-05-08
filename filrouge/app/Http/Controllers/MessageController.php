@@ -23,7 +23,10 @@ class MessageController extends Controller
 
         $user = Auth::user();
         if ($user->role_id != 3 || $ticket->user_id !== $user->id) {
-            abort(403, 'Seul le propriétaire du ticket peut ajouter des messages');
+            abort(403, 'Seul le propriétaire du
+            
+            
+            ticket peut ajouter des messages');
         }
 
         // Validation

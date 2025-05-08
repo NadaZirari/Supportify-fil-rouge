@@ -71,6 +71,7 @@
                     <h3 class="text-sm font-medium text-gray-500 mb-1">Utilisateurs premium</h3>
                     <p class="text-3xl font-bold text-premium">{{ $premiumUsers }}</p>
                 </div>
+                
             </div>
 
             <!-- Charts Grid -->

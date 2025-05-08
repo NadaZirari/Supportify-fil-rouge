@@ -206,9 +206,7 @@
             <div class="mt-2 flex items-center justify-between">
 
             <div class="mt-6 flex items-center justify-between">
-  <div class="text-sm text-gray-600">
-    Affichage de {{ $tickets->firstItem() ?? 0 }} à {{ $tickets->lastItem() ?? 0 }} sur {{ $tickets->total() ?? 0 }} tickets
-  </div>
+  
   <div class="mt-4 flex justify-end">
     <div class="inline-flex items-center space-x-2">
       {{ $tickets->links('vendor.pagination.tailwind') }}

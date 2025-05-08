@@ -125,9 +125,7 @@
                                         </span>
                                     </button>
                                 </div>
-                                <div class="col-span-full text-right">
-                                    <a href="#" class="text-xs text-midnightGreen underline text-dutchWhite-700 hover:text-dutchWhite-900 transition-all duration-500 ease-in-out">Mot de passe oublié</a>
-                                </div>
+                                
                                 <div class="col-span-full">
                                     <button class="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-midnightGreen border border-midnightGreen inline-flex hover:bg-transparent hover:border-midnightGreen hover:text-midnightGreen focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-midnightGreen transition-all duration-500 ease-in-out" type="submit">Se connecter</button>
                                 </div>
